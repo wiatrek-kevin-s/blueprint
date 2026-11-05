@@ -68,13 +68,24 @@ Routes and the files they count (paths inside the skill folder):
     security baseline), plus templates/state.md and
     references/keeping-it-running.md.
 
-  redesign, operate
-    Measured only once the route's own file exists (route-redesign.md,
-    route-operate.md); until then the line says so. The task that writes
-    each route (T-19, T-16) replaces its draft list below with the files
-    its phase rows name. Drafts, from the build brief's design: SKILL.md,
-    the route file, references/keeping-it-running.md, and the shared
-    phases (design, review, kit) with their files as in "new" from
+  operate (phases O0 to O4 in references/route-operate.md, then phases 4 to 6)
+    SKILL.md
+    references/route-operate.md          route file, O0, O1, O4
+    references/01-intake-and-intent.md   O2 (intent statement)
+    references/04-research.md            O3
+    references/glossary.md               O3
+    references/keeping-it-running.md     O3 and phase 4
+    templates/primer.md                  O3 (primer)
+    references/03-questioning.md         O4
+    then the shared phases with their files as in "new" from
+    05-design-doc.md onward, plus templates/state.md.
+
+  redesign
+    Measured only once references/route-redesign.md exists; until then the
+    line says so. T-19 replaces its draft list below with the files its
+    phase rows name. Draft, from the build brief's design: SKILL.md, the
+    route file, references/keeping-it-running.md, and the shared phases
+    (design, review, kit) with their files as in "new" from
     05-design-doc.md onward.
 
 Limits (REQ-11): new at most NEW_BASELINE + 1,500 tokens, where NEW_BASELINE
@@ -151,8 +162,10 @@ ROUTES = {
                   "references/03d-design-direction.md", "references/design-principles.md",
                   "templates/design-spec.md"] + SHARED_TAIL),
     "operate": ("references/route-operate.md",
-                ["SKILL.md", "references/route-operate.md", "references/04-research.md",
-                 "references/glossary.md", "templates/primer.md"] + SHARED_TAIL),
+                ["SKILL.md", "references/route-operate.md",
+                 "references/01-intake-and-intent.md", "references/04-research.md",
+                 "references/glossary.md", "templates/primer.md",
+                 "references/03-questioning.md"] + SHARED_TAIL),
 }
 LIMITS = {"new": NEW_BASELINE + NEW_ALLOWANCE, "audit": ROUTE_LIMIT,
           "redesign": ROUTE_LIMIT, "operate": ROUTE_LIMIT}
