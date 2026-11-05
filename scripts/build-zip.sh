@@ -3,7 +3,7 @@
 #
 # Usage: bash scripts/build-zip.sh [skill-folder] [output-zip]
 #   skill-folder  default: skill/ next to this scripts/ folder
-#   output-zip    default: dist/blueprint-v2.zip in the repository
+#   output-zip    default: dist/blueprint.zip in the repository
 # Exit 0 when every check passes and the zip is built; exit 1 otherwise.
 #
 # Checks (planning/design.md sections 4.1 and 4.2, build brief section 5):
@@ -35,7 +35,7 @@ set -euo pipefail
 script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 repo_dir="$(cd "$script_dir/.." && pwd)"
 skill_dir="${1:-$repo_dir/skill}"
-out_zip="${2:-$repo_dir/dist/blueprint-v2.zip}"
+out_zip="${2:-$repo_dir/dist/blueprint.zip}"
 
 if [ ! -d "$skill_dir" ]; then
   echo "FAIL: skill folder not found: $skill_dir"
