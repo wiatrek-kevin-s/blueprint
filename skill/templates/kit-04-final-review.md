@@ -20,6 +20,8 @@ Record what you ran and each result, because a review that ran nothing is only o
 
 <The lenses for this type, such as security, correctness, failure handling and maintainability.> Also: does it serve the intent and meet each success measure?
 
+Upkeep: could the owner follow the kit's Keeping it running runbook next month, and does every change stream have an owner?
+
 ## Scoring
 
 Only findings with a concrete harm scenario count: who is hurt, how, and what triggers it. Score severity and likelihood from 1 to 10 each; priority is severity × likelihood.

@@ -9,6 +9,8 @@ Usage: python3 check_kit.py <kit folder> [--coded] [--screens]
 
 Checks, each because a fresh builder can't ask what the planner meant:
   1. Required files and sections are present, and no required section is empty.
+     The brief and kit-lite need "Keeping it running", because every kit
+     says who looks after the result and how.
   2. No template placeholders such as <PROJECT NAME> remain.
   3. Every task has a title, who does it, and an acceptance check with an
      expected result (docs/tasks.json, "### T-n:" headings, or a task table).
@@ -45,12 +47,13 @@ SECTIONS = {
     "instructions": ["Intent", "Start of every session", "Evidence", "Context",
                      "Saving work", "When to stop and ask", "Final review"],
     "brief": ["Intent", "Decisions", "Rules and examples", "Formats that last",
-              "Tasks", "Definition of done"],
+              "Keeping it running", "Tasks", "Definition of done"],
     "log": ["Where things stand", "Decisions", "Change requests", "Handoff notes"],
     "review": ["Run the product", "Lenses", "Scoring", "What the person sees"],
     "spec": ["Tokens", "Component library", "Required states",
              "Accessibility checks", "Do", "Don't", "Screenshot check"],
-    "lite": ["Instructions", "Brief", "Tasks", "Progress log", "Definition of done"],
+    "lite": ["Instructions", "Brief", "Keeping it running", "Tasks", "Progress log",
+             "Definition of done"],
 }
 WORD_LIMITS = {"brief": 8000, "instructions": 1200, "lite": 3000}
 LITE_INSTRUCTIONS_LIMIT = 600

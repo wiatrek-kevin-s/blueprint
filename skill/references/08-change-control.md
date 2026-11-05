@@ -16,6 +16,10 @@ A delivered kit is never silently rewritten. Changes are made through **decision
    - One line naming the cause (see "Learning" below).
 3. Produce an updated kit (all files, new version number) and the amendment, and tell the person what to replace in their execution project.
 
+## Kits from Blueprint 2 and from other routes
+
+Audit, Redesign and Operate kits use the same change control. A kit without a `## Keeping it running` section, such as one from Blueprint 2, gets an offer to add it as part of the amendment (`references/keeping-it-running.md`), because the readiness check now requires it.
+
 ## Changes raised by the executing project
 
 The execution kit tells the executing project to stop and raise a **change request** when it meets a one-way door that the kit does not settle, or evidence that a decision is wrong. The person can paste that request here; handle it as above.
