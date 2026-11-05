@@ -1,0 +1,50 @@
+{"id": "new-1", "prompt": "I have an idea for an app that helps neighbours lend each other garden tools. Can you help me plan it?", "expected_route": "new", "should_trigger": true}
+{"id": "new-2", "prompt": "I want to start a small business selling handmade candles online. Help me work out a plan before I build anything.", "expected_route": "new", "should_trigger": true}
+{"id": "new-3", "prompt": "Can you write a PRD for a habit-tracking app for teenagers?", "expected_route": "new", "should_trigger": true}
+{"id": "new-4", "prompt": "/blueprint a browser extension that hides prices on shopping sites until I've waited 24 hours", "expected_route": "new", "should_trigger": true}
+{"id": "new-5", "prompt": "I made a repo but there's nothing in it yet (it's the empty-repo folder here). I want it to become a recipe organiser. Where do I start?", "expected_route": "new", "should_trigger": true, "fixture": "evals/fixtures/empty-repo"}
+{"id": "new-6", "prompt": "Vague idea: something that helps volunteer groups fill their shifts. I don't code. Can you help me shape it into a plan?", "expected_route": "new", "should_trigger": true}
+{"id": "new-7", "prompt": "I'd like a design doc for a script that renames my photos by the date they were taken, before anyone writes it.", "expected_route": "new", "should_trigger": true}
+{"id": "new-8", "prompt": "Our team wants to change how we handle customer refund requests. Can you help me plan the new process?", "expected_route": "new", "should_trigger": true}
+{"id": "res-1", "prompt": "continue Blueprint (my state file is v2-state.md in this folder)", "expected_route": "new", "should_trigger": true, "fixture": "evals/fixtures/v2-state.md"}
+{"id": "res-2", "prompt": "Pick up my Blueprint project where we left off. The state file is v2-state.md.", "expected_route": "new", "should_trigger": true, "fixture": "evals/fixtures/v2-state.md"}
+{"id": "res-3", "prompt": "Here's my Blueprint state file, v2-state.md. Let's keep going.", "expected_route": "new", "should_trigger": true, "fixture": "evals/fixtures/v2-state.md"}
+{"id": "aud-1", "prompt": "Here's my repo; what's broken and what did we forget?", "expected_route": "audit", "should_trigger": true}
+{"id": "aud-2", "prompt": "My site looks dated and the contact form is broken.", "expected_route": "audit", "should_trigger": true}
+{"id": "aud-3", "prompt": "An AI agent built about half of my app from a plan and then stopped. Can you look at what's there and tell me what's left and what's wrong?", "expected_route": "audit", "should_trigger": true}
+{"id": "aud-4", "prompt": "Before I make my project's repository public, can you review it for security problems? I can't read code myself.", "expected_route": "audit", "should_trigger": true}
+{"id": "aud-5", "prompt": "Our README and spec say the app does one thing, but I'm not sure the code still matches. Can you check whether they've drifted apart and plan what to do?", "expected_route": "audit", "should_trigger": true}
+{"id": "aud-6", "prompt": "I inherited a website from a volunteer who left. Nobody knows what state it's in. Help me get a handle on it before we change anything.", "expected_route": "audit", "should_trigger": true}
+{"id": "aud-7", "prompt": "My Python scraper used to work, now half of it fails and the tests are red. I want a full health check and a plan to rescue it, not quick patches.", "expected_route": "audit", "should_trigger": true}
+{"id": "aud-8", "prompt": "Can you audit my small web API against current best practices and give me a prioritised plan of what to fix?", "expected_route": "audit", "should_trigger": true}
+{"id": "red-1", "prompt": "The code's fine, I just want it to look modern.", "expected_route": "redesign", "should_trigger": true}
+{"id": "red-2", "prompt": "My portfolio site looks like it's from 2012. Keep all the content, but plan a fresh look for it.", "expected_route": "redesign", "should_trigger": true}
+{"id": "red-3", "prompt": "Users say our app's screens are cluttered and hard to read. Can you plan a redesign of the interface without changing what it does?", "expected_route": "redesign", "should_trigger": true}
+{"id": "red-4", "prompt": "Our charity's website colours fail contrast checks. Plan a visual refresh that fixes that and keeps our logo.", "expected_route": "redesign", "should_trigger": true}
+{"id": "red-5", "prompt": "I'd like a new visual style for my online shop: typography, colours, spacing. Same pages, same checkout. Can you plan it?", "expected_route": "redesign", "should_trigger": true}
+{"id": "red-6", "prompt": "My static site works fine but looks bad on phones. Can you plan a restyle so it looks good on small screens, without changing the content?", "expected_route": "redesign", "should_trigger": true}
+{"id": "red-7", "prompt": "Make my dashboard look more professional; the features stay exactly as they are. Plan it before anyone touches the code.", "expected_route": "redesign", "should_trigger": true}
+{"id": "op-1", "prompt": "I have four repos and want agents to keep them updated safely.", "expected_route": "operate", "should_trigger": true}
+{"id": "op-2", "prompt": "How should I keep my three small websites maintained? Their dependencies go stale and I forget renewals.", "expected_route": "operate", "should_trigger": true}
+{"id": "op-3", "prompt": "Which should I use to keep dependencies and security fixes up to date across my projects: an update bot, an agent in CI, or something else? I'd like a plan.", "expected_route": "operate", "should_trigger": true}
+{"id": "op-4", "prompt": "I'd like an AI agent to check my GitHub projects every week and open pull requests that I approve. Help me plan how to set that up safely.", "expected_route": "operate", "should_trigger": true}
+{"id": "op-5", "prompt": "My side projects keep breaking because I never update them. Make me a maintenance plan I can follow in 15 minutes a month.", "expected_route": "operate", "should_trigger": true}
+{"id": "op-6", "prompt": "My app is already live. Plan its upkeep for me: backups, monitoring, expiring certificates and who gets the alerts.", "expected_route": "operate", "should_trigger": true}
+{"id": "op-7", "prompt": "I run a few automations and a small database for my club. Help me plan how to keep them running when I'm busy, with a monthly cost cap.", "expected_route": "operate", "should_trigger": true}
+{"id": "am-1", "prompt": "Here's the kit Blueprint made for my project, in delivered-kit/. We've decided to add a sign-in screen. Can you update the plan?", "expected_route": "amend", "should_trigger": true, "fixture": "evals/fixtures/delivered-kit"}
+{"id": "am-2", "prompt": "The builder hit a problem with the kit in delivered-kit/: the hosting service we picked has closed. Please amend the kit.", "expected_route": "amend", "should_trigger": true, "fixture": "evals/fixtures/delivered-kit"}
+{"id": "am-3", "prompt": "Can you amend my Blueprint kit in delivered-kit/ to drop the export feature? We no longer need it.", "expected_route": "amend", "should_trigger": true, "fixture": "evals/fixtures/delivered-kit"}
+{"id": "neg-1", "prompt": "Fix the error on line 40 of app.py.", "expected_route": "none", "should_trigger": false}
+{"id": "neg-2", "prompt": "Fix the crash when I click save.", "expected_route": "none", "should_trigger": false}
+{"id": "neg-3", "prompt": "Write a Python function that removes duplicates from a list but keeps the order.", "expected_route": "none", "should_trigger": false}
+{"id": "neg-4", "prompt": "Turn these notes into a tidy summary: met supplier Tuesday, prices up 5%, need new quote by Friday, Sam to call back.", "expected_route": "none", "should_trigger": false}
+{"id": "neg-5", "prompt": "Write a short email to my landlord asking when the broken heater will be repaired.", "expected_route": "none", "should_trigger": false}
+{"id": "neg-6", "prompt": "Plan my week: three gym sessions, a dentist appointment on Thursday and two evenings free for friends.", "expected_route": "none", "should_trigger": false}
+{"id": "neg-7", "prompt": "What's the difference between REST and GraphQL?", "expected_route": "none", "should_trigger": false}
+{"id": "neg-8", "prompt": "Proofread this paragraph: Their going to the market tomorow to by apples and pears.", "expected_route": "none", "should_trigger": false}
+{"id": "neg-9", "prompt": "Add a dark mode toggle to this React component right now: export default function Header() { return <header>Shop</header>; }", "expected_route": "none", "should_trigger": false}
+{"id": "neg-10", "prompt": "Update the lodash version in package.json to the latest and run the tests.", "expected_route": "none", "should_trigger": false}
+{"id": "neg-11", "prompt": "Why does this function return None? def total(xs): sum(xs)", "expected_route": "none", "should_trigger": false}
+{"id": "neg-12", "prompt": "Write the HTML and CSS for a one-page bakery website right now; I don't need a plan.", "expected_route": "none", "should_trigger": false}
+{"id": "neg-13", "prompt": "Write a cron line that runs backup.sh every night at 2am.", "expected_route": "none", "should_trigger": false}
+{"id": "neg-14", "prompt": "Explain what CSS flexbox does, in two sentences.", "expected_route": "none", "should_trigger": false}
