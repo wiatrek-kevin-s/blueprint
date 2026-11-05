@@ -34,15 +34,17 @@ What the audit read, sampled or skipped, so nothing unread passes as checked.
 
 ## Findings
 
-Sorted by severity times likelihood, highest first. Status: verified (seen or reproduced) or suspected (inferred). Re-check: the fresh reviewer's result for every "Fix now" finding.
+Problems in the project only; limits of the audit go under "What this audit could not check". Sorted by severity times likelihood, highest first. Status: verified (seen or reproduced) or suspected (inferred). Re-check: the fresh reviewer's result for every "Fix now" finding.
 
 | ID | Finding and why it matters | Evidence | Status | Severity | Likelihood | Label | Re-check |
 |---|---|---|---|---|---|---|---|
 | AF-1 | | <file:line, command and output, or link> | | | | <Fix now, Fix when convenient or Accept> | |
 
-## Not checked or could not verify
+## What this audit could not check
 
-- <what, and why>
+Limits of the audit, not problems in the project, so none of them is in the findings table: commands or tests not run, files not read, no network, no version history.
+
+- <what, why, and what it would take to check it>
 
 ## Recommended fix set
 

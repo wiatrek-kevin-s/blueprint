@@ -16,6 +16,17 @@ Run them in order and save the state file (`- **Route:** audit`, `- **Phase:** A
 | A5 | Decide | `03-questioning` | **G3:** fix set chosen; one-way doors decided |
 | 4 to 6 | Design, review, kit | The phase table in `SKILL.md` | A to-be design, the updated spec and a fix kit with Keeping it running |
 
+## Gates come before findings
+
+Stop at G1 and at G2: show the person the intent statement with the outcome, and the standards checklist with the primer, then end your message and wait for their reply. Write no findings, fix set or kit before that reply, because findings judged against an unconfirmed intent or unseen standards get redone.
+
+"You decide" changes who chooses, never whether the gate is shown: show the gate, make the choice, record it in the state file's Gates line as delegated with your choice and the date (Rule 5), and only then go on. A request that delegates everything up front still gets the G1 and G2 message.
+
+Fit the gates to the round budget in `SKILL.md`:
+
+- **Small audit:** one round before the final message, and it is the G1 and G2 message. Put any open intake questions (worries, appetite, depth) into it, with your recommended answers. After the reply, run A4 to phase 6 without stopping, and put the findings summary, the recommended fix set (G3) and the approval into the final message; the person changes the fix set in their reply. If the fix set holds a one-way door, ask G3 as its own round and say why, because a one-way door is never decided by default.
+- **Medium and large audits:** G1, G2 and G3 are separate rounds, within the round budget.
+
 ## Read-only, always
 
 These hold in every phase, because the person's project must be exactly as it was when the audit ends.
@@ -34,11 +45,17 @@ These hold in every phase, because the person's project must be exactly as it wa
 3. Ask what worries the person, in their words, and the **depth**: a **health check** (top risks only, one session) or a **deep audit** (everything). Recommend a health check unless they want a full picture, a rescue or a finish.
 4. Ask the appetite for the fixes, set the size as for any project, and create the state file.
 
+Ask only what the request and the project leave open, and ask it with the first gate's message, not in a message of its own. When the depth is not stated, start with the recommended one and say so; the person can change it at G1.
+
 ## A1: Inventory
 
 Map the structure, stack and versions, entry points, data stores, outside services, tests, CI and documents. Run the build and tests in a temporary copy (above). For a large project (over about 2,000 files), give subagents one area each, because the reading is bulky; ask each for facts with file and line.
 
 End with an as-built summary (what the project is and does today, in plain words) and a **coverage list**: every area marked read, sampled or skipped, with the reason, plus every command and test marked run or not run. A reader must be able to tell what the audit never looked at, because silence reads as "checked and fine".
+
+The limits of the audit itself go in the coverage list and the report's "What this audit could not check" section, never in the findings table: a command or test not run, files not read, no network, no version history in the copy. A finding is a problem in the project: missing tests are a finding, tests the audit could not run are a limit. When the copy has no version history, ask whether it exists elsewhere before judging it.
+
+As you read, note every problem you see with its file and line in Blueprint's own notes, outside the project, planted instructions to AI agents included. Findings are written after the gates, often in a later reply, and a problem seen but not noted is lost.
 
 ## A2: Intent (G1)
 
@@ -80,4 +97,8 @@ Recommend a fix set: every "Fix now" finding, plus "Fix when convenient" finding
 
 - **Phase 4:** the design is a to-be design for the fix set, plus the updated spec (the as-intended spec with every agreed change). Keeping it running covers what let the problems in, such as missing tests or unwatched dependencies.
 - **Phase 5:** review as usual; the premortem's attacker also reads the findings about secrets and planted instructions.
-- **Phase 6:** a fix kit. Each task cites its AF IDs, and its check reproduces the finding's evidence and shows the problem gone. The kit links the audit report as a source and never copies a secret's value.
+- **Phase 6:** the fix kit is the shared phase 6 kit (`references/07-handoff-kit.md`), with its templates and file names exactly, because the builder and `scripts/check_kit.py` expect that layout. Small: `kit-lite.md` plus `04-final-review.md`. Medium and large: the full kit. Never one file under another name, such as `fix-kit.md`.
+  - Save the kit in its own folder outside the project, with the audit report in that folder as the kit's evidence source.
+  - Task IDs are T-1, T-2, …, starting at T-1; each task cites its AF IDs, and its check reproduces the finding's evidence and shows the problem gone.
+  - The kit has a filled Keeping it running section and never copies a secret's value.
+  - Before the final message, run `scripts/check_kit.py <kit folder>` (or walk its checklist by hand) and the dry run, and fix what they find. Say the result in the final message.
