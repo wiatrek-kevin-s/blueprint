@@ -4,7 +4,7 @@
 Usage: python3 check_kit.py <kit folder> [--coded] [--screens]
 
   --coded    the project is software: the brief needs a security baseline
-             (on by default when the kit has docs/tasks.json)
+             (on by default when the kit has tasks.json or docs/tasks.json)
   --screens  step 3D ran: the kit needs design-spec.md
 
 Checks, each because a fresh builder can't ask what the planner meant:
@@ -13,7 +13,7 @@ Checks, each because a fresh builder can't ask what the planner meant:
      says who looks after the result and how.
   2. No template placeholders such as <PROJECT NAME> remain.
   3. Every task has a title, who does it, and an acceptance check with an
-     expected result (docs/tasks.json, "### T-n:" headings, or a task table).
+     expected result (tasks.json, "### T-n:" headings, or a task table).
   4. Every decision row (D-n) has a reason.
   5. Versions and prices have an "as of" date in the same section.
   6. Relative links resolve.
@@ -33,14 +33,16 @@ from check_tasks import check_schema  # noqa: E402
 
 # Kit roles: accepted file names (Claude project first, then Claude Code).
 ROLES = {
-    "start": ["00-START-HERE.md"],
-    "instructions": ["01-project-instructions.md", "CLAUDE.md"],
-    "brief": ["02-build-brief.md", "docs/build-brief.md"],
-    "log": ["03-progress-log.md", "docs/progress-log.md"],
-    "review": ["04-final-review.md", "docs/final-review.md"],
+    # Names as delivered first, then as placed in Claude Code, then the
+    # numbered names that kits before 3.0.1 used, so older kits still check.
+    "start": ["START-HERE.md", "00-START-HERE.md"],
+    "instructions": ["project-instructions.md", "CLAUDE.md", "01-project-instructions.md"],
+    "brief": ["build-brief.md", "docs/build-brief.md", "02-build-brief.md"],
+    "log": ["progress-log.md", "docs/progress-log.md", "03-progress-log.md"],
+    "review": ["final-review.md", "docs/final-review.md", "04-final-review.md"],
     "spec": ["design-spec.md", "docs/design-spec.md"],
     "lite": ["kit-lite.md"],
-    "tasks": ["docs/tasks.json"],
+    "tasks": ["tasks.json", "docs/tasks.json"],
 }
 SECTIONS = {
     "start": ["Before you start", "Set up", "First message", "Kit files"],

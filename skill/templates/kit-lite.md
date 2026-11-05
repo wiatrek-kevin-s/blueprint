@@ -2,7 +2,7 @@
 
 Kit version <1.0> · as of <DATE> · prepared with Blueprint · size: small
 
-Setup: <Claude project: paste the Instructions part into the project instructions and add this file to its knowledge. Claude Code: save this file as CLAUDE.md in the project folder.> Keep `04-final-review.md` for the end. First message: "Let's start: read the kit, tell me where things stand, and begin."
+Setup: <Claude project: paste the Instructions part into the project instructions and add this file to its knowledge. Claude Code: rename this file to CLAUDE.md in the project folder, and move `final-review.md` into a `docs` folder there, unchanged.> Keep `final-review.md` for the end. First message: "Let's start: read the kit, tell me where things stand, and begin."
 
 ## Instructions
 
@@ -17,7 +17,7 @@ You are building <one-line description> for <who> from an agreed plan. Follow it
 - **Never without approval:** <publishing, spending, deleting, sending, adding scope>.
 - **Changes:** decide small matters, such as <versions, file layout, test data>, and log them with the reason. A change to a one-way door is marked "Sent to Blueprint" in the log, and that task pauses.
 - **Context:** start a fresh chat when this one grows long, and re-read this file after any compaction.
-- **At the end:** offer the final review in a fresh chat, from `04-final-review.md`.
+- **At the end:** offer the final review in a fresh chat, from `final-review.md` (`docs/final-review.md` in Claude Code).
 
 ## Brief
 

@@ -10,22 +10,24 @@ A kit is ready when `scripts/check_kit.py <kit folder>` passes (or its checklist
 
 | File | Claude project | Claude Code | Template |
 |---|---|---|---|
-| `00-START-HERE.md` | Read by the person | Read by the person | `templates/kit-00-start-here.md` |
-| `01-project-instructions.md` | Project instructions | `CLAUDE.md` | `templates/kit-01-project-instructions.md` |
-| `02-build-brief.md` | Project knowledge | `docs/build-brief.md` | `templates/kit-02-build-brief.md` |
-| `03-progress-log.md` | Project knowledge | `docs/progress-log.md` | `templates/kit-03-progress-log.md` |
+| `START-HERE.md` | Read by the person | Read by the person | `templates/kit-00-start-here.md` |
+| `project-instructions.md` | Project instructions | Renamed `CLAUDE.md` | `templates/kit-01-project-instructions.md` |
+| `build-brief.md` | Project knowledge | `docs/build-brief.md` | `templates/kit-02-build-brief.md` |
+| `progress-log.md` | Project knowledge | `docs/progress-log.md` | `templates/kit-03-progress-log.md` |
 | `tasks.json` | A table in the log | `docs/tasks.json` | `templates/kit-tasks.json` |
-| `04-final-review.md` | Kept for a new chat | `docs/final-review.md` | `templates/kit-04-final-review.md` |
+| `final-review.md` | Kept for a new chat | `docs/final-review.md` | `templates/kit-04-final-review.md` |
 | `design-spec.md` | Project knowledge | `docs/design-spec.md` | `templates/design-spec.md`, where 3D ran |
 
-**Small projects:** `kit-lite.md` (instructions under 600 words, a short brief with a task table, an empty progress log, the definition of done) plus `04-final-review.md`, from `templates/kit-lite.md`.
+**Small projects:** `kit-lite.md` (instructions under 600 words, a short brief with a task table, an empty progress log, the definition of done; renamed `CLAUDE.md` in Claude Code) plus `final-review.md` (into `docs/`), from `templates/kit-lite.md`.
+
+Deliver these exact names, so files drop into `docs/` unchanged; only the instructions file is renamed, because a file delivered as `CLAUDE.md` takes over whichever Claude Code session it lands in.
 
 ## Kit rules
 
 - **One source per fact (X-4):** each decision lives in one kit file; others cite its ID, so the kit can't contradict itself.
 - **Checks the builder can run (X-5):** every acceptance check names who runs it and what it needs (`how`) and a pass mark the builder can see, a number or exact output (`expected`), because "works well" can't be checked.
-- **Planning files kept apart (X-6):** the state file, research and drafts stay outside the kit folder; `00-START-HERE.md` names the kit files as the only sources; there is no all-in-one copy, because a second copy drifts.
-- **Decisions, not procedure:** the kit says what must be true and why; step-by-step only for the person's own steps (click by click) and fragile mechanisms (`SKILL.md`, scope line).
+- **Planning files kept apart (X-6):** the state file, research and drafts stay outside the kit folder; `START-HERE.md` names the kit files as the only sources; there is no all-in-one copy, because a second copy drifts.
+- **Decisions, not procedure:** step-by-step only where the scope line in `SKILL.md` allows.
 
 ## The build brief
 
@@ -35,9 +37,7 @@ From the reviewed design, plus: the security baseline (coded; every accepted ris
 
 The fields are in `templates/kit-tasks.json` and checked by `scripts/check_tasks.py`; the builder changes only `status` and `evidence`, so "done" keeps its meaning. A good task produces one verifiable result: one flow working end to end, one page, one sourced section. Order tasks so inputs exist first and the riskiest comes early.
 
-**Sessions:** one area of work per session, a few tasks each, ending at a natural boundary (checks passing, a checkpoint), because long mixed sessions drift. Every session starts with the routine below and ends with a handoff note, written as it goes.
-
-**Startup routine:** read the latest handoff note and the task list; check where work was last saved; run the smoke check named in the brief; say in two lines where things stand; do one session's tasks; record evidence.
+**Sessions:** one area of work per session, a few tasks each, ending at a natural boundary (checks passing, a checkpoint), because long mixed sessions drift. Every session starts with the startup routine in `templates/kit-01-project-instructions.md` and ends with a handoff note, written as it goes.
 
 **Checkpoints:** from phase 3's check-in answer, plus always: after the first task, at each milestone, before anything irreversible (publishing, spending, deleting data, sending messages), and at each "decide by" point.
 
@@ -51,8 +51,10 @@ Under 1,200 words, because they are read on every turn. They contain the intent,
 
 ## Final review
 
-One sceptical reviewer in a fresh context runs the product (acceptance checks, automated audits, browser tests for web interfaces, negative tests), reads with the lenses for the type (`references/type-adaptations.md`), scores each finding, and fixes nothing. The person approves a recommended fix set; chosen fixes become `R-n` tasks with one re-check. Large projects may add a blind first pass (deliverables only, outside the project). Scoring and format: `templates/kit-04-final-review.md`.
+One sceptical reviewer in a fresh context runs the product, scores each finding and fixes nothing; the person approves a fix set, which becomes `R-n` tasks with one re-check. Lenses: `references/type-adaptations.md`; steps and scoring: `templates/kit-04-final-review.md`.
 
 ## Gate G5 and delivery
 
-Run the readiness check and the dry run; fix what they find; walk the person through the tasks, checkpoints and what they'll be asked; get their approval. Deliver each kit file as a separate file, show `00-START-HERE.md` in the chat, remind them to start the build in a new project or repository, and give them the final state file for later amendments.
+Run the readiness check and the dry run; fix what they find; walk the person through the tasks, checkpoints and what they'll be asked; get their approval. Deliver each kit file as a separate file, under the names above, and give them the final state file for later amendments (kept outside the project folder).
+
+End the final message with a numbered **Your next steps** block using real names and the project folder (ask for it at approval if unknown), because the person follows it literally. Claude Code: download the kit into `<folder>`; rename `project-instructions.md` (or `kit-lite.md`) to `CLAUDE.md`; create `<folder>/docs`; move `<the other kit files, by name>` into it; keep `START-HERE.md` and the state file aside; start Claude Code in `<folder>` and send "<first message>". Claude project: what to create, paste and add, and the first message.
