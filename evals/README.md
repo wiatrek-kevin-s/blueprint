@@ -38,27 +38,31 @@ So the run never sees anything that isn't committed: no local notes, no answer k
 
 ### Only the copy under test may answer
 
-Another copy named `blueprint` may be installed for the same user, for example one synced from the Claude app into Claude Code. The runner starts Claude Code with `--setting-sources project`, which skips user-level settings and skills, so only the project copy is loaded.
+Another copy named `blueprint` may be installed for the same user, for example one synced from the Claude app into Claude Code, and a Claude Code session can carry its own context (an attached Claude project, memory) into processes it starts. So the runner starts each eval with:
 
-Every run checks this from the list of skills Claude Code prints at start: it must contain `blueprint` exactly once and no other skill whose name ends in `blueprint`, or that eval fails. The probe proves it once per machine:
+- `--setting-sources project`: skips user-level settings and skills, so only the project copy of `blueprint` loads;
+- `--tools Skill,Read,Glob,Grep,Bash,Write,Edit`, `--disallowedTools Projects`, `--strict-mcp-config` and `--no-chrome`: no tool that reaches outside the folder, such as a tool that reads documents attached to a Claude project, connectors or the browser;
+- an environment without the variables that hand the parent session's project, memory, extra directories and session links to child processes (`ENV_DROP` in `run_routing.py`).
+
+Every run checks the result from what Claude Code lists at start: the skills must contain `blueprint` exactly once and no other skill whose name ends in `blueprint`, and every tool must be on the allowlist, or that eval fails. The probe proves the whole set once per machine:
 
 ```bash
 python3 evals/run_routing.py --probe --max-turns 2
 ```
 
-It passes when the only blueprint skill listed is `blueprint`, the skill's base directory is inside the temporary folder, and Claude reports no CLAUDE.md or other project instructions loaded. Proven on 2026-11-05 with Claude Code 2.1.318 and model claude-sonnet-5-5. Without `--setting-sources project`, the same machine also listed the app-synced copy, `anthropic-skills:blueprint`.
+It passes when the only blueprint skill listed is `blueprint`, every tool is on the allowlist, the skill's base directory is inside the temporary folder, and Claude reports no CLAUDE.md, project documents or memory in its context. Proven on 2026-11-05 with Claude Code 2.1.318 and model claude-sonnet-5-5. On the same machine, without these settings, Claude Code also listed the app-synced copy (`anthropic-skills:blueprint`) and the names of documents attached to the session's Claude project, and could read them; that is why each setting is there.
 
 ### Running the set
 
 ```bash
 python3 evals/run_routing.py --mode v3 --out evals/results/routing-v3.md
-python3 evals/run_routing.py --mode v2 --skill-ref <tag-or-commit> --max-turns 2 --out evals/results/v2-baseline.md
+python3 evals/run_routing.py --mode v2 --skill-ref v2.0.0 --max-turns 3 --out evals/results/v2-baseline.md
 ```
 
 - `--skill-ref` picks the commit whose `skill/` is tested (default `HEAD`); `--fixtures-ref` does the same for the fixtures.
 - `--ids new-1,aud-2` runs only some prompts; `--jobs` sets how many run at once (default 4); `--keep` keeps the folders and transcripts for reading.
-- Routing needs only the first reply, so keep `--max-turns` small: 2 is enough to see Blueprint 2 trigger; v3 may need 4 to name its route.
-- Each run uses the account Claude Code is signed in with. The runner prints the cost Claude Code reports; the 50-prompt set cost about 3 USD on 2026-11-05.
+- Routing needs only the first reply, so keep `--max-turns` small: the v2 baseline used 3, so a run that looks at the folder first still gets to trigger; v3 may need 4 to name its route.
+- Each run uses the account Claude Code is signed in with. The runner prints the cost Claude Code reports; the 50-prompt set cost about 2 USD on 2026-11-05.
 
 ### Scoring
 

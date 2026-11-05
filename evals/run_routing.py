@@ -14,6 +14,8 @@ Options:
   --model M           model alias or name (default: Claude Code's default)
   --jobs N            runs in parallel (default 4)
   --out FILE          write the Markdown summary here (default: print only)
+  --tools LIST        built-in tools the run may use, comma separated
+                      (default Skill,Read,Glob,Grep,Bash,Write,Edit)
   --keep              keep the temporary eval folders and transcripts
 
 Why it works this way (see evals/README.md):
@@ -25,9 +27,20 @@ Why it works this way (see evals/README.md):
     eval's fixture, if any, is copied in under its own name.
   - `--setting-sources project` stops Claude Code loading user-level settings
     and skills, so another installed copy named blueprint (for example one
-    synced from the Claude app) can't answer instead. Each run checks this:
-    the skills listed at start must include `blueprint` exactly once and no
-    other skill whose name ends in "blueprint", or the eval fails.
+    synced from the Claude app) can't answer instead.
+  - `--tools` (an allowlist of built-in tools), `--disallowedTools Projects`,
+    `--strict-mcp-config` and `--no-chrome` remove the tools that reach
+    outside the folder: the host's Projects tool (which can read documents
+    attached to a Claude project, such as private planning notes), connector
+    and MCP tools, and the browser.
+  - Each run checks all of this from what Claude Code lists at start: the
+    skills must include `blueprint` exactly once and no other skill whose
+    name ends in "blueprint", and every tool must be on the allowlist, or the
+    eval fails.
+  - The run's environment drops the variables through which a host session
+    hands its own context to child processes (an attached Claude project,
+    memory, extra directories, session links; ENV_DROP below), so a run
+    started from inside a Claude Code session still starts clean.
 
 Scoring:
   - Triggered: the run calls the Skill tool with skill "blueprint", or the
@@ -65,9 +78,25 @@ ROUTE_RE = re.compile(r"\broute\W{0,6}\s*(new|audit|redesign|operate|amend)\b", 
 BASE_DIR_RE = re.compile(r"Base directory for this skill:\s*(\S+)")
 PROBE_PROMPT = ("I have an idea for an app that helps neighbours lend each other "
                 "garden tools. Can you help me plan it?")
-PROBE_QUESTION = ("Answer in one line: is any CLAUDE.md file or other project "
-                  "instruction file loaded in your context? If yes, quote its "
-                  "first heading; if no, say 'none'.")
+PROBE_QUESTION = ("Answer in two short lines. (1) Is any CLAUDE.md, other project "
+                  "instruction file, or attached project document listed in your "
+                  "context? Name the files, or say none. (2) Is there any memory or "
+                  "profile about the user in your context? Say yes or no only, with "
+                  "no details.")
+DEFAULT_TOOLS = "Skill,Read,Glob,Grep,Bash,Write,Edit"
+# Variables a host Claude Code session passes to child processes that would
+# carry its context into the eval: an attached Claude project, memory, extra
+# directories and their CLAUDE.md files, and links to the parent session.
+ENV_DROP = ["CLAUDE_PROJECT_UUID", "CLAUDE_PROJECT_TOOL", "CLAUDE_ADDITIONAL_DIRECTORIES",
+            "CLAUDE_CODE_ADDITIONAL_DIRECTORIES_CLAUDE_MD", "CLAUDE_CODE_POST_TURN_MEMORY",
+            "CLAUDE_CODE_POST_TURN_MEMORY_CONFIG", "CLAUDECODE", "CLAUDE_CODE_CHILD_SESSION",
+            "CLAUDE_CODE_MESSAGING_SOCKET", "CLAUDE_CODE_MESSAGING_TOKEN",
+            "CLAUDE_CODE_SESSION_ID", "CLAUDE_CODE_REMOTE_SESSION_ID"]
+
+
+def clean_env():
+    return {k: v for k, v in os.environ.items()
+            if k not in ENV_DROP and not k.startswith("CLAUDE_PROJECT_")}
 
 
 def git_archive(ref, path, dest):
@@ -106,22 +135,24 @@ def make_folder(stage, eval_id, fixture):
 
 def run_claude(folder, prompt, args):
     cmd = ["claude", "-p", prompt, "--setting-sources", "project",
+           "--tools", args.tools, "--disallowedTools", "Projects",
+           "--strict-mcp-config", "--no-chrome",
            "--max-turns", str(args.max_turns), "--output-format", "stream-json", "--verbose"]
     if args.model:
         cmd += ["--model", args.model]
     try:
-        proc = subprocess.run(cmd, cwd=folder, stdin=subprocess.DEVNULL,
+        proc = subprocess.run(cmd, cwd=folder, stdin=subprocess.DEVNULL, env=clean_env(),
                               capture_output=True, text=True, timeout=600)
         out = proc.stdout
     except subprocess.TimeoutExpired as e:
         out = e.stdout.decode() if isinstance(e.stdout, bytes) else (e.stdout or "")
     with open(os.path.join(folder, "transcript.jsonl"), "w", encoding="utf-8") as f:
         f.write(out)
-    return parse(out, prompt)
+    return parse(out, prompt, args.tools)
 
 
-def parse(out, prompt):
-    r = {"skills": [], "slash": [], "model": "", "triggered": False, "trigger_kind": "",
+def parse(out, prompt, allowed_tools):
+    r = {"skills": [], "slash": [], "tools": [], "model": "", "triggered": False, "trigger_kind": "",
          "other_skills": [], "base_dirs": [], "texts": [], "route": "", "cost": 0.0,
          "result": "no result"}
     written = []
@@ -134,6 +165,7 @@ def parse(out, prompt):
         if t == "system" and d.get("subtype") == "init":
             r["skills"] = d.get("skills") or []
             r["slash"] = d.get("slash_commands") or []
+            r["tools"] = d.get("tools") or []
             r["model"] = d.get("model", "")
         elif t in ("assistant", "user"):
             content = d.get("message", {}).get("content")
@@ -171,8 +203,12 @@ def parse(out, prompt):
             r["route"] = m.group(1).lower()
             break
     named = [s for s in r["skills"] if s.endswith("blueprint")]
-    r["isolation_ok"] = named == ["blueprint"] and not r["other_skills"]
-    r["isolation_note"] = "" if r["isolation_ok"] else f"blueprint skills listed: {named}; other invoked: {r['other_skills']}"
+    allowed = {t.strip() for t in allowed_tools.split(",") if t.strip()}
+    extra = sorted(set(r["tools"]) - allowed)
+    r["isolation_ok"] = named == ["blueprint"] and not r["other_skills"] and not extra and bool(r["tools"])
+    r["isolation_note"] = "" if r["isolation_ok"] else (
+        f"blueprint skills listed: {named}; other invoked: {r['other_skills']}; "
+        f"tools beyond the allowlist: {extra}")
     return r
 
 
@@ -220,8 +256,9 @@ def summary(rows, results, args, model):
     lines.append(f"- **Model:** {model or 'unknown'} (Claude Code {claude_version()})")
     lines.append(f"- **Mode:** {args.mode} · skill from `{args.skill_ref}` "
                  f"({rev(args.skill_ref)}) · fixtures from `{args.fixtures_ref}` ({rev(args.fixtures_ref)})")
-    lines.append(f"- **Runner:** `python3 evals/run_routing.py --mode {args.mode} --max-turns {args.max_turns}`, "
-                 "one `claude -p --setting-sources project` process per prompt in a temporary folder outside the clone")
+    lines.append(f"- **Runner:** `python3 evals/run_routing.py --mode {args.mode} --max-turns {args.max_turns}`: "
+                 "one `claude -p` process per prompt in a temporary folder outside the clone, "
+                 f"with `--setting-sources project`, tools limited to {args.tools}, no MCP servers, no browser")
     lines.append(f"- **Total:** {total_pass} of {len(rows)} passed")
     lines.append("")
     lines.append("| Group | Passed | Of |")
@@ -265,6 +302,8 @@ def probe(stage, args):
     print(f"  eval folder: {folder} (outside the clone: {outside_repo(folder)})")
     print(f"  model: {r['model']}")
     print(f"  skills listed at start that end in 'blueprint': {[s for s in r['skills'] if s.endswith('blueprint')]}")
+    print(f"  tools listed at start: {r['tools']}")
+    print(f"  isolation check: {'ok' if r['isolation_ok'] else r['isolation_note']}")
     print(f"  triggered: {r['triggered']} ({r['trigger_kind'] or 'no'})")
     print(f"  base directory of the copy that answered: {r['base_dirs']}")
     under_test = any(os.path.realpath(d) == os.path.realpath(expected_dir) for d in r["base_dirs"])
@@ -273,7 +312,10 @@ def probe(stage, args):
     q = run_claude(folder2, PROBE_QUESTION, args)
     answer = " ".join(q["texts"]).strip().replace("\n", " ")
     print(f"  loaded-instructions answer: {answer[:300]}")
-    ok = r["isolation_ok"] and r["triggered"] and under_test and q["isolation_ok"]
+    low = answer.lower()
+    clean = "none" in low and ".md" not in low.replace("claude.md", "") and "yes" not in low
+    print(f"  no instructions, project documents or memory reported: {clean}")
+    ok = r["isolation_ok"] and r["triggered"] and under_test and q["isolation_ok"] and clean
     print("PROBE PASS" if ok else "PROBE FAIL")
     if not args.keep:
         shutil.rmtree(folder, ignore_errors=True)
@@ -293,6 +335,7 @@ def main():
     ap.add_argument("--model", default="")
     ap.add_argument("--jobs", type=int, default=4)
     ap.add_argument("--out", default="")
+    ap.add_argument("--tools", default=DEFAULT_TOOLS)
     ap.add_argument("--keep", action="store_true")
     args = ap.parse_args()
     if not args.probe and not args.mode:
