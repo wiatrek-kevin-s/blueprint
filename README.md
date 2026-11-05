@@ -38,7 +38,7 @@ Keep only one skill named `blueprint` switched on, so Claude loads the right cop
 
 **Claude app (web, desktop or mobile):**
 
-1. Open this repository's [Releases page](https://github.com/wiatrek-kevin-s/blueprint/releases) and download `blueprint.zip` from the newest release.
+1. Open this repository's [Releases page](https://github.com/wiatrek-kevin-s/blueprint/releases) and download `blueprint.zip` from the newest release, under **Assets**. Don't use the "Source code (zip)" links: that is the whole repository, and Claude rejects it because `SKILL.md` is not at its top level.
 2. In Claude, open **Settings → Capabilities** and make sure code execution and file creation is on.
 3. In the **Skills** section, turn off or remove any older `blueprint`, then click **Upload skill** and choose the zip.
 
