@@ -18,9 +18,17 @@ Usage:
 Where the terms come from: the PRIVATE_TERMS environment variable (the
 GitHub secret, in CI) and the terms file (on the owner's computer), both
 if both exist. Format: one term per line; blank lines and lines starting
-with "#" are ignored. With no terms at all, the check prints
-"private-terms check skipped: no terms available" and exits 0, so pull
-requests from forks, which get no secrets, still run the other checks.
+with "#" are ignored. With no terms at all:
+  - in GitHub Actions (GITHUB_ACTIONS=true), the check prints
+    "private-terms check skipped: no terms available" and exits 0, because
+    the secret is optional and pull requests from forks get no secrets;
+  - anywhere else, it fails (exit 1) and says to restore the terms file,
+    because a local check that silently skips protects nothing. Pass
+    --allow-missing to skip on purpose, for example in a fresh clone of
+    someone else's copy.
+
+The terms file must never be tracked: .gitignore lists it, and --tracked
+fails if git tracks it.
 
 Matching: case-insensitive and whole-word. The repository's own GitHub
 address (from "git remote get-url origin", or GITHUB_REPOSITORY in CI) and
@@ -31,7 +39,8 @@ Output: each hit as "HIT: <where>:<line>". The check never prints a term
 or the text of a matching line, because the output can land in a public
 CI log, and it does not rely on how GitHub masks secrets.
 
-Exit 0 when nothing matches (or there are no terms), 1 on any hit, 2 when
+Exit 0 when nothing matches (or the check was skipped), 1 on any hit, a
+tracked terms file, or missing terms outside CI, 2 when
 something can't be read or the arguments are wrong.
 Python 3 standard library only.
 """
@@ -173,6 +182,8 @@ def main(argv):
     parser.add_argument("--terms", help="terms file (default: .private-terms at the repository root)")
     parser.add_argument("--tracked", action="store_true", help="check every tracked file")
     parser.add_argument("--all-branches", action="store_true", help="check every commit message on every local branch")
+    parser.add_argument("--allow-missing", action="store_true",
+                        help="skip instead of failing when no terms are available")
     parser.add_argument("--range", action="append", default=[], metavar="REV_RANGE",
                         help="check commit messages in this git range (repeatable)")
     args = parser.parse_args(argv)
@@ -181,8 +192,13 @@ def main(argv):
     terms_path = args.terms if args.terms else os.path.join(root, ".private-terms")
     terms = load_terms(terms_path)
     if not terms:
-        print(SKIP_MESSAGE)
-        return 0
+        if os.environ.get("GITHUB_ACTIONS") == "true" or args.allow_missing:
+            print(SKIP_MESSAGE)
+            return 0
+        print("private-terms check FAILED: no terms available. Restore the terms file "
+              f"({os.path.basename(terms_path)} at the repository root) from your private "
+              "backup, or pass --allow-missing to skip on purpose.")
+        return 1
     if not (args.paths or args.tracked or args.all_branches or args.range):
         parser.error("nothing to check: give files, --tracked, --all-branches or --range")
 
@@ -199,6 +215,11 @@ def main(argv):
             if listing is None:
                 raise RuntimeError("git ls-files failed")
             for rel in filter(None, listing.split("\0")):
+                full_rel = os.path.join(root, rel)
+                if os.path.exists(terms_path) and os.path.exists(full_rel) \
+                        and os.path.samefile(full_rel, terms_path):
+                    checker.hits.append(f"{rel} (the terms file is tracked by git; untrack it)")
+                    continue
                 checker.check_name(rel)
                 full = os.path.join(root, rel)
                 if os.path.isfile(full):
