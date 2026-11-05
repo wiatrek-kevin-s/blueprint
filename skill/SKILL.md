@@ -142,3 +142,5 @@ Apply these; name one to the person only when the name helps them decide ("this 
 | `scripts/check_tasks.py` | Phase 6: checking a kit's `tasks.json` |
 
 Credits: `NOTICE.md`.
+
+TODO: throwaway line to prove CI fails; this branch is deleted.
