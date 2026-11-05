@@ -1,5 +1,12 @@
 # Changelog
 
+## 3.0.1 (2026-11-05): kit files drop into docs/ unchanged
+
+- Kit files now have their final names: `START-HERE.md`, `project-instructions.md`, `build-brief.md`, `progress-log.md`, `tasks.json`, `final-review.md` and `design-spec.md` (small kits: `kit-lite.md` and `final-review.md`). In Claude Code, only the instructions file is renamed, to `CLAUDE.md`; the rest move into `docs/` as they are. It is never delivered as `CLAUDE.md`, because a file with that name takes over whichever Claude Code session it lands in.
+- The final message ends with a numbered "Your next steps" block: the folder, the one rename, the `docs` folder, the files to move by name, and the first message to send.
+- `check_kit.py` and the eval runner accept both the new names and the numbered names of earlier kits.
+- Known limitation: route New's reading budget has 23 tokens of headroom left (22,220 of 22,243).
+
 ## 3.0.0 (2026-11-05): five routes and Keeping it running
 
 Blueprint 3 plans projects at any stage, not only new ideas, and every kit says how the result is kept running. It stays one skill named `blueprint` that plans and never builds or edits the project it plans for.
