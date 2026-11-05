@@ -63,7 +63,7 @@ Also look for: bugs and wrong results, failing or missing tests, dead or duplica
 Write each finding as one row of the findings table (format F-2):
 
 - **ID** AF-1, AF-2, …; a title in plain words, and one line on why it matters to the person.
-- **Evidence:** file and line, a command and its output, or a link. A finding without evidence is not reported.
+- **Evidence:** file and line, a command and its output, or a link. Take line numbers from each file read on its own, never from several files printed together, and check each one before the report goes out, because a wrong line sends the builder to the wrong place. A finding without evidence is not reported.
 - **Status:** **verified** (seen in the file or reproduced by a command) or **suspected** (inferred, not confirmed), because a guess must not read as a fact.
 - **Severity** and **Likelihood:** 1 to 10 each.
 - **Label:** **Fix now** (security or privacy holes, data loss, wrong results people rely on, a broken core path), **Fix when convenient** (real but contained), or **Accept** (fixing costs more than it saves; give the reason).
