@@ -39,7 +39,7 @@ Choose a route before anything else. As soon as you know it, and before reading 
 |---|---|---|---|
 | New | A new idea, or a repository with nothing in it yet | `references/01-intake-and-intent.md`, then the phases below | **G5:** kit delivered |
 | Audit | The project exists, in any state, and the person wants it reviewed, fixed, finished or rescued | `references/route-audit.md` | An audit report and a fix kit |
-| Redesign | The project exists and only its look and feel should change | Coming in a later release | A design spec and a kit |
+| Redesign | The project exists and only its look and feel should change | `references/route-redesign.md` | A design spec and a kit |
 | Operate | Existing projects need upkeep: updates, fixes, automation, or a choice of tools to run them | `references/route-operate.md` | An operations kit with a runbook |
 | Amend | A delivered Blueprint kit needs a change | `references/08-change-control.md` | An amendment and an updated kit |
 
@@ -52,7 +52,7 @@ Choose in this order:
 5. Two routes fit: take the one the person named first and offer the other at the first gate. A dated look plus a broken part is Audit, because Redesign changes looks only; offer Redesign at G1.
 6. Nothing fits clearly, as in "Can you help with my project?": ask one question naming the five routes in plain words.
 
-Switch route only at a gate, with the person's agreement, recorded in the state file; findings and decisions carry over. For a route coming in a later release, still write its `Route:` line, then say this release can't run it yet and offer to plan the work as New.
+Switch route only at a gate, with the person's agreement, recorded in the state file; findings and decisions carry over.
 
 ## Phases
 
@@ -129,7 +129,7 @@ Apply these; name one to the person only when the name helps them decide ("this 
 ## File index
 
 - **Phase files**, read when the phase table names them: `references/00-explore.md`, `references/01-intake-and-intent.md`, `references/02-landscape.md`, `references/03-questioning.md` (also any question round), `references/03d-design-direction.md`, `references/design-principles.md`, `references/04-research.md` (any research), `references/glossary.md` (also explaining a term), `references/non-coder-checklist.md` (one-way items for every size), `references/05-design-doc.md`, `references/keeping-it-running.md`, `references/type-adaptations.md` (also final-review lenses), `references/software-design-detail.md` (the security baseline), `references/06-review.md` (also the kit's dry run), `references/07-handoff-kit.md`.
-- **Routes:** Audit `references/route-audit.md`, `templates/audit-report.md`; Operate `references/route-operate.md`; Amend `references/08-change-control.md`, `templates/amendment.md`.
+- **Routes:** Audit `references/route-audit.md`, `templates/audit-report.md`; Redesign `references/route-redesign.md`; Operate `references/route-operate.md`; Amend `references/08-change-control.md`, `templates/amendment.md`.
 - **On demand:** `references/working-state.md` (starting, saving or resuming), `references/heuristics.md` (a hard or contested decision), `references/context-and-agents.md` (briefing a subagent; a fresh chat), `references/writing-rules.md` (writing any document).
 - **Templates:** `templates/state.md` (intake, then every round and gate), `templates/primer.md` (phase 2), `templates/design-spec.md` (phase 3D). Phase 6: `templates/kit-lite.md` (small); `templates/kit-00-start-here.md`, `templates/kit-01-project-instructions.md`, `templates/kit-02-build-brief.md`, `templates/kit-03-progress-log.md` (medium and large); `templates/kit-04-final-review.md` (every size); `templates/kit-tasks.json` (coded kits built in Claude Code).
 - **Scripts:** `scripts/check_kit.py` (readiness check of a written kit), `scripts/check_tasks.py` (a kit's `tasks.json`).

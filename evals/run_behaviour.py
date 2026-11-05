@@ -16,6 +16,13 @@ Options:
   --rounds N          most replies from the person before stopping (default 14)
   --max-turns N       turns per Blueprint reply (default 40)
   --model M           model alias or name (default: Claude Code's default)
+  --screens           the route designs screens (Redesign): before the first
+                      reply, the runner captures every page of the fixture
+                      copy at 375 and 1,280 px into screens/ in the eval
+                      folder and tells Blueprint, as if the person had
+                      attached them; check_kit.py runs with --screens, and
+                      the run fails unless Blueprint's files or replies
+                      cite the screenshots at both widths
   --keep              keep the eval folder and transcripts
 
 How it works (see evals/README.md, "Behaviour evals"):
@@ -47,10 +54,21 @@ How it works (see evals/README.md, "Behaviour evals"):
     reaches the network (curl, wget, gh, git, ssh, pip, npm, or Python
     network modules), because these routes make no network call on the
     project's behalf without asking (Rule 10).
+  - With --screens, the runner (this process, never the Blueprint session)
+    opens each .html page of the fixture copy from its local file with the
+    preinstalled Python Playwright and its Chromium build (build brief D-15)
+    and saves screens/<page>-375.png and screens/<page>-1280.png. Blueprint
+    gets no extra tool rights: its Bash stays limited to python3. The
+    first message tells it where the screenshots are, so the run tests R1
+    with screenshots the person supplies. Every image the run wrote is
+    listed too.
 
 Exit 0 when check_kit.py passes, the section is non-empty, the fixture's
-checksums are unchanged and no network use was seen, 1 otherwise.
-Python 3 standard library only. Needs git and the claude command.
+checksums are unchanged, no network use was seen and, with --screens, the
+screenshots exist and Blueprint cites them, 1 otherwise.
+Python 3 standard library only, except --screens, which needs Python
+Playwright with Chromium installed outside the repository (D-15). Needs git
+and the claude command.
 """
 import argparse
 import glob
@@ -68,6 +86,11 @@ import run_routing as rr  # noqa: E402
 
 TOOLS = "Skill,Read,Glob,Grep,Bash,Write,Edit"
 KIT_MARKERS = ("kit-lite.md", "00-START-HERE.md")
+IMAGE_EXT = (".png", ".jpg", ".jpeg")
+SCREEN_DIR = "screens"
+SCREEN_WIDTHS = (375, 1280)
+# A browser opening a web address other than localhost counts as network use.
+WEB_URL_RE = re.compile(r"(?:google-chrome|chromium|goto)\b[^\n]*https?://(?!localhost|127\.0\.0\.1)")
 REPO_COPY = "repo-copy"
 WEB_TOOLS = {"WebSearch", "WebFetch"}
 # A network program in command position (after the start, a space or ; | & ( `),
@@ -119,7 +142,8 @@ def tool_uses(transcript):
 def blueprint_turn(folder, text, session, args):
     cmd = ["claude", "-p", text, "--setting-sources", "project", "--tools", TOOLS,
            "--disallowedTools", "Projects", "--strict-mcp-config", "--no-chrome",
-           "--permission-mode", "acceptEdits", "--allowedTools", "Bash(python3:*)",
+           "--permission-mode", "acceptEdits",
+           "--allowedTools", "Bash(python3:*)",
            "--max-turns", str(args.max_turns), "--output-format", "stream-json", "--verbose"]
     if session:
         cmd += ["--resume", session]
@@ -196,6 +220,57 @@ def find_kit(folder, skip=""):
     return None
 
 
+def capture_screens(copy, out):
+    """Screenshots of every .html page in copy, opened from local files only,
+    at each width in SCREEN_WIDTHS; returns the paths, relative to out's parent."""
+    from playwright.sync_api import sync_playwright  # eval-only tool (D-15)
+    os.makedirs(out)
+    shots = []
+    pages = sorted(f for f in os.listdir(copy) if f.endswith(".html"))
+    with sync_playwright() as p:
+        browser = p.chromium.launch()
+        for page_name in pages:
+            for w in SCREEN_WIDTHS:
+                page = browser.new_page(viewport={"width": w, "height": 900})
+                page.route(re.compile(r"^(?!file:)"), lambda route: route.abort())
+                page.goto("file://" + os.path.join(copy, page_name))
+                name = f"{page_name[:-5]}-{w}.png"
+                page.screenshot(path=os.path.join(out, name), full_page=True)
+                page.close()
+                shots.append(os.path.join(SCREEN_DIR, name))
+        browser.close()
+    return shots
+
+
+def cited(folder, skip, transcript, shots):
+    """Screenshot names that Blueprint read with the Read tool, or named in
+    a file it wrote or in a reply."""
+    names = {os.path.basename(s) for s in shots}
+    seen = set()
+    if os.path.isfile(transcript):
+        for line in open(transcript, encoding="utf-8"):
+            seen |= {n for n in names if n in line and ('"Read"' in line or '"text"' in line)}
+    for top in output_roots(folder):
+        for root, dirs, files in os.walk(top):
+            dirs[:] = [d for d in dirs if d not in (".claude", SCREEN_DIR)
+                       and os.path.join(root, d) != skip]
+            for f in files:
+                if f.endswith(".md"):
+                    text = open(os.path.join(root, f), encoding="utf-8", errors="replace").read()
+                    seen |= {n for n in names if n in text}
+    return sorted(seen)
+
+
+def images(folder, skip):
+    """Every image the run wrote, outside .claude and the project copy."""
+    found = []
+    for top in output_roots(folder):
+        for root, dirs, files in os.walk(top):
+            dirs[:] = [d for d in dirs if d != ".claude" and os.path.join(root, d) != skip]
+            found += [os.path.join(root, f) for f in files if f.lower().endswith(IMAGE_EXT)]
+    return sorted(found)
+
+
 def asks_more(message):
     tail = message.strip()[-600:]
     return "?" in tail or bool(re.search(r"\b(approve|confirm|reply|answer)\b", tail, re.I))
@@ -222,6 +297,7 @@ def main():
     ap.add_argument("--rounds", type=int, default=14)
     ap.add_argument("--max-turns", type=int, default=40)
     ap.add_argument("--model", default="")
+    ap.add_argument("--screens", action="store_true")
     ap.add_argument("--keep", action="store_true")
     args = ap.parse_args()
     if shutil.which("claude") is None:
@@ -247,6 +323,15 @@ def main():
     print(f"Eval folder: {folder}\nSkill under test: {args.skill_ref} ({rr.rev(args.skill_ref)})")
     fixture_copy = os.path.join(folder, os.path.basename(args.fixture.rstrip("/"))) if args.fixture else ""
     before = checksums(fixture_copy) if os.path.isdir(fixture_copy) else None
+    shots = []
+    if args.screens:
+        if not os.path.isdir(fixture_copy):
+            sys.exit("usage: --screens needs --fixture")
+        shots = capture_screens(fixture_copy, os.path.join(folder, SCREEN_DIR))
+        print(f"Screenshots captured by the runner: {', '.join(shots)}")
+        args.prompt += (f"\n\nI've attached screenshots of every page at phone width (375 px) and "
+                        f"computer width (1,280 px). They're in the {SCREEN_DIR} folder: "
+                        + ", ".join(os.path.basename(s) for s in shots) + ".")
 
     session, message, cost = None, "", 0.0
     text, model, isolation_ok, route = args.prompt, "", True, ""
@@ -283,7 +368,8 @@ def main():
     uses = tool_uses(transcript)
     commands = [cmd for name, cmd in uses if name == "Bash"]
     web = sorted({name for name, _ in uses if name in WEB_TOOLS})
-    risky = [cmd for cmd in commands if NETWORK_RE.search(network_text(cmd))]
+    risky = [cmd for cmd in commands
+             if NETWORK_RE.search(network_text(cmd)) or WEB_URL_RE.search(network_text(cmd))]
     network_ok = not web and not risky
     print(f"Tool calls: {len(uses)}; Bash commands: {len(commands)}; web tools used: {web or 'none'}")
     for cmd in commands:
@@ -295,17 +381,31 @@ def main():
             dirs[:] = [d for d in dirs if d != ".claude" and os.path.join(base, d) != fixture_copy]
             if "audit-report.md" in files:
                 print(f"Audit report: {os.path.join(base, 'audit-report.md')}")
+    written = images(folder, fixture_copy)
+    print(f"Images in the eval folder and scratchpad: {len(written)}")
+    for p in written:
+        print(f"  {p}")
+    screens_ok = True
+    if args.screens:
+        present = [s for s in shots if os.path.isfile(os.path.join(folder, s))]
+        cites = cited(folder, fixture_copy, transcript, shots)
+        both = all(any(f"-{w}.png" in c for c in cites) for w in SCREEN_WIDTHS)
+        screens_ok = len(present) == len(shots) > 0 and both
+        print(f"Screenshots: {len(present)} of {len(shots)} present; cited by Blueprint: "
+              f"{', '.join(cites) or 'none'}; " + ("PASS" if screens_ok else "FAIL"))
     ok = False
     if not kit:
         print("RESULT FAIL: no kit was written")
     else:
         checker = os.path.join(folder, ".claude", "skills", "blueprint", "scripts", "check_kit.py")
-        proc = subprocess.run([sys.executable, checker, kit], capture_output=True, text=True)
+        proc = subprocess.run([sys.executable, checker, kit] + (["--screens"] if args.screens else []),
+                              capture_output=True, text=True)
         print(proc.stdout.strip())
         name, body = upkeep_section(kit)
         lines = [ln for ln in body.split("\n") if ln.strip()]
         print(f"check_kit.py exit {proc.returncode}; Keeping it running in {name}: {len(lines)} non-empty lines")
-        ok = proc.returncode == 0 and bool(lines) and isolation_ok and fixture_ok and network_ok
+        ok = (proc.returncode == 0 and bool(lines) and isolation_ok and fixture_ok
+              and network_ok and screens_ok)
         print("RESULT PASS" if ok else "RESULT FAIL")
     if not args.keep:
         for top in output_roots(folder):

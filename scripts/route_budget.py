@@ -80,13 +80,17 @@ Routes and the files they count (paths inside the skill folder):
     then the shared phases with their files as in "new" from
     05-design-doc.md onward, plus templates/state.md.
 
-  redesign
-    Measured only once references/route-redesign.md exists; until then the
-    line says so. T-19 replaces its draft list below with the files its
-    phase rows name. Draft, from the build brief's design: SKILL.md, the
-    route file, references/keeping-it-running.md, and the shared phases
-    (design, review, kit) with their files as in "new" from
-    05-design-doc.md onward.
+  redesign (phases R0 to R2 in references/route-redesign.md, then 3D and 4 to 6)
+    SKILL.md
+    references/route-redesign.md         route file, R0, R1, 3D changes
+    references/01-intake-and-intent.md   R2 (intent statement)
+    references/03d-design-direction.md   3D
+    references/design-principles.md      3D
+    references/03-questioning.md         3D (question rounds)
+    templates/design-spec.md             3D (design spec)
+    then the shared phases with their files as in "new" from
+    05-design-doc.md onward, plus templates/state.md and
+    references/keeping-it-running.md.
 
 Limits (REQ-11): new at most NEW_BASELINE + 1,500 tokens, where NEW_BASELINE
 is Blueprint 2.0.0's count for new from this script (T-8, recorded in
@@ -159,8 +163,10 @@ ROUTES = {
               + SHARED_TAIL),
     "redesign": ("references/route-redesign.md",
                  ["SKILL.md", "references/route-redesign.md",
+                  "references/01-intake-and-intent.md",
                   "references/03d-design-direction.md", "references/design-principles.md",
-                  "templates/design-spec.md"] + SHARED_TAIL),
+                  "references/03-questioning.md", "templates/design-spec.md"]
+                 + SHARED_TAIL),
     "operate": ("references/route-operate.md",
                 ["SKILL.md", "references/route-operate.md",
                  "references/01-intake-and-intent.md", "references/04-research.md",
