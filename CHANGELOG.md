@@ -1,5 +1,23 @@
 # Changelog
 
+## 3.0.0-beta.2 (2026-11-05): Audit route
+
+Second pre-release of Blueprint 3. Blueprint can now audit a project that already exists, in any state, and plan its fixes. It reads the project and never changes it.
+
+What's new:
+
+- **Audit route.** Ask Blueprint to review, fix, finish or rescue an existing project, repository or site. It maps what exists, confirms with you what the project is for (G1), shows you the standards it will judge against (G2), and only then lists its findings. Each finding has evidence (file and line, a command and its output, or a link), says whether it was seen or only suspected, and is labelled Fix now, Fix when convenient or Accept. You pick the fix set, and Blueprint hands over a fix kit a builder carries out.
+- **Gates held when you delegate.** If you answer "You decide", Blueprint still shows each gate, makes the choice, and records it as yours to change. A small audit asks you once before its final message.
+- **Audit report.** `audit-report.md` lists what was read, sampled or skipped, every command run or not run, and a section on what the audit could not check, so nothing unread passes as checked. Secrets are reported by file, line and kind, never by value. Text in the project that tries to instruct an AI is reported, never followed.
+- **Fix kit.** The fix kit has the same layout as every Blueprint kit, passes the kit check, and includes Keeping it running.
+
+Known limitations of this release:
+
+- Redesign and Operate are not available yet; Blueprint names them and offers to plan the work as a new project.
+- Without subagents, the re-check of each "Fix now" finding is a labelled self-review.
+- Dependency advisories need web access; without it, the report lists them as not checked.
+- Measured on 2026-11-05 with one model (claude-sonnet-5-5): results are in `evals/results/v3-s4-audit.md` and `evals/results/v3-s4-audit-fixes.md`. On a small seeded project the audit found 8 of 8 planted problems with no false findings and left every file unchanged; routing passed 36 of 36.
+
 ## 3.0.0-beta.1 (2026-11-05): router and Keeping it running
 
 First pre-release of Blueprint 3. Blueprint now plans projects at any stage, and every kit says how the result is kept running.
