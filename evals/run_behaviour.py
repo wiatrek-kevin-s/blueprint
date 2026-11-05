@@ -70,8 +70,11 @@ TOOLS = "Skill,Read,Glob,Grep,Bash,Write,Edit"
 KIT_MARKERS = ("kit-lite.md", "00-START-HERE.md")
 REPO_COPY = "repo-copy"
 WEB_TOOLS = {"WebSearch", "WebFetch"}
-NETWORK_RE = re.compile(r"\b(curl|wget|gh|git|ssh|scp|pip3?|npm|npx|urllib|requests|"
-                        r"http\.client|socket|urlopen)\b")
+# A network program in command position (after the start, a space or ; | & ( `),
+# so paths such as ./.git are not read as the git command; or a Python
+# network module anywhere.
+NETWORK_RE = re.compile(r"(?:^|[\s;|&(`])(curl|wget|gh|git|ssh|scp|pip3?|npm|npx)(?=$|[\s;|&)`])"
+                        r"|\b(urllib|requests|http\.client|socket|urlopen)\b", re.M)
 
 
 HEREDOC_RE = re.compile(r"<<-?\s*['\"]?(\w+)['\"]?")
