@@ -91,6 +91,13 @@ SCREEN_DIR = "screens"
 SCREEN_WIDTHS = (375, 1280)
 # A browser opening a web address other than localhost counts as network use.
 WEB_URL_RE = re.compile(r"(?:google-chrome|chromium|goto)\b[^\n]*https?://(?!localhost|127\.0\.0\.1)")
+REPO_COPY = "repo-copy"
+WEB_TOOLS = {"WebSearch", "WebFetch"}
+# A network program in command position (after the start, a space or ; | & ( `),
+# so paths such as ./.git are not read as the git command; or a Python
+# network module anywhere.
+NETWORK_RE = re.compile(r"(?:^|[\s;|&(`])(curl|wget|gh|git|ssh|scp|pip3?|npm|npx)(?=$|[\s;|&)`])"
+                        r"|\b(urllib|requests|http\.client|socket|urlopen)\b", re.M)
 
 
 HEREDOC_RE = re.compile(r"<<-?\s*['\"]?(\w+)['\"]?")
