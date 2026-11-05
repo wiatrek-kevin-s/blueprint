@@ -33,12 +33,12 @@ Note in the state file which tools this session has: web search, subagents, code
 
 ## Routes
 
-Choose a route before anything else. As soon as you know it, and before reading its files, write a line naming it, such as `Route: new`, and one line on what will happen; record it in the state file as `- **Route:** new`. Each route reads only its own files, so only one route's detail is in context.
+Choose a route before anything else. As soon as you know it, and before reading its files, write a line naming it, such as `Route: new`, and one line on what will happen; record it in the state file as `- **Route:** new`. Read only that route's files, to keep context lean.
 
 | Route | Use when | Read first | Ends with |
 |---|---|---|---|
 | New | A new idea, or a repository with nothing in it yet | `references/01-intake-and-intent.md`, then the phases below | **G5:** kit delivered |
-| Audit | The project exists, in any state, and the person wants it reviewed, fixed, finished or rescued | Coming in a later release | An audit report and a fix kit |
+| Audit | The project exists, in any state, and the person wants it reviewed, fixed, finished or rescued | `references/route-audit.md` | An audit report and a fix kit |
 | Redesign | The project exists and only its look and feel should change | Coming in a later release | A design spec and a kit |
 | Operate | Existing projects need upkeep: updates, fixes, automation, or a choice of tools to run them | Coming in a later release | An operations kit with a runbook |
 | Amend | A delivered Blueprint kit needs a change | `references/08-change-control.md` | An amendment and an updated kit |
@@ -56,7 +56,7 @@ Switch route only at a gate, with the person's agreement, recorded in the state 
 
 ## Phases
 
-Route New runs every phase. Audit, Redesign and Operate will run their own first phases from their route files, then join at phase 4 (Redesign at 3D). Run the phases in order. Read each phase's files when you enter it, not before, so only one phase's detail is in context. Never skip a gate, and never draft the design before G3, because a design built on open one-way doors gets rebuilt. If review finds a gap, return to the phase that caused it.
+Route New runs every phase. Audit, Redesign and Operate run their own first phases from their route files, then join at phase 4 (Redesign at 3D). Run the phases in order. Read each phase's files when you enter it, not before, so only one phase's detail is in context. Never skip a gate, and never draft the design before G3, because a design built on open one-way doors gets rebuilt. If review finds a gap, return to the phase that caused it.
 
 | # | Phase | Read | Skip when | Ends with |
 |---|---|---|---|---|
@@ -95,7 +95,7 @@ A round is any message that asks the person something, the approval message incl
 Detail and the reasons are in `references/context-and-agents.md`.
 
 - Use a subagent only for bulky reading or research whose output you'd mostly discard, for truly independent parallel work, or for fresh eyes (reviews, dry runs), because each one costs a full brief and a summary.
-- Give every subagent the brief in `references/context-and-agents.md`; split research by topic, never by role; send bulky results to a file.
+- Give every subagent the brief in `references/context-and-agents.md`; send bulky results to a file.
 - Keep the interview, the questions and the decisions in the main chat, because they depend on the conversation.
 - Save the state file after every question round and at every gate, because you can't tell when a chat ends (`references/working-state.md`).
 - Suggest a fresh chat at natural pivots (after G2, after G4, or when the chat has grown long), within the chore budget, because long chats drift.
@@ -129,7 +129,7 @@ Apply these; name one to the person only when the name helps them decide ("this 
 ## File index
 
 - **Phase files**, read when the phase table names them: `references/00-explore.md`, `references/01-intake-and-intent.md`, `references/02-landscape.md`, `references/03-questioning.md` (also any question round), `references/03d-design-direction.md`, `references/design-principles.md`, `references/04-research.md` (any research), `references/glossary.md` (also explaining a term), `references/non-coder-checklist.md` (one-way items for every size), `references/05-design-doc.md`, `references/keeping-it-running.md`, `references/type-adaptations.md` (also final-review lenses), `references/software-design-detail.md` (the security baseline), `references/06-review.md` (also the kit's dry run), `references/07-handoff-kit.md`.
-- **Amend:** `references/08-change-control.md`, `templates/amendment.md`.
+- **Routes:** Audit `references/route-audit.md`, `templates/audit-report.md`; Amend `references/08-change-control.md`, `templates/amendment.md`.
 - **On demand:** `references/working-state.md` (starting, saving or resuming), `references/heuristics.md` (a hard or contested decision), `references/context-and-agents.md` (briefing a subagent; a fresh chat), `references/writing-rules.md` (writing any document).
 - **Templates:** `templates/state.md` (intake, then every round and gate), `templates/primer.md` (phase 2), `templates/design-spec.md` (phase 3D). Phase 6: `templates/kit-lite.md` (small); `templates/kit-00-start-here.md`, `templates/kit-01-project-instructions.md`, `templates/kit-02-build-brief.md`, `templates/kit-03-progress-log.md` (medium and large); `templates/kit-04-final-review.md` (every size); `templates/kit-tasks.json` (coded kits built in Claude Code).
 - **Scripts:** `scripts/check_kit.py` (readiness check of a written kit), `scripts/check_tasks.py` (a kit's `tasks.json`).

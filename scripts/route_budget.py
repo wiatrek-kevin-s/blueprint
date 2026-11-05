@@ -53,14 +53,29 @@ Routes and the files they count (paths inside the skill folder):
     From T-10, also references/keeping-it-running.md (phase 4 of every
     route), once that file exists.
 
-  audit, redesign, operate
-    Measured only once the route's own file exists (references/route-audit.md,
-    route-redesign.md, route-operate.md); until then the line says so. The
-    task that writes each route (T-13, T-19, T-16) replaces its draft list
-    below with the files its phase rows name. Drafts, from the build brief's
-    design: SKILL.md, the route file, references/keeping-it-running.md, and
-    the shared phases (design, review, kit) with their files as in "new"
-    from 05-design-doc.md onward.
+  audit (phases A0 to A5 in references/route-audit.md, then phases 4 to 6)
+    SKILL.md
+    references/route-audit.md            route file, A0, A1, A4
+    templates/audit-report.md            A1 onward (the report)
+    references/01-intake-and-intent.md   A2 (intent statement)
+    references/04-research.md            A3
+    references/glossary.md               A3
+    templates/primer.md                  A3 (primer)
+    references/non-coder-checklist.md    A3, coded
+    references/03-questioning.md         A5
+    then the shared phases with their files as in "new" from
+    05-design-doc.md onward (software-design-detail.md is also A3's
+    security baseline), plus templates/state.md and
+    references/keeping-it-running.md.
+
+  redesign, operate
+    Measured only once the route's own file exists (route-redesign.md,
+    route-operate.md); until then the line says so. The task that writes
+    each route (T-19, T-16) replaces its draft list below with the files
+    its phase rows name. Drafts, from the build brief's design: SKILL.md,
+    the route file, references/keeping-it-running.md, and the shared
+    phases (design, review, kit) with their files as in "new" from
+    05-design-doc.md onward.
 
 Limits (REQ-11): new at most NEW_BASELINE + 1,500 tokens, where NEW_BASELINE
 is Blueprint 2.0.0's count for new from this script (T-8, recorded in
@@ -126,8 +141,11 @@ SHARED_TAIL = [
 ROUTES = {
     "new": (None, NEW_FILES),
     "audit": ("references/route-audit.md",
-              ["SKILL.md", "references/route-audit.md", "references/04-research.md",
-               "templates/audit-report.md"] + SHARED_TAIL),
+              ["SKILL.md", "references/route-audit.md", "templates/audit-report.md",
+               "references/01-intake-and-intent.md", "references/04-research.md",
+               "references/glossary.md", "templates/primer.md",
+               "references/non-coder-checklist.md", "references/03-questioning.md"]
+              + SHARED_TAIL),
     "redesign": ("references/route-redesign.md",
                  ["SKILL.md", "references/route-redesign.md",
                   "references/03d-design-direction.md", "references/design-principles.md",
