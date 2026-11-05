@@ -8,6 +8,10 @@ Options:
   --prompt TEXT       the person's first message (an invented idea or request)
   --skill-ref REF     git ref whose skill/ folder is the copy under test (default HEAD)
   --fixture PATH      a path under evals/fixtures/ to copy into the eval folder
+  --repo-ref REF      instead of a fixture, copy every tracked file of this
+                      repository at REF into the eval folder as repo-copy/
+                      (for Operate on this repository; never planning/,
+                      CLAUDE.md or other untracked files)
   --persona FILE      the simulated person (default evals/personas/you-decide.md)
   --rounds N          most replies from the person before stopping (default 14)
   --max-turns N       turns per Blueprint reply (default 40)
@@ -38,9 +42,14 @@ How it works (see evals/README.md, "Behaviour evals"):
     any file added, removed or changed, because Audit, Redesign and Operate
     never edit the project (build brief REQ-7). It also names any
     audit-report.md written, for scoring against evals/keys/.
+  - It lists every Bash command and web tool the Blueprint session used,
+    and fails the run if any web tool was used or a command looks like it
+    reaches the network (curl, wget, gh, git, ssh, pip, npm, or Python
+    network modules), because these routes make no network call on the
+    project's behalf without asking (Rule 10).
 
-Exit 0 when check_kit.py passes, the section is non-empty and the fixture's
-checksums are unchanged, 1 otherwise.
+Exit 0 when check_kit.py passes, the section is non-empty, the fixture's
+checksums are unchanged and no network use was seen, 1 otherwise.
 Python 3 standard library only. Needs git and the claude command.
 """
 import argparse
@@ -59,6 +68,28 @@ import run_routing as rr  # noqa: E402
 
 TOOLS = "Skill,Read,Glob,Grep,Bash,Write,Edit"
 KIT_MARKERS = ("kit-lite.md", "00-START-HERE.md")
+REPO_COPY = "repo-copy"
+WEB_TOOLS = {"WebSearch", "WebFetch"}
+NETWORK_RE = re.compile(r"\b(curl|wget|gh|git|ssh|scp|pip3?|npm|npx|urllib|requests|"
+                        r"http\.client|socket|urlopen)\b")
+
+
+def tool_uses(transcript):
+    """(name, Bash command or '') for every tool call in a stream-json transcript."""
+    uses = []
+    if not os.path.isfile(transcript):
+        return uses
+    for line in open(transcript, encoding="utf-8"):
+        try:
+            d = json.loads(line)
+        except ValueError:
+            continue
+        if d.get("type") != "assistant":
+            continue
+        for c in d.get("message", {}).get("content") or []:
+            if isinstance(c, dict) and c.get("type") == "tool_use":
+                uses.append((c.get("name", ""), str((c.get("input") or {}).get("command", ""))))
+    return uses
 
 
 def blueprint_turn(folder, text, session, args):
@@ -160,6 +191,7 @@ def main():
     ap.add_argument("--prompt", required=True)
     ap.add_argument("--skill-ref", default="HEAD")
     ap.add_argument("--fixture", default="")
+    ap.add_argument("--repo-ref", default="")
     ap.add_argument("--persona", default=os.path.join(rr.REPO, "evals", "personas", "you-decide.md"))
     ap.add_argument("--rounds", type=int, default=14)
     ap.add_argument("--max-turns", type=int, default=40)
@@ -171,8 +203,18 @@ def main():
 
     stage = tempfile.mkdtemp(prefix="blueprint-behaviour-stage-")
     rr.git_archive(args.skill_ref, "skill", stage)
+    if args.fixture and args.repo_ref:
+        sys.exit("usage: give --fixture or --repo-ref, not both")
     if args.fixture:
         rr.git_archive("HEAD", "evals/fixtures", stage)
+    if args.repo_ref:
+        copy = os.path.join(stage, REPO_COPY)
+        os.makedirs(copy)
+        rr.git_archive(args.repo_ref, ".", copy)
+        for private in ("CLAUDE.md", "planning", ".private-terms"):
+            if os.path.exists(os.path.join(copy, private)):
+                sys.exit(f"FAIL: {private} reached the repository copy; it must never be tracked")
+        args.fixture = REPO_COPY
     folder = rr.make_folder(stage, "behaviour", args.fixture or None)
     home = tempfile.mkdtemp(prefix="blueprint-behaviour-person-")
     persona = open(args.persona, encoding="utf-8").read()
@@ -211,6 +253,17 @@ def main():
         fixture_ok = not changed
         print(f"Fixture checksums ({len(before)} files before, {len(after)} after): "
               + ("identical" if fixture_ok else "CHANGED: " + ", ".join(changed)))
+    transcript = os.path.join(folder, "..", os.path.basename(folder) + "-transcript.jsonl")
+    uses = tool_uses(transcript)
+    commands = [cmd for name, cmd in uses if name == "Bash"]
+    web = sorted({name for name, _ in uses if name in WEB_TOOLS})
+    risky = [cmd for cmd in commands if NETWORK_RE.search(cmd)]
+    network_ok = not web and not risky
+    print(f"Tool calls: {len(uses)}; Bash commands: {len(commands)}; web tools used: {web or 'none'}")
+    for cmd in commands:
+        print(f"  $ {cmd[:200]}")
+    print("Network: no web tool and no network command" if network_ok
+          else "Network: CHECK FAILED: " + "; ".join(web + [c[:120] for c in risky]))
     for top in output_roots(folder):
         for base, dirs, files in os.walk(top):
             dirs[:] = [d for d in dirs if d != ".claude"]
@@ -226,7 +279,7 @@ def main():
         name, body = upkeep_section(kit)
         lines = [ln for ln in body.split("\n") if ln.strip()]
         print(f"check_kit.py exit {proc.returncode}; Keeping it running in {name}: {len(lines)} non-empty lines")
-        ok = proc.returncode == 0 and bool(lines) and isolation_ok and fixture_ok
+        ok = proc.returncode == 0 and bool(lines) and isolation_ok and fixture_ok and network_ok
         print("RESULT PASS" if ok else "RESULT FAIL")
     if not args.keep:
         for top in output_roots(folder):
