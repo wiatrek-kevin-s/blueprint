@@ -78,3 +78,13 @@ Blueprint 2 has no routes, so here a prompt that should trigger passes when Blue
 **Reading:** Blueprint 2 triggers on every new idea, resume and amendment, and on no negative. It never triggers on the audit prompts, because its description excludes existing code ("Not for: writing or fixing code now") and it has no audit route; it misses some redesign and upkeep prompts for the same reason. These are the gaps v3's router and description (T-9) must close without losing the negatives.
 
 Cost reported by Claude Code for this run: about 2.01 USD.
+
+## Route budget (REQ-11)
+
+`python3 scripts/route_budget.py` on Blueprint 2.0.0's `skill/` (identical to tag `v2.0.0`), 2026-11-05:
+
+```text
+new: 20,743 tokens in 24 files (limit 22,243)
+```
+
+This is REQ-11's baseline: in v3, route New may read at most 1,500 tokens more (22,243). The script's header lists the files it counts: SKILL.md plus every file the phase rows name for a medium coded project with screens, each file once, tokens as characters divided by 4. Blueprint 2's CHANGELOG estimated "about 25,600 tokens" for a medium run with a different method; REQ-11 uses this script's number.
