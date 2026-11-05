@@ -8,6 +8,7 @@ How Blueprint is tested. Nothing here ships in the skill zip.
 |---|---|
 | `routing.jsonl` | The routing set: prompts with the route each should reach, or `none` when Blueprint must not trigger. One JSON object per line: `id`, `prompt`, `expected_route` (new, audit, redesign, operate, amend, none), `should_trigger` (true or false), and `fixture` (a path under `evals/fixtures/`) when the prompt needs files. |
 | `run_routing.py` | Runs the routing set with headless Claude Code and scores it. |
+| `run_behaviour.py` | Runs one whole Blueprint conversation with the simulated person, then checks the kit it writes. |
 | `fixtures/` | Small invented projects and kits the evals copy into their temporary folders. |
 | `keys/` | Answer keys. They stay outside `fixtures/`, because eval runs copy only the fixture, so the run never sees its key. |
 | `personas/you-decide.md` | The simulated person for behaviour evals: answers "You decide" to every question and "approve" at every approval, so a full run needs no human. |
@@ -73,4 +74,14 @@ python3 evals/run_routing.py --mode v2 --skill-ref v2.0.0 --max-turns 3 --out ev
 
 ## Behaviour evals
 
-Audit, Redesign and Operate evals run a whole route in the same kind of temporary folder, with the persona file as the person. After each run, the fixture's file checksums must be unchanged, because those routes never edit the project. Audit results are scored against `keys/audit-sample.md`: a finding the key doesn't list counts against the run only if a reviewer reading the fixture judges it false.
+A behaviour eval runs a whole Blueprint conversation in the same kind of temporary folder, with the persona file as the person:
+
+```bash
+python3 evals/run_behaviour.py --prompt "I have an idea for a small script that ..." --keep
+```
+
+- Blueprint runs as one `claude -p` session, resumed for each reply, with the same isolation as the routing runs; it may edit files inside the folder, and Bash may run only `python3` (its check scripts).
+- The person is a separate `claude -p` process in its own empty folder, with no skills and no tools; its system prompt is the persona file, and it sees only Blueprint's latest message.
+- The run stops when Blueprint has written a kit and asks nothing more, or after `--rounds` replies (default 14), then runs `check_kit.py` on the kit and reports whether "Keeping it running" is filled. `--fixture` copies a fixture in, for routes that need a project.
+
+Audit, Redesign and Operate evals run their whole route this way. After each run, the fixture's file checksums must be unchanged, because those routes never edit the project. Audit results are scored against `keys/audit-sample.md`: a finding the key doesn't list counts against the run only if a reviewer reading the fixture judges it false.
