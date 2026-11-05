@@ -36,6 +36,10 @@ You are building <one-line description> for <who> from an agreed plan. Follow it
 
 <Coded: the ten baseline items, each applied, not applicable or accepted risk (D-n, shown to the person), one line each.>
 
+## Keeping it running
+
+<5 to 10 lines: who looks after it and for how many hours a month; how updates and security alerts are checked; what expires and when; what agents may do unattended, if anything.>
+
 ## Tasks
 
 | Task | Title | Done by | How | Expected | Status |

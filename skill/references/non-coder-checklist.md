@@ -57,7 +57,7 @@ These apply wherever they fit, at every size, coded or not, because each is cost
 | 28 | Accessibility | Legal exposure; excluded users | WCAG 2.2 AA basics, checked by tool | Two-way, costly to retrofit |
 | 29 | Vendor lock-in | Some platforms are hard to leave | Open standards; code in the person's own repository | One-way-ish |
 | 30 | AI inside the product | Hijacked prompts, runaway cost, wrong answers | Server-side calls, caps, per-user limits, confirmation before destructive actions | Two-way |
-| 31 | Maintenance | Software decays | Monthly updates, yearly key rotation, who to call | Two-way |
+| 31 | Keeping it running | Software decays; accounts and certificates expire | The kit's Keeping it running section: an owner and hours, each change stream handled, agents propose and the person approves | Two-way |
 
 ## Which items apply by project type
 

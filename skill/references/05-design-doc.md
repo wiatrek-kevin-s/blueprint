@@ -10,7 +10,7 @@ Goal: a design a stranger could build from; it becomes the core of the kit. Draf
 
 ## Contents
 
-Adapt with `references/type-adaptations.md`. Summary (what, for whom); intent, users, success measures and non-goals; context and research, with sources and dates; the design, overview first with a diagram for any flow; alternatives for each one-way door; cross-cutting concerns (security, privacy, accessibility, cost, legal); implementation detail (exact names, versions, formats); milestones with tested gates; decisions; open questions with owner and "decide by"; assumptions.
+Adapt with `references/type-adaptations.md`. Summary (what, for whom); intent, users, success measures and non-goals; context and research, with sources and dates; the design, overview first with a diagram for any flow; alternatives for each one-way door; cross-cutting concerns (security, privacy, accessibility, cost, legal); keeping it running (`references/keeping-it-running.md`); implementation detail (exact names, versions, formats); milestones with tested gates; decisions; open questions with owner and "decide by"; assumptions.
 
 - **Coded projects** add the security baseline section (`references/software-design-detail.md`), each item applied, not applicable or accepted.
 - **Projects with screens** add the design spec from phase 3D by reference, not by copy.

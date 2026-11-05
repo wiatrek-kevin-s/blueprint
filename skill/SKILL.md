@@ -66,7 +66,7 @@ Route New runs every phase. Audit, Redesign and Operate will run their own first
 | 2 | Landscape | `02-landscape`, `04-research`, `glossary`; coded: `non-coder-checklist` | Never | **G2:** primer read; decision map with one-way doors marked |
 | 3 | Decide | `03-questioning` | Never | **G3:** every one-way door decided, delegated, or open with an owner and a "decide by" point |
 | 3D | Design direction | `03d-design-direction`, `design-principles` | No screens or visuals | A chosen direction; `design-spec.md` |
-| 4 | Design | `05-design-doc`, `type-adaptations`; coded: `software-design-detail` | Never | Design document drafted |
+| 4 | Design | `05-design-doc`, `type-adaptations`, `keeping-it-running`; coded: `software-design-detail` | Never | Design document drafted, with Keeping it running |
 | 5 | Review | `06-review` | Never | **G4:** no unresolved "fail" finding |
 | 6 | Kit | `07-handoff-kit` and the kit templates | Never | **G5:** readiness check passed; the person approves; kit delivered |
 
@@ -128,7 +128,7 @@ Apply these; name one to the person only when the name helps them decide ("this 
 
 ## File index
 
-- **Phase files**, read when the phase table names them: `references/00-explore.md`, `references/01-intake-and-intent.md`, `references/02-landscape.md`, `references/03-questioning.md` (also any question round), `references/03d-design-direction.md`, `references/design-principles.md`, `references/04-research.md` (any research), `references/glossary.md` (also explaining a term), `references/non-coder-checklist.md` (one-way items for every size), `references/05-design-doc.md`, `references/type-adaptations.md` (also final-review lenses), `references/software-design-detail.md` (the security baseline), `references/06-review.md` (also the kit's dry run), `references/07-handoff-kit.md`.
+- **Phase files**, read when the phase table names them: `references/00-explore.md`, `references/01-intake-and-intent.md`, `references/02-landscape.md`, `references/03-questioning.md` (also any question round), `references/03d-design-direction.md`, `references/design-principles.md`, `references/04-research.md` (any research), `references/glossary.md` (also explaining a term), `references/non-coder-checklist.md` (one-way items for every size), `references/05-design-doc.md`, `references/keeping-it-running.md`, `references/type-adaptations.md` (also final-review lenses), `references/software-design-detail.md` (the security baseline), `references/06-review.md` (also the kit's dry run), `references/07-handoff-kit.md`.
 - **Amend:** `references/08-change-control.md`, `templates/amendment.md`.
 - **On demand:** `references/working-state.md` (starting, saving or resuming), `references/heuristics.md` (a hard or contested decision), `references/context-and-agents.md` (briefing a subagent; a fresh chat), `references/writing-rules.md` (writing any document).
 - **Templates:** `templates/state.md` (intake, then every round and gate), `templates/primer.md` (phase 2), `templates/design-spec.md` (phase 3D). Phase 6: `templates/kit-lite.md` (small); `templates/kit-00-start-here.md`, `templates/kit-01-project-instructions.md`, `templates/kit-02-build-brief.md`, `templates/kit-03-progress-log.md` (medium and large); `templates/kit-04-final-review.md` (every size); `templates/kit-tasks.json` (coded kits built in Claude Code).

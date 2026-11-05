@@ -58,6 +58,10 @@ Every format real data or other people depend on, field by field, because changi
 
 <Environment (D-n); where outputs live; the save-work policy; what the person does because Claude can't, such as sign-ins and payments.>
 
+## Keeping it running
+
+<From the design: owner and hours a month, and what happens if they stop; the change streams, each with who handles it, how often, its trigger, its check and what needs approval; the automation policy; the safety net; the person's monthly runbook; tool choice with an "as of" date.>
+
 ## Homework
 
 | ID | What only the person can provide | How to get it | Needed by |
