@@ -10,7 +10,7 @@ A Blueprint project can span several chats, so keep a state file (`templates/sta
 
 ## Resuming
 
-If a state file is in the project or pasted in, read it first, then the current phase's file. Restate in two lines where things stand and continue from the recorded phase. Don't redo a passed gate unless the person asks or something changed, because repeated questions waste their effort.
+If a state file is in the project or pasted in, read it first and write its `Route:` line. A file without a Route line comes from Blueprint 2: it is route New at its recorded phase, and the next save adds `- **Route:** new`. Then read the current phase's file, restate in two lines where things stand, and continue from the recorded phase. Don't redo a passed gate unless the person asks or something changed, because repeated questions waste their effort.
 
 ## Fresh chats
 
