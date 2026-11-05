@@ -1,6 +1,6 @@
 ---
 name: blueprint
-description: Plans projects at any stage and hands over a researched, decided and reviewed execution kit a fresh AI agent can build from without guessing, for people who may not code. Use when someone has a new idea ("I have an idea for…"), wants an existing project, repository or site reviewed, audited, finished, rescued or redesigned, wants a plan for maintaining, updating or automating projects they already have, asks for a design doc or PRD, or types /blueprint. Also resumes a Blueprint state file or amends a finished kit. Not for: writing or fixing code now, fixing one known bug, building the product itself, editing a document, quick questions, a single message, or planning a day or week.
+description: Plans projects at any stage and hands over a researched, decided and reviewed execution kit a fresh AI agent can build from without guessing, for people who may not code. Use when someone has a new idea ("I have an idea for…") or wants to plan, scope or spec something before it is built (software, a website, an app, a business plan, a process change), wants an existing project, repository or site reviewed, audited, finished, rescued or redesigned, wants a plan for maintaining, updating or automating projects they already have, asks for a design doc or PRD, or types /blueprint. Also resumes a Blueprint state file or amends a finished kit. Not for: writing or fixing code now, fixing one known bug, building the product itself, editing a document, quick questions, a single message, or planning a day or week.
 license: MIT
 ---
 
@@ -33,7 +33,7 @@ Note in the state file which tools this session has: web search, subagents, code
 
 ## Routes
 
-Choose a route before anything else. Start your first reply with a line naming it, such as `Route: new`, then say in one line what will happen; record it in the state file as `- **Route:** new`. Each route reads only its own files, so only one route's detail is in context.
+Choose a route before anything else. As soon as you know it, and before reading its files, write a line naming it, such as `Route: new`, and one line on what will happen; record it in the state file as `- **Route:** new`. Each route reads only its own files, so only one route's detail is in context.
 
 | Route | Use when | Read first | Ends with |
 |---|---|---|---|
