@@ -1,0 +1,47 @@
+body {
+  margin: 0;
+  font-family: Georgia, serif;
+  color: #333333;
+  background: #ffffff;
+}
+
+header {
+  background: #2e5e4e;
+  color: #ffffff;
+  padding: 16px 24px;
+}
+
+header a {
+  color: #ffffff;
+  margin-right: 16px;
+}
+
+main {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.intro {
+  color: #aaaaaa;
+  font-size: 15px;
+}
+
+.button {
+  display: inline-block;
+  background: #f5c518;
+  color: #ffffff;
+  padding: 10px 18px;
+  text-decoration: none;
+}
+
+a {
+  color: #7fb3ff;
+}
+
+footer {
+  background: #f2f2f2;
+  color: #b5b5b5;
+  font-size: 13px;
+  padding: 16px 24px;
+}

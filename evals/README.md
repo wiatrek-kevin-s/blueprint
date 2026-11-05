@@ -24,8 +24,8 @@ Every prompt and fixture is invented and generic.
 | `empty-repo/` | A repository with only a title README; routes to New |
 | `kit-good/` | A small kit that passes `check_kit.py`, including a filled "Keeping it running" section |
 | `kit-missing-upkeep/` | The same kit without "Keeping it running"; passes Blueprint 2's check, must fail once the check requires the section |
-| `audit-sample/` | A tiny project with planted problems for Audit evals; its key is `keys/audit-sample.md` |
-| `redesign-sample/` | A two-page static site with known contrast failures for Redesign evals |
+| `audit-sample/` | A tiny command-line project with planted problems for Audit evals; its key is `keys/audit-sample.md` |
+| `redesign-sample/` | A two-page static site with known contrast failures for Redesign evals; its key is `keys/redesign-sample.md` |
 
 ## How a routing eval runs
 
