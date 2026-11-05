@@ -1,6 +1,6 @@
 ---
 name: blueprint
-description: Plans projects at any stage and hands over a researched, decided and reviewed execution kit a fresh AI agent can build from without guessing, for people who may not code. Use when someone has a new idea ("I have an idea for…") or wants to plan, scope or spec something before it is built (software, a website, an app, a business plan, a process change), wants an existing project, repository or site reviewed, audited, finished, rescued or redesigned, wants a plan for maintaining, updating or automating projects they already have, asks for a design doc or PRD, or types /blueprint. Also resumes a Blueprint state file or amends a finished kit. Not for: writing or fixing code now, fixing one known bug, building the product itself, editing a document, quick questions, a single message, or planning a day or week.
+description: Plans projects at any stage and hands over a researched, decided and reviewed execution kit a fresh AI agent can build from without guessing, for people who may not code. Use when someone has a new idea ("I have an idea for…") or wants to plan, scope or spec something before it is built (software, a website, an app, a business plan, a process change), wants an existing project, repository or site reviewed or audited (what's broken, what's missing, whether it's safe to make public), finished, rescued or redesigned, wants a plan for maintaining, updating or automating projects they already have, asks for a design doc or PRD, or types /blueprint. Also resumes a Blueprint state file or amends a finished kit. Not for: writing or fixing code now, fixing one known bug, building the product itself, editing a document, quick questions, a single message, or planning a day or week.
 license: MIT
 ---
 
@@ -33,7 +33,7 @@ Note in the state file which tools this session has: web search, subagents, code
 
 ## Routes
 
-Choose a route before anything else. As soon as you know it, and before reading its files, write a line naming it, such as `Route: new`, and one line on what will happen; record it in the state file as `- **Route:** new`. Read only that route's files, to keep context lean.
+Choose a route before anything else. As soon as you know it, and before reading its files, write a line naming it, such as `Route: new`, and one line on what will happen; record it in the state file as `- **Route:** new`. Read only that route's files.
 
 | Route | Use when | Read first | Ends with |
 |---|---|---|---|
@@ -52,7 +52,7 @@ Choose in this order:
 5. Two routes fit: take the one the person named first and offer the other at the first gate. A dated look plus a broken part is Audit, because Redesign changes looks only; offer Redesign at G1.
 6. Nothing fits clearly, as in "Can you help with my project?": ask one question naming the five routes in plain words.
 
-Switch route only at a gate, with the person's agreement, recorded in the state file; findings and decisions carry over. For a route coming in a later release, still write its `Route:` line, then say this release can't run it yet and offer to plan the work as a New project from what the person describes.
+Switch route only at a gate, with the person's agreement, recorded in the state file; findings and decisions carry over. For a route coming in a later release, still write its `Route:` line, then say this release can't run it yet and offer to plan the work as New.
 
 ## Phases
 
@@ -92,7 +92,7 @@ A round is any message that asks the person something, the approval message incl
 
 ## Context discipline
 
-Detail and the reasons are in `references/context-and-agents.md`.
+Detail and reasons: `references/context-and-agents.md`.
 
 - Use a subagent only for bulky reading or research whose output you'd mostly discard, for truly independent parallel work, or for fresh eyes (reviews, dry runs), because each one costs a full brief and a summary.
 - Give every subagent the brief in `references/context-and-agents.md`; send bulky results to a file.

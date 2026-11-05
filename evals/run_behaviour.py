@@ -30,11 +30,18 @@ How it works (see evals/README.md, "Behaviour evals"):
     00-START-HERE.md) and its latest message asks nothing more, or after
     --rounds replies. Then it runs check_kit.py (from the skill under test)
     on the kit folder and reports whether "Keeping it running" is filled.
+  - With --fixture, it records the sha256 checksum of every file in the
+    fixture's copy before the first reply and after the last, and reports
+    any file added, removed or changed, because Audit, Redesign and Operate
+    never edit the project (build brief REQ-7). It also names any
+    audit-report.md written, for scoring against evals/keys/.
 
-Exit 0 when check_kit.py passes and the section is non-empty, 1 otherwise.
+Exit 0 when check_kit.py passes, the section is non-empty and the fixture's
+checksums are unchanged, 1 otherwise.
 Python 3 standard library only. Needs git and the claude command.
 """
 import argparse
+import hashlib
 import json
 import os
 import re
@@ -99,6 +106,17 @@ def person_turn(home, persona, message, args):
         return "You decide", 0.0
 
 
+def checksums(root):
+    """sha256 of every file under root, keyed by its path relative to root."""
+    sums = {}
+    for base, dirs, files in os.walk(root):
+        for name in files:
+            path = os.path.join(base, name)
+            with open(path, "rb") as f:
+                sums[os.path.relpath(path, root)] = hashlib.sha256(f.read()).hexdigest()
+    return sums
+
+
 def find_kit(folder):
     for root, dirs, files in os.walk(folder):
         dirs[:] = [d for d in dirs if d != ".claude"]
@@ -146,6 +164,8 @@ def main():
     home = tempfile.mkdtemp(prefix="blueprint-behaviour-person-")
     persona = open(args.persona, encoding="utf-8").read()
     print(f"Eval folder: {folder}\nSkill under test: {args.skill_ref} ({rr.rev(args.skill_ref)})")
+    fixture_copy = os.path.join(folder, os.path.basename(args.fixture.rstrip("/"))) if args.fixture else ""
+    before = checksums(fixture_copy) if os.path.isdir(fixture_copy) else None
 
     session, message, cost = None, "", 0.0
     text, model, isolation_ok, route = args.prompt, "", True, ""
@@ -169,6 +189,17 @@ def main():
     kit = find_kit(folder)
     print(f"\nModel: {model}; route named: {route or 'none'}; isolation ok: {isolation_ok}")
     print(f"Cost reported by Claude Code: about {cost:.2f} USD")
+    fixture_ok = True
+    if before is not None:
+        after = checksums(fixture_copy)
+        changed = sorted(p for p in set(before) | set(after) if before.get(p) != after.get(p))
+        fixture_ok = not changed
+        print(f"Fixture checksums ({len(before)} files before, {len(after)} after): "
+              + ("identical" if fixture_ok else "CHANGED: " + ", ".join(changed)))
+    for base, dirs, files in os.walk(folder):
+        dirs[:] = [d for d in dirs if d != ".claude"]
+        if "audit-report.md" in files:
+            print(f"Audit report: {os.path.join(base, 'audit-report.md')}")
     ok = False
     if not kit:
         print("RESULT FAIL: no kit was written")
@@ -179,7 +210,7 @@ def main():
         name, body = upkeep_section(kit)
         lines = [ln for ln in body.split("\n") if ln.strip()]
         print(f"check_kit.py exit {proc.returncode}; Keeping it running in {name}: {len(lines)} non-empty lines")
-        ok = proc.returncode == 0 and bool(lines) and isolation_ok
+        ok = proc.returncode == 0 and bool(lines) and isolation_ok and fixture_ok
         print("RESULT PASS" if ok else "RESULT FAIL")
     if not args.keep:
         shutil.rmtree(folder, ignore_errors=True)
