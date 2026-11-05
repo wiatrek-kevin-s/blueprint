@@ -1,0 +1,94 @@
+# CI for Blueprint: runs on every pull request and every push to main.
+#
+# The job is named "ci" so a ruleset on main can require it.
+# It uses the pull_request event, never pull_request_target, so code from a
+# fork never runs with the PRIVATE_TERMS secret; a fork's pull request runs
+# without it and the private-terms step says it was skipped.
+# Each step runs as soon as its inputs exist in the repository and, until
+# then, prints why it was skipped.
+# Actions are pinned to full commit hashes (actions/checkout v7.0.1, looked
+# up 2026-11-05); review the pins every 6 months.
+
+name: ci
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions: {}
+
+jobs:
+  ci:
+    name: ci
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Check out (full history, pull request head)
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+
+      - name: Skill checks and zip build (build-zip.sh)
+        run: bash scripts/build-zip.sh
+
+      - name: Task list template (check_tasks.py)
+        run: python3 skill/scripts/check_tasks.py skill/templates/kit-tasks.json
+
+      - name: Fixture kit that must pass (check_kit.py)
+        run: |
+          if [ ! -d evals/fixtures/kit-good ]; then
+            echo "SKIPPED: evals/fixtures/kit-good does not exist yet (it arrives in T-7)."
+            exit 0
+          fi
+          python3 skill/scripts/check_kit.py evals/fixtures/kit-good
+
+      - name: Fixture kit that must fail (check_kit.py)
+        run: |
+          if [ ! -d evals/fixtures/kit-missing-upkeep ]; then
+            echo "SKIPPED: evals/fixtures/kit-missing-upkeep does not exist yet (it arrives in T-7)."
+            exit 0
+          fi
+          if ! grep -q "Keeping it running" skill/scripts/check_kit.py; then
+            echo "SKIPPED: check_kit.py does not require 'Keeping it running' yet (it does from T-10)."
+            exit 0
+          fi
+          if python3 skill/scripts/check_kit.py evals/fixtures/kit-missing-upkeep; then
+            echo "FAIL: kit-missing-upkeep passed check_kit.py, but it must fail."
+            exit 1
+          fi
+          echo "OK: kit-missing-upkeep failed check_kit.py, as it must."
+
+      - name: Route budget (route_budget.py)
+        run: |
+          if [ ! -f scripts/route_budget.py ]; then
+            echo "SKIPPED: scripts/route_budget.py does not exist yet (it arrives in T-8)."
+            exit 0
+          fi
+          python3 scripts/route_budget.py
+
+      - name: Private-terms check (tracked files and commit messages)
+        env:
+          PRIVATE_TERMS: ${{ secrets.PRIVATE_TERMS }}
+          EVENT: ${{ github.event_name }}
+          PR_BASE: ${{ github.event.pull_request.base.sha }}
+          PR_HEAD: ${{ github.event.pull_request.head.sha }}
+          PUSH_BEFORE: ${{ github.event.before }}
+          PUSH_AFTER: ${{ github.sha }}
+        run: |
+          if [ "$EVENT" = "pull_request" ]; then
+            range="$PR_BASE..$PR_HEAD"
+          elif [ -n "$PUSH_BEFORE" ] && git cat-file -e "$PUSH_BEFORE^{commit}" 2>/dev/null; then
+            range="$PUSH_BEFORE..$PUSH_AFTER"
+          else
+            range="$PUSH_AFTER"  # new branch or unknown base: every commit up to the push
+          fi
+          echo "Commit messages checked: $range"
+          python3 scripts/check_private.py --tracked --range "$range"
