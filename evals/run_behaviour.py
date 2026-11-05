@@ -38,7 +38,7 @@ How it works (see evals/README.md, "Behaviour evals"):
     with no skills and no tools; its system prompt is the persona file and
     it sees only Blueprint's latest message.
   - The run stops when Blueprint has written a kit (kit-lite.md or
-    00-START-HERE.md, the files phase 6 writes on every route) in the eval
+    START-HERE.md (00-START-HERE.md before 3.0.1), the files phase 6 writes on every route) in the eval
     folder or in Claude Code's scratchpad for it, and either
     its latest message asks nothing more or it is the reply to the
     person's approval of that kit (the hand-off), or after --rounds
@@ -92,7 +92,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import run_routing as rr  # noqa: E402
 
 TOOLS = "Skill,Read,Glob,Grep,Bash,Write,Edit"
-KIT_MARKERS = ("kit-lite.md", "00-START-HERE.md")
+KIT_MARKERS = ("kit-lite.md", "START-HERE.md", "00-START-HERE.md")
 IMAGE_EXT = (".png", ".jpg", ".jpeg")
 SCREEN_DIR = "screens"
 SCREEN_WIDTHS = (375, 1280)
