@@ -16,6 +16,11 @@ Options:
   --rounds N          most replies from the person before stopping (default 14)
   --max-turns N       turns per Blueprint reply (default 40)
   --model M           model alias or name (default: Claude Code's default)
+  --screens           the route designs screens (Redesign): let Bash also
+                      start an installed headless browser (google-chrome,
+                      chromium) and mkdir, run check_kit.py with --screens,
+                      and require screenshots at 375 and 1,280 px among
+                      the images the run wrote
   --keep              keep the eval folder and transcripts
 
 How it works (see evals/README.md, "Behaviour evals"):
@@ -47,9 +52,16 @@ How it works (see evals/README.md, "Behaviour evals"):
     reaches the network (curl, wget, gh, git, ssh, pip, npm, or Python
     network modules), because these routes make no network call on the
     project's behalf without asking (Rule 10).
+  - It lists every image (.png, .jpg) the run wrote outside the project
+    copy. With --screens, the run fails unless at least one image name holds
+    375 and one holds 1280, because Redesign captures every screen at both
+    widths (build brief REQ-8). The session has no browser tool; Blueprint
+    can capture screens with python3 and a headless browser already
+    installed on the machine, such as Playwright (evals/README.md).
 
 Exit 0 when check_kit.py passes, the section is non-empty, the fixture's
-checksums are unchanged and no network use was seen, 1 otherwise.
+checksums are unchanged, no network use was seen and, with --screens, the
+screenshots exist, 1 otherwise.
 Python 3 standard library only. Needs git and the claude command.
 """
 import argparse
@@ -68,6 +80,14 @@ import run_routing as rr  # noqa: E402
 
 TOOLS = "Skill,Read,Glob,Grep,Bash,Write,Edit"
 KIT_MARKERS = ("kit-lite.md", "00-START-HERE.md")
+IMAGE_EXT = (".png", ".jpg", ".jpeg")
+# With --screens, Bash may also start an installed headless browser and make
+# folders, because a headless run can't answer the permission prompt the
+# person would answer in a real session (evals/README.md). Pages it opens
+# from the web are still caught by the network check (WEB_URL_RE).
+SCREEN_TOOLS = ["Bash(google-chrome:*)", "Bash(chromium:*)", "Bash(chromium-browser:*)",
+                "Bash(mkdir:*)"]
+WEB_URL_RE = re.compile(r"(?:google-chrome|chromium|goto)\b[^\n]*https?://(?!localhost|127\.0\.0\.1)")
 REPO_COPY = "repo-copy"
 WEB_TOOLS = {"WebSearch", "WebFetch"}
 # A network program in command position (after the start, a space or ; | & ( `),
@@ -119,7 +139,8 @@ def tool_uses(transcript):
 def blueprint_turn(folder, text, session, args):
     cmd = ["claude", "-p", text, "--setting-sources", "project", "--tools", TOOLS,
            "--disallowedTools", "Projects", "--strict-mcp-config", "--no-chrome",
-           "--permission-mode", "acceptEdits", "--allowedTools", "Bash(python3:*)",
+           "--permission-mode", "acceptEdits",
+           "--allowedTools", ",".join(["Bash(python3:*)"] + (SCREEN_TOOLS if args.screens else [])),
            "--max-turns", str(args.max_turns), "--output-format", "stream-json", "--verbose"]
     if session:
         cmd += ["--resume", session]
@@ -196,6 +217,16 @@ def find_kit(folder, skip=""):
     return None
 
 
+def images(folder, skip):
+    """Every image the run wrote, outside .claude and the project copy."""
+    found = []
+    for top in output_roots(folder):
+        for root, dirs, files in os.walk(top):
+            dirs[:] = [d for d in dirs if d != ".claude" and os.path.join(root, d) != skip]
+            found += [os.path.join(root, f) for f in files if f.lower().endswith(IMAGE_EXT)]
+    return sorted(found)
+
+
 def asks_more(message):
     tail = message.strip()[-600:]
     return "?" in tail or bool(re.search(r"\b(approve|confirm|reply|answer)\b", tail, re.I))
@@ -222,6 +253,7 @@ def main():
     ap.add_argument("--rounds", type=int, default=14)
     ap.add_argument("--max-turns", type=int, default=40)
     ap.add_argument("--model", default="")
+    ap.add_argument("--screens", action="store_true")
     ap.add_argument("--keep", action="store_true")
     args = ap.parse_args()
     if shutil.which("claude") is None:
@@ -283,7 +315,8 @@ def main():
     uses = tool_uses(transcript)
     commands = [cmd for name, cmd in uses if name == "Bash"]
     web = sorted({name for name, _ in uses if name in WEB_TOOLS})
-    risky = [cmd for cmd in commands if NETWORK_RE.search(network_text(cmd))]
+    risky = [cmd for cmd in commands
+             if NETWORK_RE.search(network_text(cmd)) or WEB_URL_RE.search(network_text(cmd))]
     network_ok = not web and not risky
     print(f"Tool calls: {len(uses)}; Bash commands: {len(commands)}; web tools used: {web or 'none'}")
     for cmd in commands:
@@ -295,17 +328,28 @@ def main():
             dirs[:] = [d for d in dirs if d != ".claude" and os.path.join(base, d) != fixture_copy]
             if "audit-report.md" in files:
                 print(f"Audit report: {os.path.join(base, 'audit-report.md')}")
+    shots = images(folder, fixture_copy)
+    names = [os.path.basename(p) for p in shots]
+    screens_ok = not args.screens or (any("375" in n for n in names)
+                                      and any("1280" in n for n in names))
+    print(f"Images written: {len(shots)}")
+    for p in shots:
+        print(f"  {p}")
+    if args.screens:
+        print("Screenshots at 375 and 1,280 px: " + ("found" if screens_ok else "MISSING"))
     ok = False
     if not kit:
         print("RESULT FAIL: no kit was written")
     else:
         checker = os.path.join(folder, ".claude", "skills", "blueprint", "scripts", "check_kit.py")
-        proc = subprocess.run([sys.executable, checker, kit], capture_output=True, text=True)
+        proc = subprocess.run([sys.executable, checker, kit] + (["--screens"] if args.screens else []),
+                              capture_output=True, text=True)
         print(proc.stdout.strip())
         name, body = upkeep_section(kit)
         lines = [ln for ln in body.split("\n") if ln.strip()]
         print(f"check_kit.py exit {proc.returncode}; Keeping it running in {name}: {len(lines)} non-empty lines")
-        ok = proc.returncode == 0 and bool(lines) and isolation_ok and fixture_ok and network_ok
+        ok = (proc.returncode == 0 and bool(lines) and isolation_ok and fixture_ok
+              and network_ok and screens_ok)
         print("RESULT PASS" if ok else "RESULT FAIL")
     if not args.keep:
         for top in output_roots(folder):
