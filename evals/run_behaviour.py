@@ -27,7 +27,8 @@ How it works (see evals/README.md, "Behaviour evals"):
     with no skills and no tools; its system prompt is the persona file and
     it sees only Blueprint's latest message.
   - The run stops when Blueprint has written a kit (kit-lite.md or
-    00-START-HERE.md, the files phase 6 writes on every route) and either
+    00-START-HERE.md, the files phase 6 writes on every route) in the eval
+    folder or in Claude Code's scratchpad for it, and either
     its latest message asks nothing more or it is the reply to the
     person's approval of that kit (the hand-off), or after --rounds
     replies. Then it runs check_kit.py (from the skill under test) on the
@@ -43,6 +44,7 @@ checksums are unchanged, 1 otherwise.
 Python 3 standard library only. Needs git and the claude command.
 """
 import argparse
+import glob
 import hashlib
 import json
 import os
@@ -119,12 +121,21 @@ def checksums(root):
     return sums
 
 
+def output_roots(folder):
+    """The eval folder, plus the scratchpad folders Claude Code gives the
+    Blueprint session there, because Blueprint writes its own files outside
+    the project and may choose its scratchpad (named after the folder)."""
+    pattern = os.path.join(tempfile.gettempdir(), "claude-*", folder.replace(os.sep, "-"))
+    return [folder] + sorted(glob.glob(pattern))
+
+
 def find_kit(folder):
-    for root, dirs, files in os.walk(folder):
-        dirs[:] = [d for d in dirs if d != ".claude"]
-        for m in KIT_MARKERS:
-            if m in files:
-                return root
+    for top in output_roots(folder):
+        for root, dirs, files in os.walk(top):
+            dirs[:] = [d for d in dirs if d != ".claude"]
+            for m in KIT_MARKERS:
+                if m in files:
+                    return root
     return None
 
 
@@ -200,10 +211,11 @@ def main():
         fixture_ok = not changed
         print(f"Fixture checksums ({len(before)} files before, {len(after)} after): "
               + ("identical" if fixture_ok else "CHANGED: " + ", ".join(changed)))
-    for base, dirs, files in os.walk(folder):
-        dirs[:] = [d for d in dirs if d != ".claude"]
-        if "audit-report.md" in files:
-            print(f"Audit report: {os.path.join(base, 'audit-report.md')}")
+    for top in output_roots(folder):
+        for base, dirs, files in os.walk(top):
+            dirs[:] = [d for d in dirs if d != ".claude"]
+            if "audit-report.md" in files:
+                print(f"Audit report: {os.path.join(base, 'audit-report.md')}")
     ok = False
     if not kit:
         print("RESULT FAIL: no kit was written")
@@ -217,7 +229,8 @@ def main():
         ok = proc.returncode == 0 and bool(lines) and isolation_ok and fixture_ok
         print("RESULT PASS" if ok else "RESULT FAIL")
     if not args.keep:
-        shutil.rmtree(folder, ignore_errors=True)
+        for top in output_roots(folder):
+            shutil.rmtree(top, ignore_errors=True)
         shutil.rmtree(home, ignore_errors=True)
     shutil.rmtree(stage, ignore_errors=True)
     return 0 if ok else 1
