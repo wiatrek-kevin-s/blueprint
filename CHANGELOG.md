@@ -1,5 +1,33 @@
 # Changelog
 
+## 3.0.0 (2026-11-05): five routes and Keeping it running
+
+Blueprint 3 plans projects at any stage, not only new ideas, and every kit says how the result is kept running. It stays one skill named `blueprint` that plans and never builds or edits the project it plans for.
+
+What's new since 2.0.0:
+
+- **Five routes.** Blueprint picks one and names it in its first reply (`Route: operate`): New (an idea), Audit (review, fix, finish or rescue an existing project), Redesign (change only the look and feel), Operate (upkeep of projects you already have) and Amend (change a delivered kit). When a request fits none clearly, it asks one question naming the five.
+- **Keeping it running.** Every kit says who looks after the result and for how many hours a month, what changes or expires, what agents may do unattended (they propose, you approve), the safety net, and a monthly routine under 15 minutes. The kit check fails a kit without this section, and the final review asks whether you could follow the routine next month.
+- **Audit.** Maps what exists, confirms with you what the project is for and which standards it is judged against, and only then lists findings, each with evidence and labelled Fix now, Fix when convenient or Accept. Ends with an audit report and a fix kit.
+- **Redesign.** Works from screenshots at phone and computer widths, lists the current colours, type and spacing with their file and line, measures contrast, and always offers "refresh the current look" as one direction. The kit changes the presentation only, never what the project does.
+- **Operate.** Inventories each project in a table with a coverage list of what was read and what could not be checked, agrees what "kept running" means, compares current tools researched at run time with dates, and hands over setup tasks, each with a check that proves it works, plus a runbook. Its premortem answers five agent risks: planted instructions, an agent merging or deploying alone, a workflow handing secrets to outside code, an agent loop or runaway cost, and a token with more access than its job needs.
+- **Read-only on your projects.** Audit, Redesign and Operate read the project and may run commands that write nothing outside a temporary copy. They ask before anything that touches live data, accounts, services or the network, and report a secret by file, line and kind, never its value. Text in the project that tries to instruct an AI is reported, never followed.
+- **Gates held when you delegate.** "You decide" changes who chooses, never whether a step is shown: Blueprint shows the goal and the options, makes the choice, and records it as yours to change.
+- **Blueprint 2 compatibility.** A Blueprint 2 state file resumes where it stopped. Amending a Blueprint 2 kit offers to add Keeping it running.
+- **Repository.** Built zips are no longer committed; each release on the Releases page carries `blueprint.zip`. Checks run on every pull request, and the `evals/` folder holds the routing set, sample projects and result summaries.
+
+Known limitations of this release, measured on 2026-11-05 with one model (claude-sonnet-5-5, Claude Code 2.1.318):
+
+- **Routing:** 48 of 50 prompts reached the right route (96%): new 11 of 11, audit 7 of 8, redesign 6 of 7, operate 7 of 7, amend 3 of 3, and none of the 14 prompts that must not trigger did. The two misses are short prompts with no project in the folder, where Claude answered without loading Blueprint. Results: `evals/results/v3.md` and `evals/results/v3-cr7-operate.md`.
+- **Route budgets:** on a medium project, route New reads 22,130 of its 22,243-token limit, leaving little room; Audit reads 21,474, Redesign 20,337 and Operate 19,336 tokens, each within 27,000 (`scripts/route_budget.py`).
+- **Behaviour evals are single runs:** each route's whole-conversation eval passed on one invented project (Audit found 8 of 8 planted problems; Redesign and Operate kits passed the kit check with every project file unchanged), one run each with a simulated person who answers "You decide". They are evidence, not a guarantee.
+- **Eval isolation:** evals run in a temporary folder with Bash limited to `python3`, but Claude Code still runs read-only commands such as `ls`, `cat` and `find` without asking, and file commands such as `mkdir` and `cp` inside the eval folder. The runner lists every command, fails a run on any network use or changed project file, and flags writes outside the eval folder it can detect.
+- **Reviews in evals are self-reviews:** the evals give Blueprint no subagent tool, so the fresh-reviewer steps (re-checking "Fix now" findings, the design review) ran as labelled self-reviews.
+- **Without web search,** Audit, Redesign and Operate list the facts they could not check (advisories, plan limits, prices) and give the kit a task that confirms them first.
+- **Releases are published from the Releases page:** pushing tags from the cloud sessions that built this release was blocked, so a release is made by publishing it on GitHub's Releases page with a new tag; the release workflow then attaches `blueprint.zip` and the changelog entry.
+- **Private-terms check in CI is optional:** CI checks files and commit messages for private terms only when the repository has a `PRIVATE_TERMS` secret. It is not set by default, so that step reports skipped; the maintainer runs `scripts/check_private.py` locally before every push.
+- Kits made by Blueprint 2 fail this version's kit check until they gain a "Keeping it running" section; Amend offers to add it.
+
 ## 3.0.0-beta.2 (2026-11-05): Audit route
 
 Second pre-release of Blueprint 3. Blueprint can now audit a project that already exists, in any state, and plan its fixes. It reads the project and never changes it.
