@@ -1,0 +1,42 @@
+{
+  "project": "Example: club sign-up site",
+  "tasks": [
+    {
+      "id": "T-1",
+      "title": "Thin version: a sign-up form that saves to the test database and shows the list",
+      "session": "S1",
+      "depends_on": [],
+      "done_by": "claude",
+      "acceptance": [
+        {"how": "Claude runs the test suite (needs the test database)", "expected": "all tests pass, 0 failures"},
+        {"how": "Claude runs the browser test that signs up 'Test Member'", "expected": "the list shows 1 row: Test Member"}
+      ],
+      "status": "done",
+      "evidence": "Test run in progress-log.md, 2026-01-05: 12 passed, 0 failed; browser test passed"
+    },
+    {
+      "id": "T-2",
+      "title": "Live hosting account, created and owned by the person",
+      "session": "S1",
+      "depends_on": [],
+      "done_by": "person",
+      "acceptance": [
+        {"how": "The person follows the click-by-click steps in the brief (needs an email address)", "expected": "the person pastes back the project name shown on the dashboard"}
+      ],
+      "status": "todo",
+      "evidence": ""
+    },
+    {
+      "id": "T-3",
+      "title": "Members can only see their own details",
+      "session": "S2",
+      "depends_on": ["T-1", "T-2"],
+      "done_by": "both",
+      "acceptance": [
+        {"how": "The person signs in as member A and opens member B's page (needs two test accounts)", "expected": "an 'Access denied' page, never B's details"}
+      ],
+      "status": "todo",
+      "evidence": ""
+    }
+  ]
+}

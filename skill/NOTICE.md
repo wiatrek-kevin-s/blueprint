@@ -1,0 +1,12 @@
+# Credits
+
+Blueprint is an original method in its own words. It draws on the works below and copies no text beyond a few attributed words.
+
+- **langzf/agent-skills** (MIT, https://github.com/langzf/agent-skills), adapted in Blueprint's wording: requirement IDs, scenarios, MoSCoW, Given/When/Then and traceability; decision records with alternatives; data-model, interface, testing and release checklists; stage gates. Not adopted: github-ops (stores a token in the remote URL, creates public repositories) and wechat-miniapp-platform-binding.
+- **Decision heuristics**, each named with its year where used: Jeff Bezos (Amazon letters for 2015 and 2016, published 2016 and 2017), Gary Klein, Clayton Christensen, Charlie Munger, John Gall, Kent Beck, Martin Fowler, Elon Musk, G. K. Chesterton, Paul Graham, Dan McKinley, Glyph, Hyrum Wright and Titus Winters, Martin Thomson and David Schinazi (RFC 9413), Ward Cunningham, Annie Duke, Micah Zenko, Richard Feynman, Charles Goodhart.
+- **Shape Up** (Ryan Singer, Basecamp, 2019): appetite. **The Mom Test** (Rob Fitzpatrick, 2013): questions about past events.
+- **Anthropic** engineering posts and documentation (2024–2026): effective agents, context engineering, long-running agent harnesses, multi-agent research, Claude Code best practices, skill authoring.
+- **Design**: Anthropic on frontend design skills (2025); Nielsen Norman Group on AI-made designs and parallel design; Samantha Warren (style tiles); Refactoring UI; the design heuristics' named sources (Sullivan 1896, Eliot 1920, Benedek and Miner 2002, Krug 2000, Norman 1988, Rams); WCAG 2.2 (W3C Document License, checked 2026-11-04).
+- **OWASP**, licences read from each project's repository on 2026-11-04: Top 10:2025 (CC BY-SA 4.0; its web page footer says CC BY 3.0), ASVS (CC BY-SA 4.0), API Security Top 10 (CC BY-SA 4.0), Top 10 for LLM Applications and for Agentic Applications (GenAI Security Project, CC BY-SA 4.0). Ideas restated, no text copied.
+- **Writing rules** restated from William Strunk Jr., *The Elements of Style* (1918, public domain); approach inspired by obra/the-elements-of-style and softaworks/agent-toolkit (MIT); AI-habit list informed by Wikipedia's "Signs of AI writing".
+- **Design docs at Google** (Malte Ubl): document structure and amendments. **Architecture decision records** (Michael Nygard, 2011). **Assumptions mapping** (Jeff Gothelf and Josh Seiden; David Bland). **Agent Skills** format (agentskills.io).

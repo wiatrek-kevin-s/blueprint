@@ -1,0 +1,6 @@
+.DS_Store
+*.zip
+dist/
+.env
+__pycache__/
+!release/*.zip
