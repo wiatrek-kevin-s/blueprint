@@ -1,4 +1,5 @@
 # CI for Blueprint: runs on every pull request and every push to main.
+# release.yml also calls it (workflow_call), so a release runs the same checks.
 #
 # The job is named "ci" so a ruleset on main can require it.
 # It uses the pull_request event, never pull_request_target, so code from a
@@ -15,6 +16,7 @@ on:
   pull_request:
   push:
     branches: [main]
+  workflow_call:
 
 permissions: {}
 

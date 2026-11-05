@@ -19,7 +19,7 @@ See `CHANGELOG.md` for this release's known limitations.
 
 ## Install
 
-- **Claude apps:** download `blueprint-v2.zip` from this repository's Releases page. In Claude, open **Settings → Capabilities**, make sure code execution and file creation is on, then in the **Skills** section click **Upload skill** and choose the zip.
+- **Claude apps:** download `blueprint.zip` from the newest release on this repository's [Releases page](https://github.com/wiatrek-kevin-s/blueprint/releases). (You can also build it yourself with `bash scripts/build-zip.sh`, which writes `dist/blueprint.zip`.) In Claude, open **Settings → Capabilities**, make sure code execution and file creation is on, then in the **Skills** section click **Upload skill** and choose the zip.
 - **Claude Code:** copy the `skill/` folder to `~/.claude/skills/blueprint/` (all your projects) or to `.claude/skills/blueprint/` inside one repository.
 
 Keep only one skill named `blueprint` switched on, so Claude loads the right copy.
@@ -27,8 +27,12 @@ Keep only one skill named `blueprint` switched on, so Claude loads the right cop
 ## What's in this repository
 
 - `skill/`: the skill itself.
-- `scripts/build-zip.sh`: checks the skill folder and builds the zip (`bash scripts/build-zip.sh`).
-- `release/blueprint-v2.zip`: the built skill, ready to upload.
+- `scripts/build-zip.sh`: checks the skill folder and builds `dist/blueprint.zip` (`bash scripts/build-zip.sh`).
+- `scripts/check_private.py`: checks files and commit messages for terms that must stay private.
+- `scripts/check_version.py`: checks that a release tag matches the newest `CHANGELOG.md` entry.
+- `.github/workflows/`: `ci.yml` runs the checks on every pull request; `release.yml` builds the zip and publishes a release when a version tag is pushed.
+
+Built zips are not kept in the repository; each release on the Releases page carries its `blueprint.zip`.
 
 ## Licence
 
