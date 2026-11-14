@@ -27,7 +27,7 @@ In one question round, ask for:
 
 Agree the screen list, main task first, and the real content each shows (real names, prices, text; gaps marked missing), because filler text hides layout problems. There is no separate greyscale wireframe round: this structure goes into every direction's key screen, so the person spends one round fewer.
 
-The component library is a one-way door: ask, recommending the default in `references/design-principles.md`.
+The component library is a one-way door you own (Rule 11): recommend the default in `references/design-principles.md` and list it for veto.
 
 ## Default design system
 

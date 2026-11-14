@@ -30,8 +30,8 @@ Re-check names and versions before recommending one, and pin versions at build t
 | Project | Default | Why |
 |---|---|---|
 | Static site | Plain HTML and CSS, or Astro; a static host | No server or login, so little to attack |
-| Web app with accounts | Next.js with TypeScript, Supabase (database, sign-in, storage), Stripe Checkout for payments | Most documented; managed sign-in; row-level security on every table |
-| Web app, Python-leaning | Django with Postgres or SQLite | Sign-in, admin and safe queries built in |
+| Web app with accounts | Next.js with TypeScript, Supabase (database, sign-in, storage), Stripe Checkout for payments | Most documented; managed sign-in; row-level security on every table; publishable and secret keys, never the secret key in browser code |
+| Web app, Python-leaning | Django (current LTS) with Postgres or SQLite | Sign-in, admin and safe queries built in |
 | Script or command-line tool | Python with uv, Typer and pytest | One tool for environments; few dependencies |
 | Phone app | A phone-friendly web app first; Expo if native is needed | Avoids store fees and review |
 
@@ -44,4 +44,4 @@ Re-check names and versions before recommending one, and pin versions at build t
 
 ## Conventions and version control (policy only)
 
-The brief states what must be true and the builder chooses the tools and commands, because it already knows git. Work is saved and pushed after every task, so nothing is lost if a session stops; any change can be rolled back; secrets are never committed, because history keeps them after deletion; history is never rewritten without the person's approval, because rewriting can destroy work. One formatter and linter run in the definition of done. From the first milestone, rules that can't bend are enforced by tools, not only written: checks run on every push (tests, linter, secret scan, dependency audit); the code host blocks pushed secrets and protects the live branch; in Claude Code, project settings deny reading secret files and ask before publishing or deploying.
+The brief states what must be true and the builder chooses the tools and commands, because it already knows git. Work is saved and pushed after every task, so nothing is lost if a session stops; any change can be rolled back; secrets are never committed, because history keeps them after deletion; history is never rewritten without the person's approval, because rewriting can destroy work. One formatter and linter run in the definition of done. From the first milestone, rules that can't bend are enforced by tools, not only written: checks run on every push (tests, linter, secret scan, dependency audit); the code host blocks pushed secrets and protects the live branch; in Claude Code, the brief's "Project settings" block (the exact, dated `.claude/settings.json`, written by the first task) denies reading secret files and asks before publishing or deploying. Only ask and deny rules are hard in auto mode, the default, so the written rules stay too.
