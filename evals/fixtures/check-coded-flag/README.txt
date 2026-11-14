@@ -1,1 +1,3 @@
+expect: 0 | re-run with --coded
+expect: 1 --coded | section 'Security baseline' is missing
 Expected: READY with no flags (a non-software kit with tasks.json is not 'coded'); NOT READY with --coded (section 'Security baseline' is missing). Run: python3 skill/scripts/check_kit.py evals/fixtures/check-coded-flag [--coded]

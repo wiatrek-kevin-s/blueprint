@@ -1,1 +1,2 @@
+expect: 0
 Expected: READY. An audit report (dated once at the top, naming versions) and an amendment (whose only version is the kit's own) are evidence files kept in the kit. Run: python3 skill/scripts/check_kit.py evals/fixtures/check-evidence-files

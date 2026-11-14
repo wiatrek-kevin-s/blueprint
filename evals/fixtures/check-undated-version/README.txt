@@ -1,1 +1,2 @@
+expect: 1 | section 'Keeping it running' has a version or price without an 'as of' date
 Expected: NOT READY (kit-lite.md: section 'Keeping it running' has a version or price without an 'as of' date). The dating rule stays strict for the kit's own files. Run: python3 skill/scripts/check_kit.py evals/fixtures/check-undated-version

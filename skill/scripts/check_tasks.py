@@ -5,16 +5,18 @@ Usage: python3 check_tasks.py <tasks.json> [<baseline tasks.json>]
 
 Checks the fields every task must have, that depends_on names tasks in the
 list and has no loops (a task that waits on itself, directly or through
-others, can never start), and the optional "delivers" list: the requirement
-or finding IDs (such as REQ-1 or AF-1) the task delivers, so every one has
-an owning task. Given a baseline (the task list as the kit delivered it), it
+others, can never start), and that the optional "delivers" list holds
+requirement or finding IDs (such as REQ-1 or AF-1) in the right form. It
+does not check that every requirement has a task: nothing here reads the
+brief's requirements, so that stays a planner's check. Given a baseline (the task list as the kit delivered it), it
 also checks that the builder changed only each task's status and evidence
 and added only R-n tasks (fixes from the final review); every other field,
 delivers included, stays as delivered. The builder must not rewrite its own
 acceptance checks, because then "done" stops meaning what the plan meant.
 
-Exit 0 when every check passes, 1 when any fails, 2 when a file can't be
-read. Python 3 standard library only.
+Malformed input (an id that isn't text, nested lists, a baseline of the
+wrong shape) is reported as a problem, never as a crash. Exit 0 when every
+check passes, 1 when any fails, 2 when a file can't be read. Python 3 standard library only.
 """
 import json
 import re
@@ -64,9 +66,9 @@ def check_schema(data):
         for f in ("title", "session"):
             if f in t and blank(t[f]):
                 problems.append(f"{name}: '{f}' is empty")
-        if "done_by" in t and t["done_by"] not in DONE_BY:
+        if "done_by" in t and (not isinstance(t["done_by"], str) or t["done_by"] not in DONE_BY):
             problems.append(f"{name}: done_by must be claude, person or both")
-        if "status" in t and t["status"] not in STATUS:
+        if "status" in t and (not isinstance(t["status"], str) or t["status"] not in STATUS):
             problems.append(f"{name}: status must be todo, in_progress, blocked or done")
         if "depends_on" in t and (not isinstance(t["depends_on"], list)
                                   or not all(isinstance(d, str) for d in t["depends_on"])):
@@ -89,11 +91,15 @@ def check_schema(data):
             problems.append(f"{name}: evidence must be text")
         elif t.get("status") == "done" and blank(t.get("evidence")):
             problems.append(f"{name}: is done but has no evidence")
-    by_id = {t.get("id"): t for t in tasks if isinstance(t, dict)}
+    # Only well-formed ids and string dependencies take part from here on;
+    # the problems above already name the rest.
+    by_id = {t["id"]: t for t in tasks if isinstance(t, dict) and isinstance(t.get("id"), str)}
     for t in tasks:
         if not isinstance(t, dict) or not isinstance(t.get("depends_on"), list):
             continue
         for d in t["depends_on"]:
+            if not isinstance(d, str):
+                continue
             if d not in by_id:
                 problems.append(f"{t.get('id')}: depends on {d}, which is not in the list")
             elif t.get("status") == "done" and by_id[d].get("status") != "done":
@@ -108,7 +114,7 @@ def find_cycles(by_id):
 
     def deps(tid):
         d = by_id[tid].get("depends_on")
-        return [x for x in d if x in by_id] if isinstance(d, list) else []
+        return [x for x in d if isinstance(x, str) and x in by_id] if isinstance(d, list) else []
 
     for start in by_id:
         if start in state:
@@ -144,10 +150,12 @@ def check_baseline(data, base):
     problems = []
     if not isinstance(base, dict) or not isinstance(base.get("tasks"), list):
         return ["the baseline file must be an object with a 'tasks' list"]
+    if not all(isinstance(b, dict) and isinstance(b.get("id"), str) for b in base["tasks"]):
+        return ["every task in the baseline file must be an object with a text id"]
     for key in set(data) | set(base):
         if key != "tasks" and data.get(key) != base.get(key):
             problems.append(f"top-level field '{key}' changed; only status and evidence may change")
-    now = {t.get("id"): t for t in data["tasks"] if isinstance(t, dict)}
+    now = {t["id"]: t for t in data["tasks"] if isinstance(t, dict) and isinstance(t.get("id"), str)}
     for b in base["tasks"]:
         tid = b.get("id")
         if tid not in now:

@@ -35,6 +35,8 @@ Options:
                       attached them; check_kit.py runs with --screens, and
                       the run fails unless Blueprint's files or replies
                       cite the screenshots at both widths
+  --coded             the project is software: check_kit.py runs with
+                      --coded, so a kit without a security baseline fails
   --keep              keep the eval folder and transcripts
 
 How it works (see evals/README.md, "Behaviour evals"):
@@ -553,7 +555,8 @@ def run_once(args, stage, persona, number):
         print("RESULT FAIL: no kit was written")
     else:
         checker = os.path.join(stage, "skill", "scripts", "check_kit.py")
-        proc = subprocess.run([sys.executable, checker, kit] + (["--screens"] if args.screens else []),
+        flags = (["--coded"] if args.coded else []) + (["--screens"] if args.screens else [])
+        proc = subprocess.run([sys.executable, checker, kit] + flags,
                               capture_output=True, text=True)
         print(proc.stdout.strip())
         name, body = upkeep_section(kit)
@@ -616,6 +619,8 @@ def main():
     ap.add_argument("--allow-subagents", action="store_true",
                     help=f"add the {SUBAGENT_TOOL} tool, so fresh-eyes reviews can use a subagent")
     ap.add_argument("--screens", action="store_true")
+    ap.add_argument("--coded", action="store_true",
+                    help="the project is software: run check_kit.py with --coded")
     ap.add_argument("--keep", action="store_true")
     args = ap.parse_args()
     if args.runs < 1:

@@ -61,6 +61,47 @@ jobs:
           fi
           echo "OK: kit-missing-upkeep failed check_kit.py for the missing 'Keeping it running' section, as it must."
 
+      # Each check-* fixture's README.txt starts with its expectations, one per line:
+      #   expect: <exit code> [--flag ...] [| text the output must contain]
+      #   expect-tasks: <exit code> <tasks.json> [<baseline tasks.json>]   (paths inside the fixture)
+      - name: Readiness-check fixtures (check-*, as each README.txt expects)
+        run: |
+          bad=0
+          for dir in evals/fixtures/check-*/; do
+            dir=${dir%/}
+            n=0
+            if [ ! -f "$dir/README.txt" ]; then echo "FAIL: $dir has no README.txt"; bad=1; continue; fi
+            while IFS= read -r line; do
+              case "$line" in
+                "expect: "*)
+                  spec=${line#expect: }; text=""
+                  if [[ "$spec" == *" | "* ]]; then text=${spec#* | }; spec=${spec%% | *}; fi
+                  read -r want flags <<<"$spec"
+                  # shellcheck disable=SC2086
+                  got=0; out=$(python3 skill/scripts/check_kit.py "$dir" $flags 2>&1) || got=$?
+                  what="check_kit.py $dir $flags" ;;
+                "expect-tasks: "*)
+                  read -r want files <<<"${line#expect-tasks: }"; text=""
+                  args=(); for f in $files; do args+=("$dir/$f"); done
+                  got=0; out=$(python3 skill/scripts/check_tasks.py "${args[@]}" 2>&1) || got=$?
+                  what="check_tasks.py ${args[*]}" ;;
+                *) break ;;
+              esac
+              n=$((n + 1))
+              if [ "$got" != "$want" ]; then
+                echo "FAIL: $what exited $got, expected $want"; echo "$out"; bad=1
+              elif [ -n "$text" ] && ! grep -qF -- "$text" <<<"$out"; then
+                echo "FAIL: $what exited $got as expected, but its output lacks: $text"; echo "$out"; bad=1
+              elif grep -q "Traceback" <<<"$out"; then
+                echo "FAIL: $what crashed"; echo "$out"; bad=1
+              else
+                echo "OK: $what -> exit $got${text:+ (output has: $text)}"
+              fi
+            done < "$dir/README.txt"
+            if [ "$n" = 0 ]; then echo "FAIL: $dir/README.txt has no 'expect:' line"; bad=1; fi
+          done
+          exit "$bad"
+
       - name: Route budget (route_budget.py)
         run: python3 scripts/route_budget.py
 

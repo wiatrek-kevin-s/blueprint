@@ -2,7 +2,7 @@
 
 Kit version 1.0 · as of 2026-10-30 · prepared with Blueprint · size: small
 
-Setup: in Claude Code, save this file as CLAUDE.md in an empty project folder. Keep `04-final-review.md` for the end. First message: "Let's start: read the kit, tell me where things stand, and begin."
+Setup: in Claude Code, save this file as CLAUDE.md in an empty project folder. Keep `final-review.md` for the end. First message: "Let's start: read the kit, tell me where things stand, and begin."
 
 ## Instructions
 
@@ -17,7 +17,7 @@ You are building a command-line script that files scanned receipts into a folder
 - **Never without approval:** deleting or overwriting any receipt, adding dependencies, adding scope.
 - **Changes:** decide small matters, such as file layout and test data, and log them with the reason. A change to a one-way door is marked "Sent to Blueprint" in the log, and that task pauses.
 - **Context:** start a fresh chat when this one grows long. When compacting, keep the current task, its evidence, decisions, failed approaches and the next step.
-- **At the end:** offer the final review in a fresh chat, from `04-final-review.md`.
+- **At the end:** offer the final review in a fresh chat, from `final-review.md`.
 
 ## Brief
 

@@ -57,7 +57,10 @@ Probe (T-6 check 4): runs one known prompt and one question about loaded
 instructions, then prints the skills Claude Code listed at start, which copy
 of blueprint answered (its base directory) and the answer to the question.
 
-Exit 0 when every prompt (or the probe) passed, 1 otherwise. Without --keep,
+Exit 0 when the run meets the pass mark in evals/README.md ("Scoring": at
+least 90% overall, each route at least 85%, at most 1 negative triggering;
+PASS_OVERALL, PASS_ROUTE and MAX_NEGATIVES_TRIGGERED below) or the probe
+passed, 1 otherwise; every missed prompt is listed either way. Without --keep,
 the eval folders and their transcripts are deleted.
 
 Python 3 standard library only. Needs git and the claude command.
@@ -87,6 +90,11 @@ PROBE_QUESTION = ("Answer in two short lines. (1) Is any CLAUDE.md, other projec
                   "profile about the user in your context? Say yes or no only, with "
                   "no details.")
 DEFAULT_TOOLS = "Skill,Read,Glob,Grep,Bash,Write,Edit"
+# The pass mark, as evals/README.md ("Scoring") states it. The run exits 1
+# only below it, so one miss in 50 is listed but doesn't fail the run.
+PASS_OVERALL = 0.90
+PASS_ROUTE = 0.85
+MAX_NEGATIVES_TRIGGERED = 1
 # Variables a host Claude Code session passes to child processes that would
 # carry its context into the eval: an attached Claude project, memory, extra
 # directories and their CLAUDE.md files, and links to the parent session.
@@ -390,10 +398,39 @@ def main():
             shutil.rmtree(f, ignore_errors=True)
     shutil.rmtree(stage, ignore_errors=True)
     failed = [row["id"] for row in rows if not results[row["id"]][0]]
-    if failed or not rows:
-        print(f"FAIL: {len(failed)} of {len(rows)} prompts failed: {', '.join(failed) or 'no prompts ran'}")
+    if not rows:
+        print("FAIL: no prompts ran")
         return 1
+    if failed:
+        print(f"Missed: {len(failed)} of {len(rows)} prompts: {', '.join(failed)}")
+    misses = below_pass_mark(rows, results)
+    if misses:
+        for m in misses:
+            print(f"FAIL: {m}")
+        return 1
+    print(f"PASS: at or above the pass mark (overall {PASS_OVERALL:.0%}, each route "
+          f"{PASS_ROUTE:.0%}, at most {MAX_NEGATIVES_TRIGGERED} negative triggered)")
     return 0
+
+
+def below_pass_mark(rows, results):
+    """The pass-mark targets the run misses, in plain words; empty when it meets them."""
+    misses = []
+    passed = sum(1 for row in rows if results[row["id"]][0])
+    if passed / len(rows) < PASS_OVERALL:
+        misses.append(f"{passed} of {len(rows)} passed ({passed / len(rows):.0%}); "
+                      f"the pass mark is {PASS_OVERALL:.0%}")
+    routes = {}
+    for row in rows:
+        if row["should_trigger"]:
+            routes.setdefault(row["expected_route"], []).append(results[row["id"]][0])
+    for route, oks in sorted(routes.items()):
+        if sum(oks) / len(oks) < PASS_ROUTE:
+            misses.append(f"route {route}: {sum(oks)} of {len(oks)} passed; each route needs {PASS_ROUTE:.0%}")
+    triggered = sum(1 for row in rows if not row["should_trigger"] and not results[row["id"]][0])
+    if triggered > MAX_NEGATIVES_TRIGGERED:
+        misses.append(f"{triggered} negatives triggered Blueprint; at most {MAX_NEGATIVES_TRIGGERED} may")
+    return misses
 
 
 if __name__ == "__main__":
