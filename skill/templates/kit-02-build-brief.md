@@ -60,7 +60,7 @@ Checklist coverage: <each checklist item: D-n, F-n or "N/A: reason">
 
 ## Project settings
 
-<Claude Code, coded: the exact `.claude/settings.json` the first task writes, as of <DATE>, in a code block: deny reading `.env*` and secret folders, and forks (`Agent(fork)`); ask before this design's deploy, publish, migration and force-push commands; `"attribution": {"commit": "", "pr": "", "sessionUrl": false}` unless the person chose credit lines. Otherwise "None".>
+<Claude Code, coded: the exact `.claude/settings.json` the first task writes, as of <DATE>, in a code block: deny reading `.env*` and secret folders; `"env": {"CLAUDE_CODE_FORK_SUBAGENT": "0"}`, so workers start fresh, not as forks; ask before this design's deploy, publish, migration and force-push commands; `"attribution": {"commit": "", "pr": "", "sessionUrl": false}` unless the person chose credit lines. Otherwise "None".>
 
 ## Where the work happens
 
