@@ -1,6 +1,6 @@
 # <PROJECT NAME>, amendment <n>: <short title>
 
-<DATE> · Kit version <old> → <new>
+As of <DATE> · Kit version <old> → <new>
 
 <First paragraph: what changes, and which sections of the build brief it supersedes. Everything else stands.>
 

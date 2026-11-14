@@ -23,13 +23,13 @@ Nothing else is a source except evidence files the brief names (such as an audit
 
 ## Commands
 
-<Written by the first task and kept current: install, run, all tests, one test, lint, the smoke check.>
+<Coded: "Written by the first task and kept current: install, run, all tests, one test, lint, the smoke check." Not coded: the brief's smoke-check steps.>
 
 ## Start of every session
 
 1. Read the newest handoff note, then the task list.
 2. Check where work was last saved and that it matches the log.
-3. Run the smoke check in Commands (none before T-1 creates it).
+3. Run the smoke check in Commands, once it exists.
 4. Tell the person in two lines where things stand and what this session will do.
 5. Do this session's tasks one at a time, in order, respecting `depends_on`. Don't start a task whose inputs are missing.
 6. Write the handoff note as you go, not only at the end, in the log's format.
@@ -56,7 +56,7 @@ When compacting, keep: the current task and its checks, the evidence so far, thi
 
 <The policy the brief records (D-n), as what must be true.> Work is saved after every task, so a stopped session loses nothing. Any change can be rolled back. Secrets never go into the project's files or history, because history keeps them after deletion. History is never rewritten without the person's approval. You choose the commands.
 
-<Claude project only: deliver every output as a file and say where to save it, because chat files don't persist; give the person the updated progress log after every task and checkpoint.>
+<Claude project only: deliver every output as a file and say where to save it, because chat files don't persist; give the person the updated progress log after every task and checkpoint, and the updated Commands to paste into the instructions.>
 
 ## When to stop and ask
 

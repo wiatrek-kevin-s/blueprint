@@ -44,8 +44,8 @@ Appetite: <time>; if it runs out, cut <T-n> first and ask the person.
 
 ## Tasks
 
-| Task | Title | Done by | How | Expected | Status |
-|---|---|---|---|---|---|
+| Task | Title | Delivers | Done by | How | Expected | Status |
+|---|---|---|---|---|---|---|
 
 <The first task is a thin version that works end to end. "How" names who runs the check and what it needs; "Expected" is a visible pass mark.>
 

@@ -12,8 +12,8 @@ This kit lets a fresh Claude build <one-line description>, one session per chat.
 
 Use the brief's environment (<D-n>).
 
-- **Claude project:** create a new project (not the planning one), so it starts clean. Paste `project-instructions.md` into its instructions; add `build-brief.md`, `progress-log.md` and any `design-spec.md` to its knowledge; keep `final-review.md` for the end; turn on file creation and web search.
-- **Claude Code:** in <the project folder>, rename `project-instructions.md` to `CLAUDE.md`; create a `docs` folder and move the other kit files into it as they are (`build-brief.md`, `progress-log.md`, `tasks.json`, `final-review.md`<, `design-spec.md`>). Keep this file for yourself. Start Claude Code in <the project folder>.
+- **Claude project:** create a new project (not the planning one), so it starts clean. Paste `project-instructions.md` into its instructions; add `build-brief.md` or its parts, `progress-log.md` and any `design-spec.md` to its knowledge; keep `final-review.md` for the end; turn on file creation and web search.
+- **Claude Code:** in <the project folder>, rename `project-instructions.md` to `CLAUDE.md`; create a `docs` folder and move the other kit files into it as they are (`build-brief.md` or its parts, `progress-log.md`, `tasks.json`, `final-review.md`<, `design-spec.md`>). Keep this file for yourself. Start Claude Code in <the project folder>.
 
 ## First message
 

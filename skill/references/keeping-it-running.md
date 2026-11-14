@@ -2,7 +2,7 @@
 
 Every kit says how its result is looked after once it is built, because software decays, accounts expire and unattended agents can do harm. Read this in phase 4 of every route. The design decides each part below, and the kit records it in a `## Keeping it running` section.
 
-Size: small projects get 5 to 10 lines (owner, how updates are checked, what expires); medium and large projects get every part.
+Size: small projects get 5 to 10 lines (owner, how updates are checked, what expires, when to check the success measures); medium and large projects get every part.
 
 ## The seven parts
 

@@ -4,7 +4,7 @@ Goal: turn the reviewed design into a kit a fresh agent builds from without gues
 
 ## Readiness
 
-A kit is ready when `scripts/check_kit.py <kit folder>` passes (or its checklist is walked by hand where code can't run), the fresh-agent dry run in `references/06-review.md` finds no harmful one-way guess (one run for small projects), and the person approves. The script lists its checks, with reasons, at its top. Add `--coded` (coded) and `--screens` (3D ran), because the script can't tell.
+A kit is ready when `scripts/check_kit.py <kit folder>` passes (or its checklist is walked by hand where code can't run), the fresh-agent dry run in `references/06-review.md` finds no harmful one-way guess, and the person approves. The script lists its checks, with reasons, at its top. Add `--coded` (coded) and `--screens` (3D ran), because the script can't tell.
 
 ## Kit files (medium and large)
 
@@ -29,7 +29,6 @@ Deliver these exact names, so files drop into `docs/` unchanged; only the instru
 - **One source per fact:** each decision lives in one kit file; others cite its ID, so the kit can't contradict itself.
 - **Checks the builder can run:** every acceptance check names who runs it and what it needs (`how`) and a pass mark the builder can see, a number or exact output (`expected`), because "works well" can't be checked.
 - **Planning files kept apart:** the state file, research and drafts stay outside the kit folder; `START-HERE.md` names the kit files as the only sources; there is no all-in-one copy, because a second copy drifts.
-- **Decisions, not procedure:** step-by-step only where the scope line in `SKILL.md` allows.
 
 ## The build brief
 

@@ -9,7 +9,7 @@ Fixes:
 - Audit, Redesign and Operate small kits now name `final-review.md`, matching 3.0.1's file names.
 - Blueprint passes `--coded` and `--screens` to the kit check, which no longer guesses "coded" from `tasks.json`; a coded kit without a security baseline now fails.
 - The kit check finds the task title column exactly, accepts evidence files such as an audit report, HTML tag names and IP addresses in prose, a kit-lite renamed `CLAUDE.md`, and large briefs split into `build-brief-1.md`, `build-brief-2.md`…; it reports a file that isn't UTF-8 (exit 2) instead of crashing. The task check accepts an optional `delivers` field and fails on dependency loops.
-- One source for tasks and sessions; evidence files the brief names count as kit sources; small New projects say how their gates fit one round; Operate kits keep the full runbook at any size; undefined internal IDs removed.
+- The brief no longer repeats the session table or the Claude-project task checks; evidence files the brief names count as kit sources; small New projects say how G1, G2 and G3 share their one round, with Explore outside it; Operate kits keep the full runbook at any size; undefined internal IDs removed.
 - The behaviour eval runner finds the 3.0.1 brief name; the routing runner exits non-zero on a failure; CI no longer skips checks silently.
 
 Improvements:
@@ -21,6 +21,10 @@ Improvements:
 - Audit fix kits pin current behaviour with tests before changing it, and a full rewrite is a one-way door; Redesign kits record browser tests for the must-stay list first. The audit inventory covers backups and account holders. The security baseline names injection, escaping and failing closed.
 - Evals: `--no-skill`, `--runs`, `--person-model`, `--allow-subagents` and two new personas (one disagrees, one goes quiet); word counts per kit file.
 - SKILL.md "Decision guidance" keeps doors, jobs to be done and the Mom Test, appetite and boring technology; the rest are applied in their phase files, and `references/heuristics.md` is unchanged.
+
+Review:
+
+- A blind comparison of 3.0.1 and 3.1 rated 3.1 higher on all six criteria (mean 7.8 against 5.7). The paid evals are still to be rerun.
 
 Known limitations:
 

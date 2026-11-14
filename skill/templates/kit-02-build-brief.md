@@ -26,8 +26,8 @@ Appetite: <time>; if it runs out, cut <T-n, then T-m> first and ask the person.
 
 <Coded: one measurable statement each, with Given / When / Then checks for Must and Should, including an edge case and a failure case.>
 
-| ID | Requirement | Priority | Task |
-|---|---|---|---|
+| ID | Requirement | Priority |
+|---|---|---|
 
 ## Decisions
 
@@ -71,7 +71,7 @@ Every format real data or other people depend on, field by field, because changi
 
 ## Tasks
 
-<Claude Code: the tasks are in tasks.json. Claude project: the task table in the progress log.> Sessions and checkpoints: the project instructions. The first milestone is the thin version in the design.
+<Claude Code: the tasks are in tasks.json. Claude project: the task table in the progress log.> Sessions: the project instructions. The first milestone is the thin version in the design.
 
 ## Checkpoints
 

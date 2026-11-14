@@ -21,7 +21,7 @@ Chosen for how they change what you do, not for fame. Name one to the person onl
 | Design | Strict input (Thomson and Schinazi, 2023) | Reject malformed machine input clearly; don't guess | Be forgiving where people type |
 | Kit | Technical debt (Cunningham, 1992) | Log each deliberate shortcut with the event that repays it | Not a licence for messy work |
 | Kit | Kill criteria; hardest part first (Duke, 2022; Teller) | Write a dated stop-or-pivot condition; riskiest task first | Needs an owner who enforces it |
-| Review | Premortem (Klein, 2007) | Before freezing the kit, assume it failed; list causes as user, operator, attacker, maintainer; fix the likeliest | A solo agent invents threats; rank them |
+| Review | Premortem (Klein, 2007) | Before freezing the kit, assume it failed; list causes as user, owner, attacker, maintainer; fix the likeliest | A solo agent invents threats; rank them |
 | Review | Fresh-eyes review (Zenko, 2015; Anthropic, 2025) | Review in a fresh context; state the strongest case against the plan (Feynman, 1974) | Reviewers always find something; triage |
 | Kit | A way to verify (Anthropic, 2025) | Every task has a visible pass mark | A target gets gamed (Goodhart, 1975): check behaviour, not counts |
 | Kit | One task at a time (Anthropic, 2025) | Pass/fail task list, progress log, smoke check first | Tested mainly on web apps |

@@ -11,7 +11,7 @@ Every coded kit carries these ten items. Each gets one status: **applied** (wher
 3. Hard spending caps and narrowly scoped keys, because alerts don't stop a runaway bill.
 4. Separate test and live setups, preview copies included, which never reach live data; the builder never holds live credentials; backups proved by a restore, because agents have wiped live data.
 5. Few, popular, pinned dependencies, each checked to exist and be maintained before install, because AI tools invent package names that attackers then register.
-6. Managed services for sign-in and payments, never home-made password storage or stored card numbers; input only through the framework's escaping and parameterised queries; errors fail closed. These are the commonest serious failures.
+6. Managed services for sign-in and payments, never home-made password storage or stored card numbers; input reaches pages and queries only through the framework's escaping and parameterised queries; errors fail closed. These are the commonest serious failures.
 7. Legal triggers flagged for the person: privacy laws by where users live (such as EU, UK and US state laws), children's data, accessibility, app-store rules. This is not legal advice.
 8. Rate limits on sign-in, sign-up and AI calls, because bots find open forms within days.
 9. If the product uses AI: calls from the server, spend caps, least-privilege tools, confirmation before destructive actions, untrusted input kept apart from instructions.
