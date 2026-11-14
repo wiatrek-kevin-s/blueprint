@@ -1,6 +1,6 @@
 # Phase 3: decide
 
-Goal: settle every one-way door (G3). Question format: `SKILL.md`, "Who you're working with".
+Goal: settle every one-way door (G3). Question format: `SKILL.md`, "Who you're working with". Questions name things in plain words; decision IDs stay in the state file, or in brackets after the plain name.
 
 ## Rules
 
@@ -17,9 +17,9 @@ Goal: settle every one-way door (G3). Question format: `SKILL.md`, "Who you're w
 
 Ask before phase 6, because they shape the kit:
 
-- **Where the work happens:** a Claude project, Claude Code with a repository, or steps the person does on a platform. A one-way door.
-- **How work is saved:** git (and which host) or a local folder. A two-way door until real work exists, so default to the simplest that fits.
-- **Check-ins:** at every milestone, only on blockers, or at named checkpoints; and what the builder never does without asking.
+- **Where the work happens:** a Claude project, Claude Code with a repository, or steps the person does on a platform. A one-way door. Recommend Claude Code for anything coded, because only it can run the checks.
+- **How work is saved:** git (and which host) or a local folder. A two-way door until real work exists, so default to the simplest that fits; with git, AI credit lines in commits stay off unless the person wants them.
+- **Check-ins:** default to milestones and before anything irreversible (publishing, spending, deleting data, sending messages) only, because the builder works on its own between them and the person front-loaded their answers here; and what the builder never does without asking.
 
 Small projects fold these into their one round.
 
@@ -31,19 +31,21 @@ Record who decides each one-way door and approves checkpoints, because the build
 
 > **Round 1 of 2 · 3 questions · or "Decide the rest for me"**
 >
-> **1. Who can see members' phone numbers? (D-4, one-way: data already shared can't be unshared)**
+> **1. Who can see members' phone numbers?** Hard to undo: a number already shared can't be unshared.
 > a. Only organisers (Recommended): members asked for privacy, and organisers need them to call
 > b. All members: easier carpooling, but every member holds everyone's number
-> c. You decide · d. Explain more first
+> c. You decide
 >
-> **2. Where should the build happen? (D-1, one-way)**
-> a. Claude Code with a GitHub repository (Recommended): a web app needs files, tests and history
+> **2. Where should the building happen?** Hard to undo once work starts.
+> a. Claude Code, saved to GitHub (Recommended): a web app needs files, tests and history
 > b. A Claude project: fine for documents, awkward for a running app
-> c. You decide · d. Explain more first
+> c. You decide
 >
-> **3. When should the builder check in with you? (D-9, two-way)**
-> a. At three named checkpoints (Recommended): you see progress without daily questions
-> b. Only when blocked · c. You decide · d. Explain more first
+> **3. When should the builder check in with you?** Easy to change later.
+> a. At each milestone and before anything that can't be undone (Recommended): you try each finished part, and nothing goes live without you
+> b. Only when it is stuck · c. You decide
+>
+> Or ask me to explain any of these first.
 
 ## Gate G3
 

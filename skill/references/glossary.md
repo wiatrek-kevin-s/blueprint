@@ -40,6 +40,7 @@ Introduce a term when a decision needs it, because a list up front is forgotten.
 - **Security scanner**: finds known mistakes, leaked keys or bad packages.
 - **Prompt injection**: text that smuggles orders to an AI feature.
 - **Vendor lock-in**: a provider that is costly to leave.
+- **Open source**: code anyone may use, change and share, usually free; its licence sets the terms.
 - **Open-source licence**: terms for reusing code: permissive (MIT) or copyleft (GPL).
 - **One-way door**: a choice costly to undo; a two-way door is cheap to undo.
 - **Design token**: a named visual value, such as a colour, set once.

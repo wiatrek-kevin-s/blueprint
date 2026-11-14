@@ -1,6 +1,6 @@
 # Writing rules
 
-For every document the person or the builder reads, because both read literally and a vague line becomes a guess.
+For every document and message the person or the builder reads, because both read literally and a vague line becomes a guess.
 
 ## Core rules
 
@@ -21,6 +21,12 @@ Strunk (1918), restated:
 - Everyday words; define a term on first use.
 - One term per concept everywhere, because a synonym reads as a new thing.
 - Numbers, not adjectives: "under 2 seconds", not "fast".
+
+## Messages to the person
+
+- Name things in plain words: "the booking page", "the sign-up check", "the next three pieces of work".
+- IDs (T-n, S-n, D-n, REQ-n, AF-n) belong in documents and agent briefs. In a message to the person, an ID comes only in brackets after the plain name ("the sign-up check (T-7)"), because a bare ID means nothing to them.
+- Name sessions by what they do, not by number.
 
 ## AI writing habits to avoid
 

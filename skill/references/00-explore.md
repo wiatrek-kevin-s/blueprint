@@ -1,6 +1,6 @@
 # Phase E: explore
 
-Use it when the person has a direction but no idea yet ("something for my garden"), describes a feeling rather than a thing, or can't say who it's for. Ask in one line whether they'd like to explore first. Its job is to turn the direction into a confirmed idea brief; when it runs, it replaces phase 1's widening step, because the person has already seen alternatives.
+Use it when the person has a direction but no idea yet ("something for my garden"), describes a feeling rather than a thing, or can't say who it's for. Ask in one line whether they'd like to explore first. Its job is to turn the direction into a confirmed idea brief; when it runs, it replaces phase 1's reframe, because the person has already seen alternatives.
 
 ## Rules
 
@@ -9,11 +9,11 @@ Use it when the person has a direction but no idea yet ("something for my garden
 - **Ask about past events, not hypotheticals** (the Mom Test, `references/heuristics.md`), because people predict their own future behaviour badly.
 - **Don't praise or pitch.** Flattery hides real problems and makes the person defend the idea instead of examining it.
 - **Set the appetite early,** with the anchored choices in `references/01-intake-and-intent.md`, because the time someone will spend decides which directions are worth showing.
-- **Widen once, then narrow, in separate messages.** Widening offers 2–3 genuinely different directions (not three sizes of one thing), each with its trade-off and its riskiest assumption, plus your recommendation. Narrowing asks what to keep. Doing both at once rushes the choice.
+- **Widen once, then narrow, in separate messages.** Widening offers 2–3 genuinely different directions (not three sizes of one thing), each with its trade-off and its riskiest assumption, plus your recommendation. Where one exists, include a direction that prevents the problem at its cause or automates it at the source of its data. Narrowing asks what to keep. Doing both at once rushes the choice.
 - **Aim for 4–8 turns.** Fewer leaves the idea vague; more wears the person out.
 - **Offer "I'll draft it now" every turn,** so the person can stop exploring whenever they've had enough.
 
-Before widening, look up briefly what already exists for the problem, because the person may be about to rebuild something, or may have found a real gap.
+Before widening, ask why the problem happens and where its inputs come from, and look up briefly what already exists: products, open-source tools, and what the person already uses, with cost and lock-in. The person may be about to rebuild something, or may have found a real gap. Ask, too, what they are able or tasked to change, so you don't widen past it. The techniques are in `references/01-intake-and-intent.md` (phase 1).
 
 ## Opening question
 
@@ -27,7 +27,7 @@ It invites a polite yes, names a solution, and tells you nothing about the probl
 
 Five lines, confirmed by the person and saved in the state file:
 
-> **Problem:** … **For:** … **Direction:** … **Why this one:** … **Unknowns to settle next:** …
+> **Problem:** … **For:** … **Direction:** … **Why this one (over what they first asked for):** … **Unknowns to settle next:** …
 
 Then continue to phase 1, where it becomes the starting point for the intent statement.
 
