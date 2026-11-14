@@ -31,9 +31,10 @@ The `.claude/settings.json` the first task writes, as of 2026-11-14:
 ```json
 {
   "permissions": {
-    "deny": ["Read(./.env)", "Read(./.env.*)", "Read(./secrets/**)", "Agent(fork)"],
-    "ask": ["Bash(git push --force:*)"]
+    "deny": ["Read(./.env)", "Read(./.env.*)", "Read(./secrets/**)"],
+    "ask": ["Bash(git push --force *)"]
   },
+  "env": {"CLAUDE_CODE_FORK_SUBAGENT": "0"},
   "attribution": {"commit": "", "pr": "", "sessionUrl": false}
 }
 ```
