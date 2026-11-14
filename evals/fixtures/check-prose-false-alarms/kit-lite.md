@@ -73,4 +73,4 @@ The script reads and moves files in one folder the person names; it opens no net
 
 ## Definition of done
 
-Every task's check passes with evidence; the tests pass; the success measure is met on 200 sample scans. Then the final review.
+Every task's check passes with evidence; the tests pass; the success measure is met on 200 sample scans. Then the final review. Reading the text on receipts is out of scope for version 1.

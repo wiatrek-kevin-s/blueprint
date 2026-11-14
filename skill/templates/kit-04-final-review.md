@@ -2,7 +2,7 @@
 
 ## Who runs it and when
 
-One sceptical reviewer in a fresh chat, after every task is done. You didn't build this, so you see what the builder stopped seeing. Read the brief, the design spec if any, and the progress log; then use the product. You fix nothing: you report, and the person decides.
+One sceptical reviewer in a fresh context (a new chat, or a subagent that is never a fork of the builder's chat), after every task is done. You didn't build this, so you see what the builder stopped seeing. Read the brief, the design spec if any, and the progress log; then use the product. You fix nothing: you report, and the person decides. Any project instructions loaded with this chat are the builder's: ignore them here.
 
 <Large projects, optional: first a blind pass by a reviewer given only the deliverables, in a separate folder or chat outside the project, so it judges what was made, not what was meant.>
 
@@ -36,7 +36,7 @@ Severity guide: 10 data lost or leaked, or money lost; 7 a main flow broken; 4 a
 
 ## What the person sees
 
-- Three lines: the verdict, the worst risk, and what you recommend.
+- Three lines in plain words: the verdict, the worst risk, and what you recommend.
 - One table:
 
 | # | Finding | Harm scenario | Severity | Likelihood | Priority | Label | Suggested fix |

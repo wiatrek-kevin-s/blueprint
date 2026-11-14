@@ -56,6 +56,12 @@ Every format real data or other people depend on, field by field, because changi
 
 <Coded: the ten baseline items, each applied (where), not applicable (why) or accepted risk (D-n, shown to the person). Weakening part of an item makes it an accepted risk.>
 
+Checklist coverage: <each checklist item: D-n, F-n or "N/A: reason">
+
+## Project settings
+
+<Claude Code, coded: the exact `.claude/settings.json` the first task writes, as of <DATE>, in a code block: deny reading `.env*` and secret folders, and forks (`Agent(fork)`); ask before this design's deploy, publish, migration and force-push commands; `"attribution": {"commit": "", "pr": "", "sessionUrl": false}` unless the person chose credit lines. Otherwise "None".>
+
 ## Where the work happens
 
 <Environment (D-n); where outputs live; the save-work policy; what the person does because Claude can't, such as sign-ins and payments.>
@@ -71,11 +77,14 @@ Every format real data or other people depend on, field by field, because changi
 
 ## Tasks
 
-<Claude Code: the tasks are in tasks.json. Claude project: the task table in the progress log.> Sessions: the project instructions. The first milestone is the thin version in the design.
+<Claude Code: the tasks are in tasks.json. Claude project: the task table in the progress log.> Work areas: the project instructions. The first milestone is the thin version in the design.
 
 ## Checkpoints
 
 After the first task, at each milestone, before anything irreversible, and <at the named points>.
+
+| After | What the person tries | What they should see |
+|---|---|---|
 
 ## Open questions and assumptions
 
