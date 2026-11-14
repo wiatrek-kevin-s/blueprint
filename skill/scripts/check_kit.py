@@ -3,20 +3,22 @@
 
 Usage: python3 check_kit.py <kit folder> [--coded] [--screens]
 
-  --coded    the project is software: the brief needs a security baseline,
-             and a medium or large brief its "Checklist coverage:" line.
-             Only this flag sets it; having tasks.json does not, because a
-             Claude Code kit for a business plan has tasks.json too. A kit
-             with tasks.json checked without it prints a NOTE (not a fail),
-             and so does a coded one with tasks.json (built in Claude Code)
-             whose brief has no "Project settings" section.
+  --coded    the project is software: the brief (or kit-lite.md, at any
+             size) needs a security baseline and a filled "Checklist
+             coverage:" line, or a "Checklist coverage" heading with text
+             under it; an empty line fails. Only this flag sets it; having
+             tasks.json does not, because a Claude Code kit for a business
+             plan has tasks.json too. A kit with tasks.json checked without
+             it prints a NOTE (not a fail), and so does a coded kit of any
+             size whose brief has no "Project settings" section (write
+             "None" there for a kit not built in Claude Code).
   --screens  step 3D ran: the kit needs design-spec.md
 
 A large brief may be split into build-brief-1.md, build-brief-2.md, ...
 (in the kit folder or docs/): each part is held to the brief's word limit,
 and the required sections are looked for across the parts together.
 A small kit is project-instructions.md (CLAUDE.md in Claude Code, under
-600 words) plus kit-lite.md and final-review.md (or docs/ copies). Kits
+700 words) plus kit-lite.md and final-review.md (or docs/ copies). Kits
 from before 3.2 kept the instructions inside kit-lite.md, as its
 "Instructions" section, and may have renamed the whole file to CLAUDE.md;
 both still count as small kits.
@@ -25,11 +27,12 @@ Checks, each because a fresh builder can't ask what the planner meant:
   1. Required files and sections are present, and no required section is empty.
      The brief and kit-lite need "Keeping it running", because every kit
      says who looks after the result and how.
-  2. No template placeholders such as <PROJECT NAME> remain. Not
+  2. No template placeholders such as <PROJECT NAME> remain, however long
+     (a placeholder runs from "<" to ">" on one line). Not
      placeholders: common HTML tags written as real tags (<label>, </label>,
      <br/>, <input type="email" required>), one PascalCase component name
      (<Button>), and a "<" followed by a space or by a number and more words
-     ("< 3 letters"), which is a comparison in prose.
+     ("< 3 letters", "<= 3"), which is a comparison in prose.
   3. Every task has a title, who does it, and an acceptance check with an
      expected result (tasks.json, "### T-n:" headings, or a task table with
      a "Title" column); tasks.json passes check_tasks.py, which also rejects
@@ -90,8 +93,8 @@ SECTIONS = {
     "lite": ["Brief", "Keeping it running", "Tasks", "Progress log",
              "Definition of done"],
 }
-WORD_LIMITS = {"brief": 8000, "instructions": 1200, "lite": 3000, "lite_instructions": 600}
-LITE_INSTRUCTIONS_LIMIT = 600
+WORD_LIMITS = {"brief": 8000, "instructions": 1200, "lite": 3000, "lite_instructions": 700}
+LITE_INSTRUCTIONS_LIMIT = 700
 
 # Lowercase HTML tags a kit may name in prose ("add a <label>"). Words the
 # templates use as placeholders, such as <time>, <source> and <title>, are
@@ -112,7 +115,8 @@ BOOLEAN_ATTRS = {"allowfullscreen", "async", "autofocus", "autoplay", "checked",
                  "hidden", "inert", "ismap", "loop", "multiple", "muted",
                  "nomodule", "novalidate", "open", "playsinline", "readonly",
                  "required", "reversed", "selected"}
-PLACEHOLDER = re.compile(r"<([^<>\n]{1,80})>")
+# Bounded by the line, not by length: a long template placeholder is still one.
+PLACEHOLDER = re.compile(r"<([^<>\n]+)>")
 # Real tag syntax only: a tag name, then name="value", name='value' or a
 # boolean attribute, then an optional "/".
 TAG = re.compile(r"""/?([a-z][a-z0-9]*)((?:\s+[a-z][a-z0-9_:.-]*(?:\s*=\s*(?:"[^"]*"|'[^']*'))?)*)\s*/?""")
@@ -245,8 +249,8 @@ def title_col(header):
 
 def is_placeholder(inner):
     """Whether the text between < and > is an unfilled template placeholder."""
-    if inner[:1].isspace():
-        return False  # "< 3 letters": a comparison in prose
+    if inner[:1].isspace() or inner[:1] == "=":
+        return False  # "< 3 letters", "<= 3": a comparison in prose
     if inner[:1].isdigit() and re.search(r"\s", inner):
         return False  # "<3 letters shows nothing; with >"; <1.0> stays flagged
     if inner.startswith(("!--", "http://", "https://", "mailto:")):
@@ -260,6 +264,29 @@ def is_placeholder(inner):
         if not attr.group(2) and attr.group(1) not in BOOLEAN_ATTRS:
             return True  # <input file>, <section name>: words, not attributes
     return False
+
+
+def coverage_state(lines, secs):
+    """'filled', 'empty' or 'missing': the Checklist coverage, as a
+    "Checklist coverage:" line with text after it (or a list or table right
+    below it), or as a "Checklist coverage" heading with text under it."""
+    found = "missing"
+    for i, (h, lv, body) in enumerate(secs):
+        if matches(h, "Checklist coverage"):
+            if section_text(secs, i).strip():
+                return "filled"
+            found = "empty"
+    for i, line in enumerate(lines):
+        m = COVERAGE.search(line)
+        if not m or HEADING.match(line):
+            continue
+        if line[m.end():].strip(" \t*_"):
+            return "filled"
+        below = next((ln.strip() for ln in lines[i + 1:] if ln.strip()), "")
+        if re.match(r"([-*+|]|\d+\.)\s", below):
+            return "filled"
+        found = "empty"
+    return found
 
 
 def brief_parts(kit):
@@ -356,15 +383,18 @@ def run(argv):
                 fail(name, f"section '{alts[0]}' is missing")
             elif not section_text(secs, idx[0]).strip():
                 fail(name, f"section '{alts[0]}' is empty")
-        if role == "brief" and coded:
-            base = [i for i, s in enumerate(secs) if matches(s[0], "Security baseline")]
-            if base and not any(COVERAGE.search(section_text(secs, i)) for i in base):
+        if role in ("brief", "lite") and coded:
+            coverage = coverage_state([ln for n in group for ln in strip_code(texts[n])], secs)
+            if coverage == "missing":
                 fail(name, "the Security baseline has no 'Checklist coverage:' line "
                      "(every checklist item: D-n, F-n or 'N/A: reason')")
-            if "tasks" in files and not any(matches(s[0], "Project settings") for s in secs):
+            elif coverage == "empty":
+                fail(name, "the 'Checklist coverage:' line is empty (list every checklist "
+                     "item: D-n, F-n or 'N/A: reason')")
+            if not any(matches(s[0], "Project settings") for s in secs):
                 notes.append("NOTE: the brief has no 'Project settings' section: a coded kit "
                              "built in Claude Code should carry the exact .claude/settings.json "
-                             "its first task writes")
+                             "its first task writes (write \"None\" there otherwise)")
         for n, text in texts.items():
             if role in WORD_LIMITS and words(text) > WORD_LIMITS[role]:
                 fail(n, f"{words(text):,} words; the budget is under {WORD_LIMITS[role]:,}"

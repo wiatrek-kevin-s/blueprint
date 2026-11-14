@@ -24,7 +24,7 @@ Every prompt and fixture is invented and generic.
 | `v2-state.md` | A Blueprint 2 state file at phase 3 with no Route line; resume prompts must continue it as route New |
 | `delivered-kit/` | A delivered small kit with its state file; Amend prompts change it. It keeps the numbered name `04-final-review.md`, so the check still accepts kits from before 3.0.1 |
 | `empty-repo/` | A repository with only a title README; routes to New |
-| `kit-good/` | A small kit that passes `check_kit.py`, including a filled "Keeping it running" section; its final review has the current name, `final-review.md` |
+| `kit-good/` | A small coded kit that passes `check_kit.py` with and without `--coded`, including a filled "Keeping it running" section, a Checklist coverage line and a Project settings block; its final review has the current name, `final-review.md` |
 | `kit-missing-upkeep/` | The same kit without "Keeping it running"; passes Blueprint 2's check and must fail Blueprint 3's, which requires the section |
 | `check-*/` | Regression fixtures for `check_kit.py` and `check_tasks.py`, one behaviour each (below). CI runs every one. |
 | `audit-sample/` | A tiny command-line project with planted problems for Audit evals; its key is `keys/audit-sample.md` |
@@ -44,14 +44,23 @@ CI fails on any other exit code, missing text or traceback. Exit codes: 0 ready,
 | `check-blank-title/` | Not ready: a task row has no title |
 | `check-brief-parts/` | Ready: a brief split into `build-brief-1.md` and `build-brief-2.md` |
 | `check-brief-parts-gap/` | Not ready: a part is missing, a section is missing across the parts, and a part is over the word limit |
+| `check-coded-coverage/` | Not ready with `--coded`: a medium coded brief with no "Checklist coverage:" line, and a NOTE for its missing Project settings; ready without flags, with the note to re-run with `--coded` |
 | `check-coded-flag/` | Ready without flags, with a note to re-run with `--coded` for software; not ready with `--coded` (no security baseline) |
+| `check-coded-full/` | Ready with `--coded`: a medium coded brief with its Checklist coverage line and Project settings block |
 | `check-evidence-files/` | Ready: an audit report and an amendment dated once near the top |
 | `check-html-in-prose/` | Ready: HTML tags such as `<label>` named in prose |
 | `check-ip-address/` | Ready: `127.0.0.1` is not a version number |
+| `check-lite-coded-gaps/` | Small coded kit: not ready with `--coded` (an empty "Checklist coverage:" line), with a NOTE for its missing Project settings; ready without flags |
+| `check-lite-coded-heading/` | Ready with `--coded`: a small kit's Checklist coverage under its own heading, as a list |
+| `check-lite-coded-no-coverage/` | Not ready with `--coded`: a small coded kit with no Checklist coverage |
+| `check-lite-long-instructions/` | Not ready: a small kit's instructions file over 700 words |
+| `check-lite-no-instructions/` | Not ready: a 3.2 `kit-lite.md` with no instructions file beside it |
+| `check-lite-pair-docs/` | Ready as a small kit: the instructions in `CLAUDE.md`, `kit-lite.md` and `final-review.md` in `docs/` |
 | `check-lite-renamed/` | Ready as a small kit: `kit-lite.md` renamed to `CLAUDE.md` |
 | `check-not-utf8/` | Exit 2: a file not saved as UTF-8 |
+| `check-placeholder-long/` | Not ready: a template placeholder longer than 80 characters left in the kit |
 | `check-placeholder-like-tag/` | Not ready: placeholders that start with a tag word, such as `<header row, separator, …>` and `<section name>`, beside real tags |
-| `check-prose-false-alarms/` | Ready: `< 3` comparisons, a `<Button>` component, "2 hours per month", a version in Sources, and a task with one row per check |
+| `check-prose-false-alarms/` | Ready: `< 3`, `<3 …` and `<=` comparisons on long lines, a `<Button>` component, "2 hours per month", a version in Sources, and a task with one row per check |
 | `check-tasks-cycle/` | Not ready: `depends_on` loops; `check_tasks.py` fails too |
 | `check-tasks-delivers/` | Ready with `delivers` lists; `check_tasks.py` fails when the builder changes `delivers` against the baseline |
 | `check-undated-version/` | Not ready: a version without an "as of" date in a kit file |

@@ -7,7 +7,7 @@ Kit version <1.0> · as of <DATE>
 - **Work area:** <first area, not started> · **Task:** <T-1> · **Workers running:** <none, or which task>
 - **Next step:** <one line> · **Waiting on the person:** <nothing, or what>
 - **Homework received:** <H-n: where it is saved>
-- **Saved for the next checkpoint:** <questions in plain words, each with a recommended answer>
+- **Saved for the next checkpoint:** <questions in plain words, each with a recommended answer; dated checks>
 - **Parked:** <task, why, both attempts>
 
 ## Tasks
@@ -31,7 +31,7 @@ Status: raised, approved, declined, or Sent to Blueprint (touches a one-way door
 
 ## Handoff notes
 
-Newest first, written as you go: at the end of each work area, before a compaction, and when a worker is replaced. Mark each claim verified (checked by you) or unverified.
+Newest first, written as you go: at the end of each work area, when your chat grows long or before a compaction, and when a worker is replaced. Mark each claim verified (checked by you) or unverified.
 
 ### <Work area or task> (<DATE>)
 

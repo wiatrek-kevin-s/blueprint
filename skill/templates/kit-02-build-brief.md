@@ -12,7 +12,7 @@ Each fact lives in one section; elsewhere, cite its ID (D-n, REQ-n, F-n, T-n), s
 
 Users: <who>. Success measures: <observable results>. Non-goals: <what it deliberately won't do>.
 
-Appetite: <time>; if it runs out, cut <T-n, then T-m> first and ask the person.
+Appetite: <time>; if it runs out, cut <T-n, then T-m> in that order, carry on, and raise it at the next checkpoint (unless a cut touches a one-way door).
 
 ## Context
 
@@ -36,7 +36,7 @@ Appetite: <time>; if it runs out, cut <T-n, then T-m> first and ask the person.
 
 <Each one-way door: the options and why this one won.>
 
-Decide yourself, and log with the reason, two-way details within this design, such as <exact versions within the named stack, file layout, test data, internal names>. Ask before touching a one-way door, the scope, cost, security or the intent.
+Decide yourself, and log with the reason, two-way details within this design, such as <exact versions within the named stack, file layout, test data, internal names>.
 
 ## Rules and examples
 
@@ -60,11 +60,11 @@ Checklist coverage: <each checklist item: D-n, F-n or "N/A: reason">
 
 ## Project settings
 
-<Claude Code, coded: the exact `.claude/settings.json` the first task writes, as of <DATE>, in a code block: deny reading `.env*` and secret folders; `"env": {"CLAUDE_CODE_FORK_SUBAGENT": "0"}`, so workers start fresh, not as forks; ask before this design's deploy, publish, migration and force-push commands; `"attribution": {"commit": "", "pr": "", "sessionUrl": false}` unless the person chose credit lines. Otherwise "None".>
+<Claude Code, coded: the exact `.claude/settings.json` the first task writes, as of <DATE>, in a code block: deny reading `.env*` and secret folders; `"env": {"CLAUDE_CODE_FORK_SUBAGENT": "0"}`, so workers start fresh; ask before this design's deploy, publish, migration and force-push commands; `"attribution": {"commit": "", "pr": "", "sessionUrl": false}` unless the person chose credit lines. Otherwise "None".>
 
 ## Where the work happens
 
-<Environment (D-n); where outputs live; the save-work policy; what the person does because Claude can't, such as sign-ins and payments.>
+<Environment (D-n); where outputs live; the save-work policy; what the person does because Claude can't, such as sign-ins and payments; files kept outside the project, such as a public project's audit report.>
 
 ## Keeping it running
 

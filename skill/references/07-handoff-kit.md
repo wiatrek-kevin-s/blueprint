@@ -20,7 +20,7 @@ A kit is ready when `scripts/check_kit.py <kit folder>` passes (or its checklist
 
 **Large projects** split the brief as `build-brief-1.md`, `build-brief-2.md`…, each under 8,000 words, all named wherever the brief is.
 
-**Small projects,** from `templates/kit-lite.md`: `project-instructions.md` (its Instructions part, under 600 words), `kit-lite.md` (the rest: brief, task table, progress log, definition of done) and `final-review.md`. Claude Code: the first becomes `CLAUDE.md`, the others go into `docs/`. Claude project: paste the first; add `kit-lite.md` to knowledge.
+**Small projects,** from `templates/kit-lite.md`: `project-instructions.md` (its Instructions part, under 700 words), `kit-lite.md` (the rest: brief, with Project settings when coded, task table, progress log, definition of done) and `final-review.md`. Claude Code: the first becomes `CLAUDE.md`, the others go into `docs/`. Claude project: paste the first; add `kit-lite.md` to knowledge.
 
 Deliver these exact names, so files drop into `docs/` unchanged; only the instructions file is renamed, because a file delivered as `CLAUDE.md` takes over whichever Claude Code session it lands in. In Claude Code the builder renames and moves them itself.
 
@@ -29,6 +29,7 @@ Deliver these exact names, so files drop into `docs/` unchanged; only the instru
 - **One source per fact:** each decision lives in one kit file; others cite its ID, so the kit can't contradict itself.
 - **Checks the builder can run:** every acceptance check names who runs it and what it needs (`how`) and a pass mark the builder can see, a number or exact output (`expected`), because "works well" can't be checked.
 - **Planning files kept apart:** the state file, research and drafts stay outside the kit folder; `START-HERE.md` names the kit files as the only sources; there is no all-in-one copy, because a second copy drifts.
+- **Kept outside the project:** no setup step moves in a file the brief keeps outside the project, such as a public project's audit report.
 
 ## The build brief
 
@@ -48,14 +49,14 @@ From phase 3's answer, the kit states what must be true and the builder chooses 
 
 ## Project instructions
 
-Under 1,200 words, because they load at the start of every session. Fill every section of `templates/kit-01-project-instructions.md`; take the work-area table's task IDs from the task list. The builder's main session coordinates fresh worker subagents (never forks) and runs each check itself, so the person is needed only at checkpoints, before anything irreversible, for homework and for one-way changes; in a Claude project they relay files.
+Under 1,200 words, because they load at the start of every session. Fill every section of `templates/kit-01-project-instructions.md`; take the work-area table's task IDs from the task list. The builder coordinates fresh worker subagents and runs each check itself, so the person is needed only at checkpoints, before anything irreversible, for homework and one-way changes; in a Claude project they relay files.
 
 ## Final review
 
-One sceptical reviewer in a fresh context (never a fork) runs the product, scores each finding and fixes nothing; the person approves a fix set, which becomes `R-n` tasks with one re-check. Lenses: `references/type-adaptations.md`; steps and scoring: `templates/kit-04-final-review.md`.
+One sceptical reviewer in a fresh context runs the product, scores each finding and fixes nothing; the person approves a fix set, which becomes `R-n` tasks with one re-check. Lenses: `references/type-adaptations.md`; steps and scoring: `templates/kit-04-final-review.md`.
 
 ## Gate G5 and delivery
 
 Run the readiness check and the dry run; fix what they find; walk the person through the tasks, checkpoints and what they'll be asked; get their approval. Lead the approval message with one screen, in plain words: the intent, the one-way decisions, the first three pieces of work, the checkpoints and any accepted risk. Deliver each kit file as a separate file, under the names above, and give them the final state file for later amendments (kept outside the project folder).
 
-End the final message with a numbered **Your next steps** block using real names and the project folder (ask for it at approval if unknown), because the person follows it literally. Claude Code: do "Before you start" (in `START-HERE.md` or `kit-lite.md`); put every kit file except `START-HERE.md` into `<folder>`, the state file elsewhere; start Claude Code there and send the first message. Claude project: what to create, paste and add, and the first message.
+End the final message with a numbered **Your next steps** block using real names and the project folder (ask for it at approval if unknown), because the person follows it literally. Claude Code: do "Before you start" (in `START-HERE.md` or `kit-lite.md`); put every kit file except `START-HERE.md` and those kept outside the project into `<folder>`, the state file elsewhere; start Claude Code there and send the set-up message once; after any stop, "Continue the build." Claude project: what to create, paste and add, and the first message.
