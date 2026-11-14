@@ -13,4 +13,4 @@ Known contrast failures against WCAG 2.2 level AA (4.5:1 for normal text), ratio
 | 3 | Links (`a`) | `#7fb3ff` on `#ffffff` | 2.14:1 | `styles.css:39` |
 | 4 | Footer text | `#b5b5b5` on `#f2f2f2` | 1.83:1 | `styles.css:44` |
 
-Pairs that pass: body text `#333333` on `#ffffff` (12.63:1) and header text `#ffffff` on `#2e5e4e` (7.43:1).
+Pairs that pass: body text `#333333` on `#ffffff` (12.63:1) and header text and header links `#ffffff` on `#2e5e4e` (7.43:1; `header a` at `styles.css:15` overrides failure 3, so only links outside the header fail). Ratios checked against the fixture on 2026-11-14.

@@ -2,7 +2,7 @@
 
 As of <DATE> · Kit version <old> → <new>
 
-<First paragraph: what changes, and which sections of the build brief it supersedes. Everything else stands.>
+<First paragraph, in plain words: what changes, and which sections of the build brief it supersedes. Everything else stands.>
 
 ## What changed
 
@@ -29,4 +29,8 @@ As of <DATE> · Kit version <old> → <new>
 
 ## What to replace in the execution project
 
-<Exact files to replace, and the message to send in the execution project, e.g. "The build brief has been amended (version 1.1). Read amendment 1 in the progress log, then continue.">
+<For the person, in plain words: exact files to replace, and where to paste the message below.>
+
+## Message for the builder
+
+<One paste-ready message to the builder's coordinator: what was decided and why; the new kit version and the sections that changed; which task to resume or retry, and how; what it now decides itself without asking. For example: "The build brief is now version 1.1 (amendment 1, in the progress log). The receipt month comes from the date in the file name, not the file's own date (D-4). Retry the sorting task (T-2) with a fresh worker, then continue with the rest; the next check-in with the person is the first milestone.">
