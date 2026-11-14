@@ -12,8 +12,8 @@ This kit lets a fresh Claude build <one-line description>, one session per chat.
 
 Use the brief's environment (<D-n>).
 
-- **Claude project:** create a new project (not the planning one), so it starts clean. Paste `project-instructions.md` into its instructions; add `build-brief.md`, `progress-log.md` and any `design-spec.md` to its knowledge; keep `final-review.md` for the end; turn on file creation and web search.
-- **Claude Code:** in <the project folder>, rename `project-instructions.md` to `CLAUDE.md`; create a `docs` folder and move the other kit files into it as they are (`build-brief.md`, `progress-log.md`, `tasks.json`, `final-review.md`<, `design-spec.md`>). Keep this file for yourself. Start Claude Code in <the project folder>.
+- **Claude project:** create a new project (not the planning one), so it starts clean. Paste `project-instructions.md` into its instructions; add `build-brief.md` or its parts, `progress-log.md` and any `design-spec.md` to its knowledge; keep `final-review.md` for the end; turn on file creation and web search.
+- **Claude Code:** in <the project folder>, rename `project-instructions.md` to `CLAUDE.md`; create a `docs` folder and move the other kit files into it as they are (`build-brief.md` or its parts, `progress-log.md`, `tasks.json`, `final-review.md`<, `design-spec.md`>). Keep this file for yourself. Start Claude Code in <the project folder>.
 
 ## First message
 
@@ -23,7 +23,7 @@ Each later session: a new chat, then "Continue with the next session."
 
 ## Kit files
 
-Only these files count; planning notes and drafts don't: `project-instructions.md` (how Claude works; `CLAUDE.md` in Claude Code), `build-brief.md` (the plan), `progress-log.md` (what has happened), `tasks.json` (the tasks; in a Claude project, a table in the log), `final-review.md` (the review at the end) and `design-spec.md` (the look, if any).
+Only these files count; planning notes and drafts don't: `project-instructions.md` (how Claude works; `CLAUDE.md` in Claude Code), `build-brief.md`, or `build-brief-1.md`, `build-brief-2.md`… for large projects (the plan), `progress-log.md` (what has happened), `tasks.json` (the tasks; in a Claude project, a table in the log), `final-review.md` (the review at the end) and `design-spec.md` (the look, if any), plus evidence files the brief names.
 
 ## How it will work
 

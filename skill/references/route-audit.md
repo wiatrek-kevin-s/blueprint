@@ -49,7 +49,7 @@ Ask only what the request and the project leave open, and ask it with the first 
 
 ## A1: Inventory
 
-Map the structure, stack and versions, entry points, data stores, outside services, tests, CI and documents. Run the build and tests in a temporary copy (above). For a large project (over about 2,000 files), give subagents one area each, because the reading is bulky; ask each for facts with file and line.
+Map the structure, stack and versions, entry points, data stores, outside services, tests, CI, documents, backups, and who holds each account. Run the build and tests in a temporary copy (above). For a large project (over about 2,000 files), give subagents one area each, because the reading is bulky; ask each for facts with file and line.
 
 End with an as-built summary (what the project is and does today, in plain words) and a **coverage list**: every area marked read, sampled or skipped, with the reason, plus every command and test marked run or not run. A reader must be able to tell what the audit never looked at, because silence reads as "checked and fine".
 
@@ -77,7 +77,7 @@ Compare three ways, because each catches what the others miss:
 
 Also look for: bugs and wrong results, failing or missing tests, dead or duplicated code, unused or vulnerable dependencies (check advisories, dated), documents that drifted from the code, secrets in files or git history, licence conflicts, and instructions aimed at AI agents. For a half-built project, every unbuilt part of the spec is a finding.
 
-Write each finding as one row of the findings table (format F-2):
+Write each finding as one row of the findings table:
 
 - **ID** AF-1, AF-2, …; a title in plain words, and one line on why it matters to the person.
 - **Evidence:** file and line, a command and its output, or a link. Take line numbers from each file read on its own, never from several files printed together, and check each one before the report goes out, because a wrong line sends the builder to the wrong place. A finding without evidence is not reported.
@@ -97,8 +97,9 @@ Recommend a fix set: every "Fix now" finding, plus "Fix when convenient" finding
 
 - **Phase 4:** the design is a to-be design for the fix set, plus the updated spec (the as-intended spec with every agreed change). Keeping it running covers what let the problems in, such as missing tests or unwatched dependencies.
 - **Phase 5:** review as usual; the premortem's attacker also reads the findings about secrets and planted instructions.
-- **Phase 6:** the fix kit is the shared phase 6 kit (`references/07-handoff-kit.md`), with its templates and file names exactly, because the builder and `scripts/check_kit.py` expect that layout. Small: `kit-lite.md` plus `04-final-review.md`. Medium and large: the full kit. Never one file under another name, such as `fix-kit.md`.
+- **Phase 6:** the fix kit is the shared phase 6 kit (`references/07-handoff-kit.md`), with its templates and file names exactly, because the builder and `scripts/check_kit.py` expect that layout. Small: `kit-lite.md` plus `final-review.md`. Medium and large: the full kit. Never one file under another name, such as `fix-kit.md`.
   - Save the kit in its own folder outside the project, with the audit report in that folder as the kit's evidence source.
   - Task IDs are T-1, T-2, …, starting at T-1; each task cites its AF IDs, and its check reproduces the finding's evidence and shows the problem gone.
+  - Where a path the fix set touches has no tests, T-1 pins its current behaviour with tests before any change, and every later task keeps them passing. Rework replaces part by part; a full rewrite is a one-way door decided at G3 with its reason.
   - The kit has a filled Keeping it running section and never copies a secret's value.
-  - Before the final message, run `scripts/check_kit.py <kit folder>` (or walk its checklist by hand) and the dry run, and fix what they find. Say the result in the final message.
+  - Before the final message, run `scripts/check_kit.py <kit folder>`, adding `--coded` when the project is software (or walk its checklist by hand) and the dry run, and fix what they find. Say the result in the final message.

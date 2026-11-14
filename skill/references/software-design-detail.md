@@ -11,7 +11,7 @@ Every coded kit carries these ten items. Each gets one status: **applied** (wher
 3. Hard spending caps and narrowly scoped keys, because alerts don't stop a runaway bill.
 4. Separate test and live setups, preview copies included, which never reach live data; the builder never holds live credentials; backups proved by a restore, because agents have wiped live data.
 5. Few, popular, pinned dependencies, each checked to exist and be maintained before install, because AI tools invent package names that attackers then register.
-6. Managed services for sign-in and payments; no home-made password storage or stored card numbers, because those are the commonest serious failures.
+6. Managed services for sign-in and payments, never home-made password storage or stored card numbers; input reaches pages and queries only through the framework's escaping and parameterised queries; errors fail closed. These are the commonest serious failures.
 7. Legal triggers flagged for the person: privacy laws by where users live (such as EU, UK and US state laws), children's data, accessibility, app-store rules. This is not legal advice.
 8. Rate limits on sign-in, sign-up and AI calls, because bots find open forms within days.
 9. If the product uses AI: calls from the server, spend caps, least-privilege tools, confirmation before destructive actions, untrusted input kept apart from instructions.
@@ -22,7 +22,6 @@ Every coded kit carries these ten items. Each gets one status: **applied** (wher
 - **Automated scanners** in the definition of done: secret scanning before anything is saved, dependency audits, static analysis on every change.
 - **Click-through tests the person runs,** written as plain steps with the expected result, one per access rule: "Sign in as A, copy the address of A's item, sign in as B, open it: you see 'not allowed'."
 - **Browser tests** (Playwright) for web interfaces, so the click-throughs repeat on every change.
-- **The final review** in a fresh context (`references/07-handoff-kit.md`).
 
 ## Default stacks (as of 2026-11-03)
 
@@ -45,4 +44,4 @@ Re-check names and versions before recommending one, and pin versions at build t
 
 ## Conventions and version control (policy only)
 
-The brief states what must be true and the builder chooses the tools and commands, because it already knows git. Work is saved and pushed after every task, so nothing is lost if a session stops; any change can be rolled back; secrets are never committed, because history keeps them after deletion; history is never rewritten without the person's approval, because rewriting can destroy work. One formatter and linter run in the definition of done.
+The brief states what must be true and the builder chooses the tools and commands, because it already knows git. Work is saved and pushed after every task, so nothing is lost if a session stops; any change can be rolled back; secrets are never committed, because history keeps them after deletion; history is never rewritten without the person's approval, because rewriting can destroy work. One formatter and linter run in the definition of done. From the first milestone, rules that can't bend are enforced by tools, not only written: checks run on every push (tests, linter, secret scan, dependency audit); the code host blocks pushed secrets and protects the live branch; in Claude Code, project settings deny reading secret files and ask before publishing or deploying.

@@ -14,7 +14,7 @@ Use with `references/05-design-doc.md` and the seams in `references/02-landscape
 
 The brief carries a requirements list, because each requirement then has an owner task and a test:
 
-- An ID (`REQ-001`), one measurable statement and a priority: Must, Should, Could, or Won't this time.
+- An ID (`REQ-1`), one measurable statement and a priority: Must, Should, Could, or Won't this time.
 - Must and Should get Given / When / Then checks, with at least one edge case and one failure case.
 - Speed, availability and accessibility get numbers ("under 2 seconds for 10,000 rows"), not adjectives.
 - Every task lists the IDs it delivers, and every ID appears in a task, so nothing is quietly dropped.

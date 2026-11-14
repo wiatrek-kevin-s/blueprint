@@ -26,4 +26,4 @@ The execution kit tells the executing project to stop and raise a **change reque
 
 ## Learning
 
-Every amendment names its cause: unstated intent, an unknown unknown that the decision map missed, a calibration miss, a premature solution, stale research, an unchallenged assumption, or sequencing that implied rework. If a cause recurs, add the missing item to the standard seams in `02-landscape.md` or the question bank in `03-questioning.md`, and say so to the person.
+Every amendment names its cause: unstated intent, an unknown unknown that the decision map missed, a calibration miss, a premature solution, stale research, an unchallenged assumption, or sequencing that implied rework. If a cause recurs, tell the person and suggest they report it on Blueprint's repository, so the seams in `02-landscape.md` can be updated.

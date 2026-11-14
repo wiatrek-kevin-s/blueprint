@@ -26,7 +26,7 @@ Blueprint follows the discipline it writes into kits: long chats drift. At the p
 
 ## Without subagents
 
-Research in sequence yourself. For reviews, ask the person to paste the review prompt into a new chat (a truly fresh reader) and return the answer; only if they decline, review it yourself and label it a self-review, because a reader who saw the reasoning misses the gaps.
+Research in sequence yourself. For reviews, within the chore budget (none for small projects, so review it yourself and label it), ask the person to paste the review prompt into a new chat (a truly fresh reader) and return the answer; only if they decline, review it yourself and label it a self-review, because a reader who saw the reasoning misses the gaps.
 
 ## Documents
 

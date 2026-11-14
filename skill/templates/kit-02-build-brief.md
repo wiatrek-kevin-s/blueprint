@@ -12,6 +12,8 @@ Each fact lives in one section; elsewhere, cite its ID (D-n, REQ-n, F-n, T-n), s
 
 Users: <who>. Success measures: <observable results>. Non-goals: <what it deliberately won't do>.
 
+Appetite: <time>; if it runs out, cut <T-n, then T-m> first and ask the person.
+
 ## Context
 
 <What exists today, the constraints, and what research found, with sources and dates.>
@@ -24,8 +26,8 @@ Users: <who>. Success measures: <observable results>. Non-goals: <what it delibe
 
 <Coded: one measurable statement each, with Given / When / Then checks for Must and Should, including an edge case and a failure case.>
 
-| ID | Requirement | Priority | Task |
-|---|---|---|---|
+| ID | Requirement | Priority |
+|---|---|---|
 
 ## Decisions
 
@@ -47,7 +49,7 @@ Each rule with one worked example, so the edges aren't guessed. Cover: empty, du
 
 Every format real data or other people depend on, field by field, because changing one later means migrating data. Dates are stored as ISO 8601. For each file: <header row, separator, quoting, encoding, line endings>. For each link between records: <what deleting the linked record does: keep, empty or delete>.
 
-| ID | Format | Field | Type | Required in storage | Allowed values | Example |
+| ID (F-n) | Format | Field | Type | Required in storage | Allowed values | Example |
 |---|---|---|---|---|---|---|
 
 ## Security baseline
@@ -69,10 +71,7 @@ Every format real data or other people depend on, field by field, because changi
 
 ## Tasks
 
-<Claude Code: the tasks are in tasks.json. Claude project: one "### T-n: title" per task, with "Done by:", depends on, delivers, and each check as "How:" and "Expected:".> The first milestone is a thin version that works end to end.
-
-| Session | Tasks | Area | Checkpoint at end |
-|---|---|---|---|
+<Claude Code: the tasks are in tasks.json. Claude project: the task table in the progress log.> Sessions: the project instructions. The first milestone is the thin version in the design.
 
 ## Checkpoints
 

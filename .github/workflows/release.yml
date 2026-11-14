@@ -16,7 +16,8 @@
 # release or a tag. An optional tag input also tests check_version.py.
 #
 # Only the publish job may write to the repository (contents: write), and it
-# runs only for a pushed tag. It uses the built-in GITHUB_TOKEN with the
+# runs only for a pushed tag or a release published by hand, never for a
+# manual run. It uses the built-in GITHUB_TOKEN with the
 # GitHub CLI; no other secret is needed.
 # Actions are pinned to full commit hashes (actions/checkout v7.0.1;
 # actions/upload-artifact v7.0.2, released 2026-10-07; looked up 2026-11-05);

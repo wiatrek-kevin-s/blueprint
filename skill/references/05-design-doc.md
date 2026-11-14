@@ -10,20 +10,20 @@ Goal: a design a stranger could build from; it becomes the core of the kit. Draf
 
 ## Contents
 
-Adapt with `references/type-adaptations.md`. Summary (what, for whom); intent, users, success measures and non-goals; context and research, with sources and dates; the design, overview first with a diagram for any flow; alternatives for each one-way door; cross-cutting concerns (security, privacy, accessibility, cost, legal); keeping it running (`references/keeping-it-running.md`); implementation detail (exact names, versions, formats); milestones with tested gates; decisions; open questions with owner and "decide by"; assumptions.
+Adapt with `references/type-adaptations.md`. Summary (what, for whom); intent, users, success measures and non-goals; context and research, with sources and dates; the design, overview first with a diagram for any flow; alternatives for each one-way door; cross-cutting concerns (security, privacy, accessibility, cost, legal); keeping it running (`references/keeping-it-running.md`); implementation detail (exact names, versions, formats); milestones with tested gates; the appetite, and the order scope is cut if it runs out; decisions; open questions with owner and "decide by"; assumptions.
 
 - **Coded projects** add the security baseline section (`references/software-design-detail.md`), each item applied, not applicable or accepted.
 - **Projects with screens** add the design spec from phase 3D by reference, not by copy.
 
 ## First milestone
 
-The first milestone is always a thin version that works end to end (Gall's Law), because a complex system that works grows from a simple one that worked.
+The first milestone is always a thin version that works end to end (Gall's Law), because a complex system that works grows from a simple one that worked. For hosted software, that includes the real host (a preview is enough) with the automatic checks passing, because hosting, keys and account problems surface there. Its first task records the run, test and smoke-check commands in the instructions.
 
 ## Subtraction pass
 
 Before review, question every requirement and delete what isn't needed, after finding out why it exists (Chesterton's fence). Log cuts as later options. Never cut legal, safety or accessibility needs, because those are the person's obligations, not features.
 
-## Edge-case sweep (X-1)
+## Edge-case sweep
 
 Give each core rule a worked example, then check it against these cases: empty, duplicate, boundary (the limit itself and one past it), wrong order, changed later, deleted or left unfinished, and two at once. Write the answer for each case that applies, because a builder meeting an unstated case guesses. The results go into the brief's "Rules and examples" section.
 

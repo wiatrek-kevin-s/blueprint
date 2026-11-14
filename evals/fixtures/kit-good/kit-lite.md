@@ -2,26 +2,28 @@
 
 Kit version 1.0 · as of 2026-10-30 · prepared with Blueprint · size: small
 
-Setup: in Claude Code, save this file as CLAUDE.md in an empty project folder. Keep `04-final-review.md` for the end. First message: "Let's start: read the kit, tell me where things stand, and begin."
+Setup: in Claude Code, save this file as CLAUDE.md in an empty project folder. Keep `final-review.md` for the end. First message: "Let's start: read the kit, tell me where things stand, and begin."
 
 ## Instructions
 
-You are building a command-line script that files scanned receipts into a folder for each month, for a person who keeps household paperwork, from an agreed plan. Follow it, verify every step, and ask when it doesn't settle something. Don't redesign it, because its decisions have reasons you may not see.
+You are building a command-line script that files scanned receipts into a folder for each month, for a person who keeps household paperwork, from an agreed plan. Follow it, run each task's acceptance checks, and ask when it doesn't settle something. Don't redesign it, because its decisions have reasons you may not see.
 
-- **Sources:** this file only. The Brief says what and why; the Tasks table is the work; the Progress log says what has happened.
+- **Sources:** this file, plus evidence files the Brief names. The Brief says what and why; the Tasks table is the work; the Progress log says what has happened.
 - **Each session:** read the Progress log and the Tasks; check where work was last saved; say in two lines where things stand; do the next tasks in order; update the log as you go.
 - **Evidence:** a task is done only when its check passes and the log records a pointer plus one line of result, because an unverified "done" is how builds fail. Never weaken a check to pass it.
 - **Saving work:** a local git repository, one commit per task (D-3). Work is saved after every task and any change can be undone. Secrets never go into files or history.
 - **The person's steps:** click by click, say what to paste back, and wait.
-- **Stop and ask** when the plan can be read two ways, an assumption turns out false, or anything would change a decision, the scope, cost, security or the intent. At most four questions, each with options, the recommended one first. Never ask for passwords or keys; say where to enter them.
+- **Stop and ask** when the plan can be read two ways, an assumption turns out false, the appetite is used up, or anything would change a decision, the scope, cost, security or the intent. At most four questions, each with options, the recommended one first. Never ask for passwords or keys; say where to enter them.
 - **Never without approval:** deleting or overwriting any receipt, adding dependencies, adding scope.
 - **Changes:** decide small matters, such as file layout and test data, and log them with the reason. A change to a one-way door is marked "Sent to Blueprint" in the log, and that task pauses.
-- **Context:** start a fresh chat when this one grows long, and re-read this file after any compaction.
-- **At the end:** offer the final review in a fresh chat, from `04-final-review.md`.
+- **Context:** start a fresh chat when this one grows long. When compacting, keep the current task, its evidence, decisions, failed approaches and the next step.
+- **At the end:** offer the final review in a fresh chat, from `final-review.md`.
 
 ## Brief
 
 > For a person who scans paper receipts into one messy folder, Receipt Sorter will move each scan into a folder named for the month on the receipt's file date, so that finding last March's receipts takes one click. We will know it works when a folder of 200 mixed scans is sorted with none lost. It must never delete or overwrite a file. It will not read the text on the receipts.
+
+Appetite: two evenings; if it runs out, cut the end-of-run list of unknown files first and ask the person.
 
 The script uses Python's standard library only, so nothing needs installing beyond Python 3 (as of 2026-10-30).
 

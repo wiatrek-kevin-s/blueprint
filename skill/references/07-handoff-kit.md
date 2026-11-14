@@ -4,7 +4,7 @@ Goal: turn the reviewed design into a kit a fresh agent builds from without gues
 
 ## Readiness
 
-A kit is ready when `scripts/check_kit.py <kit folder>` passes (or its checklist is walked by hand where code can't run), the fresh-agent dry run in `references/06-review.md` finds no harmful one-way guess (one run for small projects), and the person approves. The script lists its checks, with reasons, at its top.
+A kit is ready when `scripts/check_kit.py <kit folder>` passes (or its checklist is walked by hand where code can't run), the fresh-agent dry run in `references/06-review.md` finds no harmful one-way guess, and the person approves. The script lists its checks, with reasons, at its top. Add `--coded` (coded) and `--screens` (3D ran), because the script can't tell.
 
 ## Kit files (medium and large)
 
@@ -18,26 +18,27 @@ A kit is ready when `scripts/check_kit.py <kit folder>` passes (or its checklist
 | `final-review.md` | Kept for a new chat | `docs/final-review.md` | `templates/kit-04-final-review.md` |
 | `design-spec.md` | Project knowledge | `docs/design-spec.md` | `templates/design-spec.md`, where 3D ran |
 
+**Large projects** split the brief as `build-brief-1.md`, `build-brief-2.md`…, each under 8,000 words, all named wherever the brief is.
+
 **Small projects:** `kit-lite.md` (instructions under 600 words, a short brief with a task table, an empty progress log, the definition of done; renamed `CLAUDE.md` in Claude Code) plus `final-review.md` (into `docs/`), from `templates/kit-lite.md`.
 
 Deliver these exact names, so files drop into `docs/` unchanged; only the instructions file is renamed, because a file delivered as `CLAUDE.md` takes over whichever Claude Code session it lands in.
 
 ## Kit rules
 
-- **One source per fact (X-4):** each decision lives in one kit file; others cite its ID, so the kit can't contradict itself.
-- **Checks the builder can run (X-5):** every acceptance check names who runs it and what it needs (`how`) and a pass mark the builder can see, a number or exact output (`expected`), because "works well" can't be checked.
-- **Planning files kept apart (X-6):** the state file, research and drafts stay outside the kit folder; `START-HERE.md` names the kit files as the only sources; there is no all-in-one copy, because a second copy drifts.
-- **Decisions, not procedure:** step-by-step only where the scope line in `SKILL.md` allows.
+- **One source per fact:** each decision lives in one kit file; others cite its ID, so the kit can't contradict itself.
+- **Checks the builder can run:** every acceptance check names who runs it and what it needs (`how`) and a pass mark the builder can see, a number or exact output (`expected`), because "works well" can't be checked.
+- **Planning files kept apart:** the state file, research and drafts stay outside the kit folder; `START-HERE.md` names the kit files as the only sources; there is no all-in-one copy, because a second copy drifts.
 
 ## The build brief
 
-From the reviewed design, plus: the security baseline (coded; every accepted risk shown to the person in the approval message); the design spec by reference (screens); **Rules and examples** from the edge-case sweep (X-1); **Formats that last** (X-2): every format real data or other people depend on, field by field with name, type, required or optional in storage, allowed values, how it is stored (dates as ISO 8601) and an example, plus each file's header row, separator and quoting, and what deleting a linked record does, because changing one later means migrating data; **Keeping it running** from the design, at its size; the tasks; checkpoints; open questions and assumptions, each tied to the task where it is settled; homework; what the builder decides alone (two-way doors within the design, with the kinds named, such as versions within the stack, file layout, test data and internal names) and what it must ask about (one-way doors, scope, cost, security, intent); the definition of done, linked to the success measures.
+Fill every section of `templates/kit-02-build-brief.md` from the reviewed design, plus: the security baseline (coded; every accepted risk shown to the person in the approval message); the design spec by reference (screens); **Rules and examples** from the edge-case sweep; **Keeping it running** from the design, at its size; open questions and assumptions, each tied to the task where it is settled.
 
 ## Tasks
 
 The fields are in `templates/kit-tasks.json` and checked by `scripts/check_tasks.py`; the builder changes only `status` and `evidence`, so "done" keeps its meaning. A good task produces one verifiable result: one flow working end to end, one page, one sourced section. Order tasks so inputs exist first and the riskiest comes early.
 
-**Sessions:** one area of work per session, a few tasks each, ending at a natural boundary (checks passing, a checkpoint), because long mixed sessions drift. Every session starts with the startup routine in `templates/kit-01-project-instructions.md` and ends with a handoff note, written as it goes.
+**Sessions:** one area of work per session, a few tasks each, ending at a natural boundary (checks passing, a checkpoint), because long mixed sessions drift.
 
 **Checkpoints:** from phase 3's check-in answer, plus always: after the first task, at each milestone, before anything irreversible (publishing, spending, deleting data, sending messages), and at each "decide by" point.
 
@@ -47,7 +48,7 @@ From phase 3's answer, the kit states what must be true and the builder chooses 
 
 ## Project instructions
 
-Under 1,200 words, because they are read on every turn. They contain the intent, the session table (task IDs, area, checkpoint; titles stay in the task list, X-4) and the never-without-approval list, and cover: the startup routine; the evidence rule; context rules (fresh session per area, re-read after compaction); saving work; when to stop and ask, and how (`SKILL.md` format); recording small decisions in the log and design changes as change requests approved before acting; changes touching a one-way door marked "Sent to Blueprint", with the affected tasks paused; never asking for passwords or keys; the final review.
+Under 1,200 words, because they load at the start of every session. Fill every section of `templates/kit-01-project-instructions.md`; take the session table's task IDs from the task list, never their titles.
 
 ## Final review
 
