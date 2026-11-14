@@ -10,10 +10,10 @@ Kit version <1.0> · as of <DATE>, session <n>
 
 ## Tasks
 
-<Claude project only; Claude Code uses docs/tasks.json. Change only Status and Evidence.>
+<Claude project only; Claude Code uses docs/tasks.json. Change only Status and Evidence. A task with several checks takes one row per check.>
 
-| Task | Title | Done by | How | Expected | Status | Evidence |
-|---|---|---|---|---|---|---|
+| Task | Title | Depends on | Delivers | Done by | How | Expected | Status | Evidence |
+|---|---|---|---|---|---|---|---|---|
 
 ## Decisions
 

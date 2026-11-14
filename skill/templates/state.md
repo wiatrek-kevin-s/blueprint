@@ -7,7 +7,7 @@ Keep in the Blueprint project; a new chat resumes from it. Updated <DATE>.
 - **Calibration:** <area: new, used it or knows it well>
 - **Tools and fallbacks:** <web search, subagents, code, files, artifacts; fallback for each missing>
 - **Phase:** <0 to 6, E, 3D, A0 to A5, R0 to R2, O0 to O4, delivered or amending> · **Gates:** <G1 date, …>
-- **Outcome:** <build, use something existing, stop or undecided>
+- **Outcome:** <build, use something existing, stop, the route's outcome, or undecided>
 - **Idea brief:** <five lines, or none>
 - **Design direction:** <none, or the chosen one in a line>
 - **Execution:** <where the work happens> · saved in <git host or local folder> · check-ins <when>

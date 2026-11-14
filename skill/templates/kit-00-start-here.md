@@ -23,7 +23,7 @@ Each later session: a new chat, then "Continue with the next session."
 
 ## Kit files
 
-Only these files count; planning notes and drafts don't: `project-instructions.md` (how Claude works; `CLAUDE.md` in Claude Code), `build-brief.md` (the plan), `progress-log.md` (what has happened), `tasks.json` (the tasks; in a Claude project, a table in the log), `final-review.md` (the review at the end) and `design-spec.md` (the look, if any).
+Only these files count; planning notes and drafts don't: `project-instructions.md` (how Claude works; `CLAUDE.md` in Claude Code), `build-brief.md`, or `build-brief-1.md`, `build-brief-2.md`… for large projects (the plan), `progress-log.md` (what has happened), `tasks.json` (the tasks; in a Claude project, a table in the log), `final-review.md` (the review at the end) and `design-spec.md` (the look, if any), plus evidence files the brief names.
 
 ## How it will work
 

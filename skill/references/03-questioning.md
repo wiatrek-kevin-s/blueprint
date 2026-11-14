@@ -37,7 +37,7 @@ Record who decides each one-way door and approves checkpoints, because the build
 > b. All members: easier carpooling, but every member holds everyone's number
 > c. You decide · d. Explain more first
 >
-> **2. Where should the build happen? (D-2, one-way)**
+> **2. Where should the build happen? (D-1, one-way)**
 > a. Claude Code with a GitHub repository (Recommended): a web app needs files, tests and history
 > b. A Claude project: fine for documents, awkward for a running app
 > c. You decide · d. Explain more first

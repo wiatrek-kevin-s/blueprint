@@ -1,6 +1,6 @@
 # Project instructions: <PROJECT NAME>
 
-You are building <one-line description> for <who> from an agreed plan, researched and decided with the person in advance. Carry it out faithfully, verify every step, and ask whenever the plan doesn't settle something. Don't redesign it, because its decisions have reasons you may not see.
+You are building <one-line description> for <who> from an agreed plan, researched and decided with the person in advance. Carry it out faithfully, run each task's acceptance checks, and ask whenever the plan doesn't settle something. Don't redesign it, because its decisions have reasons you may not see.
 
 ## Intent
 
@@ -15,24 +15,28 @@ When the brief can be read two ways, the reading that serves this intent wins; i
 3. <progress log file>: what has happened, newest handoff note first.
 4. <design spec file, or "none">: the look.
 
-Nothing else is a source: not earlier chats, not planning notes.
+Nothing else is a source except evidence files the brief names (such as an audit report): not earlier chats, not planning notes.
 
 | Session | Tasks | Area | Checkpoint at end |
 |---|---|---|---|
 | S1 | <T-1, T-2> | <area> | <yes or no> |
 
+## Commands
+
+<Written by the first task and kept current: install, run, all tests, one test, lint, the smoke check.>
+
 ## Start of every session
 
 1. Read the newest handoff note, then the task list.
 2. Check where work was last saved and that it matches the log.
-3. Run the smoke check: <command or steps from the brief>.
+3. Run the smoke check in Commands (none before T-1 creates it).
 4. Tell the person in two lines where things stand and what this session will do.
 5. Do this session's tasks one at a time, in order, respecting `depends_on`. Don't start a task whose inputs are missing.
 6. Write the handoff note as you go, not only at the end, in the log's format.
 
 ## Evidence
 
-A task is done only when every acceptance check passes and you have recorded the evidence: a pointer (file, test output, screenshot, saved version) plus one line of result. "Looks fine" is not evidence, because an unverified "done" is how builds fail. Every task also meets the brief's definition of done. Never weaken a check to pass it; if a check is wrong, raise a change request.
+A task is done only when every acceptance check passes and you have recorded the evidence: a pointer (file, test output, screenshot, saved version) plus one line of result. "Looks fine" is not evidence, because an unverified "done" is how builds fail. Every task also meets the brief's definition of done. Never weaken a check, or edit a test, to make it pass; if a check is wrong, raise a change request.
 
 For the person's steps, give click-by-click instructions in plain words, say exactly what to paste back, and wait.
 
@@ -42,8 +46,11 @@ Look up current documentation, versions and prices before relying on them; the b
 
 - One session is one area of work in one fresh chat, because long chats drift and lose detail.
 - End the session and hand off when its tasks are done, or earlier if the chat has grown long, you are about to switch area, two attempts at a fix have failed, or you notice yourself repeating or unsure what was done.
-- After any compaction, re-read these instructions, the newest handoff note and the task list before continuing.
-- Use a subagent only for bulky reading, independent parallel work or fresh eyes, with a complete brief and a short result.
+- Work directly. Use a subagent only for bulky reading or independent parallel work, never to double-check your own work; the final review gives the fresh eyes.
+
+## Compact instructions
+
+When compacting, keep: the current task and its checks, the evidence so far, this session's decisions with reasons, approaches that failed, and the next step. Afterwards, re-read the newest handoff note and the task list.
 
 ## Saving work
 
@@ -53,9 +60,11 @@ Look up current documentation, versions and prices before relying on them; the b
 
 ## When to stop and ask
 
-Stop, ask and wait when: a checkpoint is reached; a task needs homework or an open question settled; an assumption turns out false; the brief can be read two ways with different results; anything would change a decision, the scope, cost, security, privacy or the intent; or you are about to do anything on this list:
+Stop, ask and wait when: a checkpoint is reached; a task needs homework or an open question settled; an assumption turns out false; the brief's appetite is used up; the brief can be read two ways with different results; anything would change a decision, the scope, cost, security, privacy or the intent; or you are about to do anything on this list:
 
 <Never without approval: publishing or deploying, spending money or signing up, deleting or overwriting data, files or history, sending messages, adding scope.>
+
+<Claude Code, coded: project settings enforce part of this list; change them only with the person's approval.>
 
 Never ask for passwords, keys or other secrets in the chat; tell the person where to enter them.
 
