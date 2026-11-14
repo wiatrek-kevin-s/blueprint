@@ -1,0 +1,42 @@
+{
+  "project": "Bakery Pricing Plan",
+  "tasks": [
+    {
+      "id": "T-1",
+      "title": "List every item with its ingredient cost",
+      "session": "S1",
+      "depends_on": [],
+      "done_by": "claude",
+      "acceptance": [
+        {
+          "how": "Claude totals the receipts and the item costs",
+          "expected": "the two totals match to the penny"
+        }
+      ],
+      "status": "todo",
+      "evidence": "",
+      "delivers": [
+        "REQ-1",
+        "REQ-2"
+      ]
+    },
+    {
+      "id": "T-2",
+      "title": "Owner approves the price list",
+      "session": "S2",
+      "depends_on": [
+        "T-1"
+      ],
+      "done_by": "person",
+      "acceptance": [
+        {
+          "how": "The owner reads the price table",
+          "expected": "the owner says yes, or names the items to change"
+        }
+      ],
+      "status": "todo",
+      "evidence": "",
+      "delivers": []
+    }
+  ]
+}

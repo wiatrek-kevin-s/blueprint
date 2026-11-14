@@ -57,6 +57,9 @@ Probe (T-6 check 4): runs one known prompt and one question about loaded
 instructions, then prints the skills Claude Code listed at start, which copy
 of blueprint answered (its base directory) and the answer to the question.
 
+Exit 0 when every prompt (or the probe) passed, 1 otherwise. Without --keep,
+the eval folders and their transcripts are deleted.
+
 Python 3 standard library only. Needs git and the claude command.
 """
 import argparse
@@ -386,6 +389,10 @@ def main():
         for f in folders:
             shutil.rmtree(f, ignore_errors=True)
     shutil.rmtree(stage, ignore_errors=True)
+    failed = [row["id"] for row in rows if not results[row["id"]][0]]
+    if failed or not rows:
+        print(f"FAIL: {len(failed)} of {len(rows)} prompts failed: {', '.join(failed) or 'no prompts ran'}")
+        return 1
     return 0
 
 

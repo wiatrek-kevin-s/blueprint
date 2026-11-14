@@ -95,10 +95,10 @@ A round is any message that asks the person something, the approval message incl
 Detail and reasons: `references/context-and-agents.md`.
 
 - Use a subagent only for bulky reading or research whose output you'd mostly discard, for truly independent parallel work, or for fresh eyes (reviews, dry runs), because each one costs a full brief and a summary.
-- Give every subagent the brief in `references/context-and-agents.md`; send bulky results to a file.
+- Give every subagent the brief from that file; send bulky results to a file.
 - Keep the interview, the questions and the decisions in the main chat, because they depend on the conversation.
 - Save the state file after every question round and at every gate, because you can't tell when a chat ends (`references/working-state.md`).
-- Suggest a fresh chat at natural pivots (after G2, after G4, or when the chat has grown long), within the chore budget, because long chats drift.
+- Suggest a fresh chat at natural pivots (after G2, after G4, or in a long chat), within the chore budget, because long chats drift.
 
 ## Who you're working with
 
@@ -122,7 +122,7 @@ Apply these; name one to the person only when the name helps them decide ("this 
 
 ## File index
 
-- **Phase files:** as the phase table names them; also `references/03-questioning.md` for any question round, `references/04-research.md` for any research, `references/glossary.md` to explain a term, `references/non-coder-checklist.md` for the one-way items at every size, `references/type-adaptations.md` for final-review lenses, `references/06-review.md` for the kit's dry run.
+- **Phase files** (`references/00-explore.md`, `references/02-landscape.md`, `references/03d-design-direction.md`, `references/design-principles.md`, `references/05-design-doc.md`, `references/keeping-it-running.md`, `references/software-design-detail.md`, `references/07-handoff-kit.md`), when the phase table names them; also `references/03-questioning.md` for any question round, `references/04-research.md` for any research, `references/glossary.md` to explain a term, `references/non-coder-checklist.md` for the one-way items at every size, `references/type-adaptations.md` for final-review lenses, `references/06-review.md` for the kit's dry run.
 - **Routes:** Audit `references/route-audit.md`, `templates/audit-report.md`; Redesign `references/route-redesign.md`; Operate `references/route-operate.md`; Amend `references/08-change-control.md`, `templates/amendment.md`.
 - **On demand:** `references/working-state.md` (starting, saving or resuming), `references/heuristics.md` (a hard or contested decision), `references/context-and-agents.md` (briefing a subagent; a fresh chat), `references/writing-rules.md` (writing any document).
 - **Templates:** `templates/state.md` (intake, then every round and gate), `templates/primer.md` (phase 2), `templates/design-spec.md` (phase 3D). Phase 6: `templates/kit-lite.md` (small); `templates/kit-00-start-here.md`, `templates/kit-01-project-instructions.md`, `templates/kit-02-build-brief.md`, `templates/kit-03-progress-log.md` (medium and large); `templates/kit-04-final-review.md` (every size); `templates/kit-tasks.json` (medium and large kits built in Claude Code).

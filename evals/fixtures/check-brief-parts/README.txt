@@ -1,0 +1,1 @@
+Expected: READY. A large brief split into docs/build-brief-1.md and docs/build-brief-2.md; required sections are found across both parts. Run: python3 skill/scripts/check_kit.py evals/fixtures/check-brief-parts

@@ -1,5 +1,32 @@
 # Changelog
 
+## 3.1.0 (unreleased): review fixes, appetite carried through, rules backed by tools
+
+From a full review of 3.0.1 against research on planning, software delivery, existing planning skills and current Claude Code guidance.
+
+Fixes:
+
+- Audit, Redesign and Operate small kits now name `final-review.md`, matching 3.0.1's file names.
+- Blueprint passes `--coded` and `--screens` to the kit check, which no longer guesses "coded" from `tasks.json`; a coded kit without a security baseline now fails.
+- The kit check finds the task title column exactly, accepts evidence files such as an audit report, HTML tag names and IP addresses in prose, a kit-lite renamed `CLAUDE.md`, and large briefs split into `build-brief-1.md`, `build-brief-2.md`…; it reports a file that isn't UTF-8 (exit 2) instead of crashing. The task check accepts an optional `delivers` field and fails on dependency loops.
+- One source for tasks and sessions; evidence files the brief names count as kit sources; small New projects say how their gates fit one round; Operate kits keep the full runbook at any size; undefined internal IDs removed.
+- The behaviour eval runner finds the 3.0.1 brief name; the routing runner exits non-zero on a failure; CI no longer skips checks silently.
+
+Improvements:
+
+- The appetite reaches the design and the kit, with the order scope is cut if it runs out, and the builder stops when it is used up. The premortem includes the owner running out of time or interest. Keeping it running adds one dated check of the success measures after real use.
+- The first milestone of hosted software reaches the real host with checks passing; the instructions gain a Commands section written by the first task, and a Compact instructions section.
+- Rules that can't bend are enforced by tools from the first milestone (checks on every push, code-host protection, Claude Code settings), as policy the builder sets up with the person's approval. The builder never edits a test to pass it.
+- Builder wording tuned for current models: "run each task's acceptance checks" instead of "verify every step", and no subagents to double-check its own work.
+- Audit fix kits pin current behaviour with tests before changing it, and a full rewrite is a one-way door; Redesign kits record browser tests for the must-stay list first. The audit inventory covers backups and account holders. The security baseline names injection, escaping and failing closed.
+- Evals: `--no-skill`, `--runs`, `--person-model`, `--allow-subagents` and two new personas (one disagrees, one goes quiet); word counts per kit file.
+- SKILL.md "Decision guidance" keeps doors, jobs to be done and the Mom Test, appetite and boring technology; the rest are applied in their phase files, and `references/heuristics.md` is unchanged.
+
+Known limitations:
+
+- The routing and behaviour evals have not been rerun on this version yet; run them before release.
+- Route New reads 22,241 of its 22,243-token limit, so the next addition needs a cut or a new limit.
+
 ## 3.0.1 (2026-11-05): kit files drop into docs/ unchanged
 
 - Kit files now have their final names: `START-HERE.md`, `project-instructions.md`, `build-brief.md`, `progress-log.md`, `tasks.json`, `final-review.md` and `design-spec.md` (small kits: `kit-lite.md` and `final-review.md`). In Claude Code, only the instructions file is renamed, to `CLAUDE.md`; the rest move into `docs/` as they are. It is never delivered as `CLAUDE.md`, because a file with that name takes over whichever Claude Code session it lands in.
