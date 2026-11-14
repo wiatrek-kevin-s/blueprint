@@ -17,7 +17,7 @@ The person comes back with a build that keeps failing, has stopped, or asked som
    - **The check is wrong or can't be run** (such as one that needs something the builder can't do): amend the check, because the builder may not weaken it.
    - **A code problem with a clear kit:** a hand-back: the coordinator ends the worker on that task, records what was tried in the progress log, and starts a fresh worker with a handoff note and a different approach; if that fails too, it parks the task, carries on with the others, and raises it at the next checkpoint.
    - **Off the rails** (much of the work no longer matches the plan, or nobody can tell what is done): offer Audit, whose fixes continue this kit as an amendment.
-4. **Hand back.** End with **one** paste-ready message addressed to the builder's coordinator, plus any replacement files. It says what was decided and why, what changed in the kit (version and sections), which task to resume or retry and how, and anything the coordinator decides itself from here, so it continues without asking the person again. Tell the person exactly where to paste it.
+4. **Hand back.** End with **one** paste-ready message addressed to the builder's coordinator. It says what was decided and why, what changed in the kit (version and sections), which task to resume or retry and how, and anything the coordinator decides itself from here, so it continues without asking the person again. Tell the person exactly where to paste it. Kit changes reach the builder as in "Getting the change to the builder" below.
 5. **Record the cause** (see "Learning") in the amendment when there is one, otherwise in the state file, such as "unchallenged assumption: which file date to use".
 
 ## When the person (or the executing project) wants a change
@@ -32,7 +32,15 @@ The person comes back with a build that keeps failing, has stopped, or asked som
    - The new design, at the same level of detail as the original.
    - Effect on tasks, checkpoints and open questions, including any work already done that must be revisited.
    - One line naming the cause (see "Learning" below).
-3. Produce an updated kit (all files, new version number) and the amendment, and tell the person what to replace in their execution project, plus one paste-ready message for the builder's coordinator so it can carry on without further input from them.
+3. Produce the updated kit (all files, new version number) as your own record beside the state file, and the amendment. Get the change to the builder as below, with one paste-ready message for the builder's coordinator so it can carry on without further input from them.
+
+## Getting the change to the builder
+
+Never hand back a replacement for a file the builder writes in, because it would wipe the progress log, the task statuses and their evidence, which may have moved on since the person copied them.
+
+- **Small kits** keep the progress log inside `kit-lite.md`, so nothing is replaced: the paste-ready message lists each section to change and its exact new text (decision rows, changed checks and tasks, the version line), and the builder makes the edits itself, keeping its log, and logs the amendment.
+- **Medium and large kits:** the person replaces the build brief with the new version and adds the amendment file beside it; never replace `progress-log.md` or `tasks.json`. Task changes (new, changed or reopened tasks) go in the paste-ready message, and the builder applies them to `tasks.json` itself.
+- **Either size:** a change to the instructions file, which the builder renamed `CLAUDE.md` at set-up, also goes in the message as edits it makes itself.
 
 ## Kits from Blueprint 2 and from other routes
 
@@ -40,7 +48,7 @@ Audit, Redesign and Operate kits use the same change control. A kit without a `#
 
 ## Changes raised by the executing project
 
-The execution kit tells the builder to pause the affected tasks and mark a **change request** "Sent to Blueprint" in the progress log when it meets a one-way door that the kit does not settle, or evidence that a decision is wrong. The person can paste that entry, or the whole log, here; handle it as above. Name the change to the person in plain words, never by its IDs alone.
+The execution kit tells the builder to pause the affected tasks and mark a **change request** "Sent to Blueprint" in the progress log when it meets a one-way door that the kit does not settle, or evidence that a decision is wrong. The person can paste that entry, or the whole log, here; handle it as above. Name the change to the person as in step 2 of "When the build is stuck".
 
 ## Learning
 

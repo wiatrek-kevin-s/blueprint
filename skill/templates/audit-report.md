@@ -2,7 +2,7 @@
 
 <Health check or deep audit> · as of <DATE> · version audited: <commit, tag or upload date> · by Blueprint
 
-Kept outside the project folder, beside the fix kit, and never copied into a project that is or may become public, because it lists the project's weak points; the kit names it as an evidence file to paste in when the builder asks. Secrets appear by file, line and kind only, never by value.
+Saved in its own folder beside the fix kit's folder, never inside it, and never copied into a project that is or may become public, because it lists the project's weak points; the brief names it as an evidence file marked "keep outside the project", pasted in when the builder asks. Secrets appear by file, line and kind only, never by value.
 
 ## Summary
 
@@ -50,4 +50,4 @@ Limits of the audit, not problems in the project, so none of them is in the find
 
 ## Recommended fix set
 
-<The findings recommended for the fix kit, each in plain words with its ID in brackets and what it protects the person from, and the one-way doors the person decides (at G1 when the request named them, otherwise at G3), each with the recommended answer.>
+<The findings recommended for the fix kit, each named as in the Summary, with what it protects the person from, and the one-way doors the person decides (at G1 when the request named them, otherwise at G3), each with the recommended answer.>
