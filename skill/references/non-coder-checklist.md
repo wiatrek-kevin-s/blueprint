@@ -6,7 +6,6 @@ Decisions a person who doesn't code rarely knows exist. Each becomes a row on th
 
 - Run it against the decision map in phase 2, as far as the size allows (`SKILL.md`, budgets). Each item ends as a decision, "not applicable" in one line, or an accepted risk the person approves.
 - The safe default is your recommendation. Ask the person only about one-way doors, with the reason in one plain line.
-- The technical controls are the security baseline in `references/software-design-detail.md`; this list holds the decisions.
 - Legal items are flags, not legal advice. Name privacy laws by where users live (EU, UK, US state laws and others), never one place alone, because users come from anywhere.
 
 ## One-way items for every size
@@ -15,7 +14,7 @@ These apply wherever they fit, at every size, coded or not, because each is cost
 
 - **Licence.** Who may reuse the work. Private work needs none; published work defaults to MIT unless there's a reason. Past grants can't be revoked.
 - **Account ownership.** Every account (domain, hosting, database, payments, code host, AI provider) is in the person's name, with two-step sign-in and saved recovery codes; the kit says who pays. Whoever holds the accounts owns the product.
-- **Publishing.** What becomes public, where and when: the repository, the live site, a store listing. Published work can't be recalled, so default to private until the person decides.
+- **Publishing.** What becomes public, where and when: the repository, the live site, a store listing. Published work can't be recalled, so default to private, also when the person says "You decide". List public names (the repository name, the licence holder) for the person's veto, because they are fixed once public.
 - **Lasting formats.** Anything real data or other people will depend on: file layouts, log lines, database tables, workbook sheets and columns, exports, public links. The kit writes each out field by field (name, type, allowed values, example), because changing it once data exists means migrating or breaking things.
 
 ## The checklist

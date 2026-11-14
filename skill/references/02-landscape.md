@@ -6,13 +6,9 @@ Goal: teach the decisions this kind of project forces before asking anything, be
 
 Follow `references/04-research.md`. Cover two to four standard ways such projects are built; three to five comparable projects, with what they had to decide and what they later rewrote or regretted; and what changed in the last year (versions, prices, laws).
 
-Also cover the route itself, because the best design can still be the wrong route:
+Also re-check the route itself, because the best design can still be the wrong route: existing and open-source options (cost, licence, lock-in, fit), the inputs at their source, and prevention (`references/01-intake-and-intent.md`, techniques).
 
-- **Existing and open-source options:** what already does part or all of the job, with its cost, licence, lock-in and fit with the tools the person already uses.
-- **The inputs at their source:** where each input comes from (an API, an export, a form, someone typing), and whether fetching or checking it there removes a manual step or a whole task.
-- **Prevention:** whether the problem can be stopped where it starts rather than found afterwards.
-
-If this shows a better route than the one chosen at G1, say so in a line or two at G2, with what it saves, and let the person choose. Don't switch silently, and don't ask again once they have chosen.
+If this shows a better route than the one chosen at G1, say so in a line or two with the primer, with what it saves, and let the person choose. Don't switch silently, and don't ask again once they have chosen.
 
 ## Calibrate, then write the primer
 
@@ -26,7 +22,7 @@ List every decision the project forces, not only the person's. Draw on: comparab
 
 Check every project against these seams: data and storage; integrations and extensibility (who controls what gets added later); identity and access; deployment; scale; failure and recovery; change over time; cost and licences; compliance and policy; keeping it running (designed in phase 4); experience and interface; how work is saved; and the **execution environment** (a Claude project, Claude Code with a repository, or steps the person does on a platform), which is a one-way door decided before the kit. Business plans add customer, value, pricing, channels, legal structure and funding. List seams that don't apply in one line under the map.
 
-**Coded projects:** run `references/non-coder-checklist.md` against the map, as far as the size allows (`SKILL.md`, budgets). Each item ends as a decision row, a "not applicable" entry in one line, or a risk the person accepts, because an unlisted item becomes the builder's guess. The brief lists every item's outcome in one "Checklist coverage" line.
+**Coded projects:** run `references/non-coder-checklist.md` against the map as it says; the brief lists every item's outcome in one "Checklist coverage" line.
 
 ### Doors
 

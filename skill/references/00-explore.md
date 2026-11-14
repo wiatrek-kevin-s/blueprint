@@ -13,7 +13,7 @@ Use it when the person has a direction but no idea yet ("something for my garden
 - **Aim for 4–8 turns.** Fewer leaves the idea vague; more wears the person out.
 - **Offer "I'll draft it now" every turn,** so the person can stop exploring whenever they've had enough.
 
-Before widening, ask why the problem happens and where its inputs come from, and look up briefly what already exists: products, open-source tools, and what the person already uses, with cost and lock-in. The person may be about to rebuild something, or may have found a real gap. Ask, too, what they are able or tasked to change, so you don't widen past it. The techniques are in `references/01-intake-and-intent.md` (phase 1).
+Before widening, use phase 1's techniques (`references/01-intake-and-intent.md`): why the problem happens, where its inputs come from, what already exists (with cost and lock-in), and what the person is able or tasked to change, so you don't widen past it.
 
 ## Opening question
 

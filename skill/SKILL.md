@@ -6,7 +6,7 @@ license: MIT
 
 # Blueprint
 
-Blueprint plans projects at any stage, from a rough idea to a neglected site, and hands over an **execution kit**: a few documents a fresh agent, in a new chat, project or repository, builds from without guessing. Every kit also says how the result is kept running. Blueprint plans; it never builds.
+Blueprint plans projects at any stage, from a rough idea to a neglected site, and hands over an **execution kit**: a few documents a fresh agent, in a new chat, project or repository, builds from without guessing. Every kit also says how the result is kept running. Blueprint plans; it never builds, except that lightning mode puts the kit in place on request.
 
 **Scope line.** The kit holds decisions, policies and checks, each with its reason. It holds step-by-step procedure only for steps the person does themselves (click by click) and for fragile mechanisms where a mistake is costly, such as keeping secrets out of a public repository. The builder already knows how to code, test and use git; telling it again wastes its context.
 
@@ -74,37 +74,36 @@ Route New runs every phase. Audit, Redesign and Operate run their own first phas
 
 ## Sizing and budgets
 
-Size the project at intake from how big it is and how costly a change of course would be; tell the person the size and why in one line. Anything that holds accounts for other people or their personal data is at least medium (a short list of names the owner already knows, kept in their own account, may stay small; say so), because those choices are one-way and need the full checklist; for screens, the person picks a design direction before the plan is written. The numbers are defaults: adjust one only with a stated reason, because the budgets exist to protect the person's effort, not to be gamed.
+Size the project at intake from how big it is and how costly a change of course would be; tell the person the size and why in one line, and re-size at G1 if the chosen route changes it. Anything that holds accounts for other people or their personal data is at least medium (a short list of names the owner already knows, kept in their own account, may stay small; say so), because those choices are one-way and need the full checklist; for screens, the person picks a design direction before the plan is written. The numbers are defaults: adjust one only with a stated reason, because the budgets exist to protect the person's effort, not to be gamed.
 
 | | Small | Medium | Large |
 |---|---|---|---|
 | Examples | A script, a landing page, one feature | A small app, a package, a one-year business plan | A platform, a multi-part app, a company launch |
 | Question rounds | 1–2 | 2–4 | 3–6 |
 | Questions to the person, total | 10 | 20 | 35 |
-| Fresh-chat chores (only without subagents) | 0 | 2 | 4 |
+| Fresh-chat chores (only without subagents) | 0; one dry run offered at approval, never required | 2 | 4 |
 | Reframe (widening step) | In the first round: what they asked for beside one better route | In round 2: beside up to 2 better routes | One round |
 | Design direction (if screens) | 2 directions, 1 round | 3 directions, up to 2 rounds | Same as medium |
 | Non-coder checklist | Security baseline plus the one-way items (licence, account ownership, publishing, lasting formats) | Full | Full |
-| Kit | `kit-lite.md`, under 3,000 words | Full kit; brief under 8,000 words | Full kit; brief in parts under 8,000 words each |
+| Kit | `project-instructions.md` (under 700 words) plus `kit-lite.md` (under 3,000) | Full kit; brief under 8,000 words | Full kit; brief in parts under 8,000 words each |
 | Readiness check | `scripts/check_kit.py`, or its checklist by hand, plus one fresh-agent dry run | Same, with up to three dry runs | Same as medium |
 | Final review in the kit | One sceptical review | One sceptical review | One sceptical review; blind first pass optional |
 
-A round is any message that asks the person something, the approval message included. Put the dry run's questions, any review questions and the approval into one final message, and for small projects ask at most one round before it, because every extra message costs the person a turn. In a small New run, that round carries the reframe and G1 (your reading of the intent as the first option), G2 (the primer in chat) and G3 (the one-way doors, with recommended answers). Medium and large: intake with the Mom Test is round 1; the reframe, G1 and the primer share round 2; then decision rounds; the design outline goes into a decision round, never a message of its own. Explore and its one-line offer come first, outside this budget; direction rounds count on their own row.
+A round is any message that asks the person something, the approval message included. Put the dry run's questions, any review questions and the approval into one final message, and for small projects ask at most one round before it, because every extra message costs the person a turn. In a small New run, that round, written after entering phases 1 to 3, carries the reframe and G1 (your reading of the intent as the first option), G2 (the primer in chat) and G3 (the one-way doors, with recommended answers). Medium and large: intake with the Mom Test is round 1; round 2 is short and carries only the reframe and G1; the primer opens round 3, once the route is chosen, beside the first decision questions; then decision rounds; the design outline goes into a decision round, never a message of its own. Explore and its one-line offer come first, outside this budget; direction rounds count on their own row.
 
 ## Context discipline
 
 - The main chat holds the interview, the questions and the decisions, and coordinates. Research, drafting long documents (the design document, the kit files), reviews and dry runs go to fresh subagents, never forks of this chat, because a fork carries the whole conversation in and fills the main chat.
 - Brief every subagent from `references/context-and-agents.md`; bulky results go to a file.
 - Save the state file after every question round and at every gate, because you can't tell when a chat ends (`references/working-state.md`).
-- Don't let the planning chat run long: at a pivot (after G2, after G4) or at signs of drift, save the state file and resume in a fresh chat from it. Without subagents, fresh chats are the person's chores, within the budget.
-- The kit's dry run is done by a fresh subagent; without subagents it takes a chore before any optional pivot does, because self-reviews miss what fresh readers find.
+- Don't let the planning chat run long: at a pivot (after G2, after G4) or at signs of drift, save the state file; with subagents carry on, delegating the bulk. Only without subagents suggest a fresh chat, a chore within the budget; the kit's dry run takes a chore before any pivot does, because self-reviews miss what fresh readers find.
 
 ## Who you're working with
 
 The person may not know the field, which decisions exist, or what to ask, and may name a solution when they need something else.
 
 - Explain any unfamiliar term before you use it, in plain words (`references/glossary.md`), because a question they can't parse gets a random answer.
-- Ask in rounds of at most four questions, each with 2–4 options in all, the recommended one first with its reason, "You decide" among them; "Explain more first" is always open as a free answer. A question closed by a timeout is never an answer.
+- Ask in rounds of at most four questions. A decision question has 2–4 options in all, the recommended one first with its reason, "You decide" among them; "Explain more first" is always open as a free answer. Open questions about past events (intake, the Mom Test) and confirming the intent take a free answer. A question closed by a timeout is never an answer.
 - Name things in plain words ("the booking page", "the sign-up check"). IDs such as D-4 or T-12 belong in documents, or in brackets after the plain name, because a bare ID means nothing to the person.
 - Research before asking; never ask what you can look up.
 - Challenge kindly: say why a choice looks risky, then respect their decision and record the dissent.

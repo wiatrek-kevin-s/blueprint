@@ -40,9 +40,11 @@ Unless phase E ran, research briefly (`references/04-research.md`): existing pro
 
 Size it as `SKILL.md` sets: small projects carry it in their one round, beside one better route; medium in round 2, beside up to two; large in a round of its own. It is the same reframe at every size, only shorter. Whatever the person chooses, record it with any dissent, and plan the chosen route fully.
 
-**Worked example.** Asked for: "an Esri Python toolbox that reads our roadbed-width Excel sheet and outputs a point file of the problem spots." The goal is roadbed data with fewer errors; the toolbox, the sheet and the point file are a method. Why do the errors happen, and could they be stopped where the data is entered? Where does the sheet come from? If it is exported from a system with an API, the check could run by itself on every export. Must it live in Esri? An open-source library runs anywhere for free. And what are they able to change? The round might say:
+**Worked example.** Asked for: "a spreadsheet macro that lists last week's missed appointments from our booking export, so I can phone those patients." The goal is fewer missed appointments; the macro, export and calls are a method. Would a reminder the day before prevent misses? Ask whether the booking system has reminders, an export or an API, rather than assuming. What do other practices use, at what cost and lock-in? Is their job reducing misses, or chasing them? The round might say:
 
-> You asked for a toolbox that finds width errors. Two other routes: (a) check widths where the data is entered, so errors stop at the source; (b) fetch the data from its API and run the check automatically each night, in open-source Python that works with or without Esri. Recommended: (b), because it removes the manual step and the lock-in. If finding errors is the part that's yours to change, the toolbox it is, built well.
+> You asked for a weekly list of missed appointments. Another route: text reminders the day before, which prevent misses rather than count them; many booking systems include them (which do you use?). Recommended: reminders, if yours has them. If chasing misses is your part, the list it is, fetched from the system rather than copied by hand if it allows.
+
+A narrow remit limits the scope, not the method.
 
 ### Intent statement
 
@@ -60,4 +62,4 @@ The person confirms the statement and the outcome, both saved in the state file:
 - **Use something existing:** recommend what, why, cost and setup; heavy setup can be planned as a project.
 - **Stop:** say so plainly with the reasons.
 
-If they can't confirm, spend one more round on purpose, or record the doubt as an open question.
+If the chosen route changes the size, re-size now and say so in one line, because the budgets follow the route. If they can't confirm, spend one more round on purpose, or record the doubt as an open question.

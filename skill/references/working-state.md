@@ -22,12 +22,11 @@ Blueprint follows the discipline it writes into kits: long chats drift, so the m
 - Explain before asking: the primer or the question itself defines any term the person may not know.
 - Calibrate: check what they know about each area (phase 2) instead of guessing, and match the depth to their answers.
 - Keep them oriented: at each gate, one line on what was settled, what comes next and roughly how many questions remain.
-- If a request names a solution, ask what it is for, because the need may have a simpler answer.
-- Use plain words. Name things ("the booking page", "the sign-up check"), never by bare ID (T-3, S-4, D-2), because IDs mean nothing to the person; add one in brackets after the name only if it helps.
+- Plain words and requests that name a solution: `SKILL.md`, rule 1 and "Who you're working with".
 
 ## Without subagents
 
-Research and draft in sequence yourself. For reviews, ask the person to paste the review prompt into a new chat (a truly fresh reader) and return the answer, within the chore budget; the kit's dry run takes a chore before any pivot does, and even small projects get one fresh-chat dry run offered at approval. If they decline, review it yourself and label it a self-review, because a reader who saw the reasoning misses the gaps.
+Research and draft in sequence yourself. For reviews, ask the person to paste the review prompt into a new chat (a truly fresh reader) and return the answer, within the chore budget; the kit's dry run takes a chore before any pivot does, and even small projects get one fresh-chat dry run offered at approval, never required. If they decline, review it yourself and label it a self-review, because a reader who saw the reasoning misses the gaps.
 
 ## Documents
 

@@ -6,7 +6,7 @@ Context is a budget: the longer a chat grows, the less reliably early detail is 
 
 Blueprint's main chat coordinates: it keeps the interview, the questions and the decisions, because those need the person and the whole conversation. Fresh subagents, each given the brief below, do the research, draft the long documents (the design document and kit files), and run reviews and dry runs. The main chat reads their summaries, not their bulk, so it never runs long.
 
-A subagent here is always a named agent given only the files, never a fork of this chat. Fork mode is on by default in current Claude Code, and a fork inherits the whole conversation, so a forked reviewer shares the author's blind spots.
+A subagent here is always a named agent given only the files, never a fork of this chat, because a fork inherits the whole conversation and a forked reviewer shares the author's blind spots. As of 2026-11, fork mode is on by default in Claude Code; check its current docs at build time.
 
 Split work by the context it needs, never by role (planner, coder, tester), because each relay loses detail. Keep quick edits in the main chat. Several agents cost several times the tokens of one (Anthropic, 2025): one for a lookup, two to four for a comparison.
 
@@ -21,7 +21,7 @@ Inputs: <file paths and links, not pasted content>
 Output: <format; at most about 1,500 tokens; bulky results go to a file, and only its path and a summary come back>
 Tools and sources: <tools allowed; sources preferred; facts whose date must be checked>
 Boundaries: <what not to do, such as editing outside a folder, publishing or signing up>
-Start: <a fresh agent, never a fork of this chat>
+Start: <a fresh named agent>
 Could not verify: <listed separately, never guessed>
 ```
 
