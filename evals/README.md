@@ -63,7 +63,7 @@ python3 evals/run_routing.py --mode v2 --skill-ref v2.0.0 --max-turns 3 --out ev
 - `--skill-ref` picks the commit whose `skill/` is tested (default `HEAD`); `--fixtures-ref` does the same for the fixtures.
 - `--ids new-1,aud-2` runs only some prompts; `--jobs` sets how many run at once (default 4); `--keep` keeps the folders and transcripts for reading.
 - Routing needs only the first reply, so keep `--max-turns` small: the v2 baseline used 3, so a run that looks at the folder first still gets to trigger; v3 may need 4 to name its route.
-- Each run uses the account Claude Code is signed in with. The runner prints the cost Claude Code reports; the 50-prompt set cost about 2 USD on 2026-11-05.
+- Each run uses the account Claude Code is signed in with. The runner prints the cost Claude Code reports; the 50-prompt set cost about 3 USD on 2026-11-05.
 
 ### Scoring
 

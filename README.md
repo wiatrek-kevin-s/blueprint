@@ -30,6 +30,8 @@ Every kit ends with a `Keeping it running` section, because software decays, acc
 - the safety net: required checks, backups, how to roll back, where alerts go;
 - a routine you can follow in under 15 minutes a month, what to do when an alert arrives, and how to hand a problem back to Blueprint.
 
+Small kits keep the section to 5 to 10 lines, except Operate kits, which get every part at any size because the runbook is what Operate delivers.
+
 The kit check (`skill/scripts/check_kit.py`) fails any kit without this section.
 
 ## Install
@@ -68,7 +70,7 @@ The checks need bash and Python 3 only:
 bash scripts/build-zip.sh                        # skill checks, then dist/blueprint.zip
 python3 scripts/route_budget.py                  # each route within its token limit
 python3 skill/scripts/check_kit.py evals/fixtures/kit-good   # a kit that must pass
-python3 scripts/check_version.py v3.0.0          # tag matches the newest CHANGELOG entry
+python3 scripts/check_version.py v<newest>       # <newest>: the top version in CHANGELOG.md
 ```
 
 The evals need Claude Code (the `claude` command) and use the account it is signed in with; the full routing set cost about 3 USD on 2026-11-05.

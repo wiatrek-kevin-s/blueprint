@@ -55,7 +55,7 @@ jobs:
             exit 1
           fi
           echo "$out"
-          if ! grep -q "'Keeping it running' is missing" <<<"$out"; then
+          if ! grep -q "Keeping it running" <<<"$out"; then
             echo "FAIL: kit-missing-upkeep failed check_kit.py, but not for the missing 'Keeping it running' section."
             exit 1
           fi

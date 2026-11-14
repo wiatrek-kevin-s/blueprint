@@ -3,11 +3,15 @@
 
 Usage: python3 check_tasks.py <tasks.json> [<baseline tasks.json>]
 
-Checks the fields every task must have, and, given a baseline (the task
-list as the kit delivered it), that the builder changed only each task's
-status and evidence and added only R-n tasks (fixes from the final review).
-The builder must not rewrite its own acceptance checks, because then
-"done" stops meaning what the plan meant.
+Checks the fields every task must have, that depends_on names tasks in the
+list and has no loops (a task that waits on itself, directly or through
+others, can never start), and the optional "delivers" list: the requirement
+or finding IDs (such as REQ-1 or AF-1) the task delivers, so every one has
+an owning task. Given a baseline (the task list as the kit delivered it), it
+also checks that the builder changed only each task's status and evidence
+and added only R-n tasks (fixes from the final review); every other field,
+delivers included, stays as delivered. The builder must not rewrite its own
+acceptance checks, because then "done" stops meaning what the plan meant.
 
 Exit 0 when every check passes, 1 when any fails, 2 when a file can't be
 read. Python 3 standard library only.
@@ -18,9 +22,11 @@ import sys
 
 FIELDS = ["id", "title", "session", "depends_on", "done_by",
           "acceptance", "status", "evidence"]
+OPTIONAL = ["delivers"]
 DONE_BY = {"claude", "person", "both"}
 STATUS = {"todo", "in_progress", "blocked", "done"}
 ID_RE = re.compile(r"^[TR]-[1-9][0-9]*$")
+DELIVERS_RE = re.compile(r"^[A-Z][A-Z0-9]*-[0-9]+$")
 EDITABLE = {"status", "evidence"}
 
 
@@ -46,7 +52,7 @@ def check_schema(data):
             if f not in t:
                 problems.append(f"{name}: field '{f}' is missing")
         for f in t:
-            if f not in FIELDS:
+            if f not in FIELDS and f not in OPTIONAL:
                 problems.append(f"{name}: field '{f}' is not part of the format")
         if "id" in t:
             if not isinstance(t["id"], str) or not ID_RE.match(t["id"]):
@@ -65,6 +71,10 @@ def check_schema(data):
         if "depends_on" in t and (not isinstance(t["depends_on"], list)
                                   or not all(isinstance(d, str) for d in t["depends_on"])):
             problems.append(f"{name}: depends_on must be a list of task ids")
+        if "delivers" in t and (not isinstance(t["delivers"], list)
+                                or not all(isinstance(d, str) and DELIVERS_RE.match(d)
+                                           for d in t["delivers"])):
+            problems.append(f"{name}: delivers must be a list of requirement or finding IDs, such as REQ-1 or AF-1")
         acc = t.get("acceptance")
         if "acceptance" in t:
             if not isinstance(acc, list) or not acc:
@@ -88,6 +98,44 @@ def check_schema(data):
                 problems.append(f"{t.get('id')}: depends on {d}, which is not in the list")
             elif t.get("status") == "done" and by_id[d].get("status") != "done":
                 problems.append(f"{t.get('id')}: is done but {d}, which it depends on, is not")
+    problems += find_cycles(by_id)
+    return problems
+
+
+def find_cycles(by_id):
+    """Report each depends_on loop once, e.g. 'T-1 -> T-2 -> T-1'."""
+    problems, state, seen = [], {}, set()
+
+    def deps(tid):
+        d = by_id[tid].get("depends_on")
+        return [x for x in d if x in by_id] if isinstance(d, list) else []
+
+    for start in by_id:
+        if start in state:
+            continue
+        stack, path = [(start, iter(deps(start)))], [start]
+        state[start] = "open"
+        while stack:
+            tid, it = stack[-1]
+            nxt = next(it, None)
+            if nxt is None:
+                state[tid] = "closed"
+                stack.pop()
+                path.pop()
+            elif state.get(nxt) == "open":
+                loop = path[path.index(nxt):] + [nxt]
+                key = frozenset(loop)
+                if key not in seen:
+                    seen.add(key)
+                    if len(loop) == 2:
+                        problems.append(f"{nxt}: depends on itself, so it can never start")
+                    else:
+                        problems.append(f"{' -> '.join(loop)}: these tasks depend on each other "
+                                        "in a loop, so none of them can start")
+            elif nxt not in state:
+                state[nxt] = "open"
+                stack.append((nxt, iter(deps(nxt))))
+                path.append(nxt)
     return problems
 
 
@@ -120,6 +168,9 @@ def load(path):
     try:
         with open(path, encoding="utf-8") as f:
             return json.load(f)
+    except UnicodeDecodeError:
+        print(f"Can't read {path}: not UTF-8; re-save it as UTF-8")
+        sys.exit(2)
     except (OSError, ValueError) as e:
         print(f"Can't read {path}: {e}")
         sys.exit(2)
