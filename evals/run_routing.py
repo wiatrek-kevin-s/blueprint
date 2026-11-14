@@ -52,6 +52,12 @@ Scoring:
     route it names matches expected_route; a negative passes when it does not
     trigger. The route is read from a "Route: name" line (state-file format
     F-1, with or without bold) in the replies or in files the run writes.
+  - Mode (v3, rows with "mode": "lightning"): the row also needs lightning
+    mode. It passes when the replies or written files mention "lightning"
+    (or "assumed", the mark lightning mode puts on each assumption) and no
+    reply holds a question round, read as two or more question marks in
+    one reply. A heuristic, kept simple on purpose; read the transcript
+    (--keep) when it fails.
 
 Probe (T-6 check 4): runs one known prompt and one question about loaded
 instructions, then prints the skills Claude Code listed at start, which copy
@@ -80,6 +86,8 @@ import tempfile
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ROUTES = ["new", "audit", "redesign", "operate", "amend", "none"]
+MODES = ["lightning"]
+LIGHTNING_RE = re.compile(r"\blightning\b|\bassumed\b", re.I)
 ROUTE_RE = re.compile(r"\broute\W{0,6}\s*(new|audit|redesign|operate|amend)\b", re.I)
 BASE_DIR_RE = re.compile(r"Base directory for this skill:\s*(\S+)")
 PROBE_PROMPT = ("I have an idea for an app that helps neighbours lend each other "
@@ -208,6 +216,7 @@ def parse(out, prompt, allowed_tools):
             r["cost"] = d.get("total_cost_usd") or 0.0
     if not r["triggered"] and prompt.lstrip().startswith("/blueprint") and "blueprint" in r["slash"]:
         r["triggered"], r["trigger_kind"] = True, "slash command"
+    r["written"] = written
     for text in r["texts"] + written:
         m = ROUTE_RE.search(text)
         if m:
@@ -232,9 +241,16 @@ def score(row, r, mode):
         return False, "did not trigger"
     if mode == "v2":
         return True, "triggered"
-    if r["route"] == row["expected_route"]:
-        return True, f"route {r['route']}"
-    return False, f"route {r['route'] or 'not named'}"
+    if r["route"] != row["expected_route"]:
+        return False, f"route {r['route'] or 'not named'}"
+    if row.get("mode") == "lightning":
+        named = any(LIGHTNING_RE.search(t) for t in r["texts"] + r.get("written", []))
+        asked = max((t.count("?") for t in r["texts"]), default=0) >= 2
+        if not named or asked:
+            return False, (f"route {r['route']}, lightning mode not shown"
+                           + (" (a reply asked a question round)" if asked else ""))
+        return True, f"route {r['route']}, lightning mode"
+    return True, f"route {r['route']}"
 
 
 def load_set(path, ids):
@@ -248,6 +264,8 @@ def load_set(path, ids):
                         sys.exit(f"FAIL: {path} line {n} has no {k}")
                 if row["expected_route"] not in ROUTES:
                     sys.exit(f"FAIL: {path} line {n} has expected_route {row['expected_route']}")
+                if row.get("mode", MODES[0]) not in MODES:
+                    sys.exit(f"FAIL: {path} line {n} has mode {row['mode']}")
                 rows.append(row)
     if ids:
         want = set(ids.split(","))
@@ -260,7 +278,12 @@ def summary(rows, results, args, model):
     today = datetime.date.today().isoformat()
     groups = {}
     for row in rows:
-        key = "resume (new)" if row.get("fixture", "").endswith("v2-state.md") else row["expected_route"]
+        if row.get("fixture", "").endswith("v2-state.md"):
+            key = "resume (new)"
+        elif row.get("mode"):
+            key = f"{row['mode']} ({row['expected_route']})"
+        else:
+            key = row["expected_route"]
         groups.setdefault(key, []).append(row["id"])
     total_pass = sum(1 for row in rows if results[row["id"]][0])
     lines.append(f"- **Date:** {today}")
@@ -274,7 +297,7 @@ def summary(rows, results, args, model):
     lines.append("")
     lines.append("| Group | Passed | Of |")
     lines.append("|---|---|---|")
-    order = ["new", "resume (new)", "audit", "redesign", "operate", "amend", "none"]
+    order = ["new", "resume (new)", "lightning (new)", "audit", "redesign", "operate", "amend", "none"]
     for key in order + sorted(set(groups) - set(order)):
         if key in groups:
             p = sum(1 for i in groups[key] if results[i][0])
