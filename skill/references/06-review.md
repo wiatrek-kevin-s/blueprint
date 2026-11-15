@@ -1,8 +1,8 @@
 # Phase 5: review
 
-Goal: catch what is wrong or missing before the kit leaves (G4: no unresolved "fail"). A fail sends work back to the phase that caused it.
+Goal: catch what is wrong or missing before the kit leaves (G4: no unresolved "fail").
 
-Run every review in a fresh context: a subagent (never a fork of this chat, `references/context-and-agents.md`) that sees only the documents named, else a new chat the person opens, else a labelled self-review (`SKILL.md`, capability check). Reviewers who saw the reasoning inherit its blind spots.
+Run every review in a fresh context that sees only the documents named, with the capability check's fallbacks (`SKILL.md`), because reviewers who saw the reasoning inherit its blind spots.
 
 ## Premortem
 

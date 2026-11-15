@@ -1,6 +1,6 @@
 # Design detail for coded projects
 
-Read in phase 4 for anything coded. Use only the parts the project needs; each becomes a section of the design and the brief. The decisions behind these items are in `references/non-coder-checklist.md`.
+Use only the parts the project needs; each becomes a section of the design and the brief. The decisions behind these items are in `references/non-coder-checklist.md`.
 
 ## Security baseline
 

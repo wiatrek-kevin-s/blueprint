@@ -1,6 +1,6 @@
 # Phase 2: landscape
 
-Goal: teach the decisions this kind of project forces before asking anything, because the person can't ask about a decision they don't know exists. Outputs: a primer, a decision map with one-way doors marked, and assumptions, all in the state file.
+Goal: teach the decisions this kind of project forces before asking anything (Rule 2). Outputs: a primer, a decision map with one-way doors marked, and assumptions, all in the state file.
 
 ## Research
 
@@ -22,11 +22,11 @@ List every decision the project forces, not only the person's. Draw on: comparab
 
 Check every project against these seams: data and storage; integrations and extensibility (who controls what gets added later); identity and access; deployment; scale; failure and recovery; change over time; cost and licences; compliance and policy; keeping it running (designed in phase 4); experience and interface; how work is saved; and the **execution environment** (a Claude project, Claude Code with a repository, or steps the person does on a platform), which is a one-way door decided before the kit. Business plans add customer, value, pricing, channels, legal structure and funding. List seams that don't apply in one line under the map.
 
-**Coded projects:** run `references/non-coder-checklist.md` against the map as it says; the brief lists every item's outcome in one "Checklist coverage" line.
+Run `references/non-coder-checklist.md` against the map as it says; for coded projects the brief lists every item's outcome in one "Checklist coverage" line.
 
 ### Doors
 
-A decision is a **one-way door** if reversing it means rewriting a core part, migrating stored data, breaking a shared format or link, renegotiating a licence or contract, or retraining users. One-way doors get options, a recommendation and the person's choice in phase 3. Two-way doors get a stated default. Don't plan "start with X, replace it later" for a one-way door, because "later" is the rewrite.
+A decision is a **one-way door** if reversing it means rewriting a core part, migrating stored data, breaking a shared format or link, renegotiating a licence or contract, or retraining users. One-way doors get options, a recommendation and the person's choice in phase 3. Don't plan "start with X, replace it later" for a one-way door, because "later" is the rewrite.
 
 ## Assumptions
 
@@ -34,4 +34,4 @@ Log each assumption with its confidence, evidence, cost if wrong and how to chec
 
 ## Gate G2
 
-The person has seen the primer and could mark it; every seam is checked; one-way doors marked; assumptions logged. Save the state file.
+The person has seen the primer and could mark it; every seam is checked; one-way doors marked; assumptions logged.

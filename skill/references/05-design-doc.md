@@ -1,11 +1,11 @@
 # Phase 4: the design document
 
-Goal: a design a stranger could build from; it becomes the core of the kit. Draft only after G3, because a design built on open one-way doors gets rebuilt.
+Goal: a design a stranger could build from; it becomes the core of the kit.
 
 ## Process
 
 1. Show the outline (headings, one line each) in the last decision round, so the person can redirect cheaply.
-2. Fill one section at a time, researching its details (`references/04-research.md`). With subagents, a fresh drafter writes it from the state file, decisions and research files (`references/context-and-agents.md`).
+2. Fill one section at a time, researching its details (`references/04-research.md`). With subagents, a fresh drafter writes it from the state file, decisions and research files.
 3. A new decision found while drafting goes on the decision map; if it is a one-way door, stop and ask before writing past it.
 
 ## Contents

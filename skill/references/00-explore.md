@@ -6,14 +6,12 @@ Use it when the person has a direction but no idea yet ("something for my garden
 
 - **One open question per turn,** because several at once get short answers to the easiest one.
 - **Play back after at most three answers** ("So far I hear … What's missing?"), because a wrong reading caught early costs one line.
-- **Ask about past events, not hypotheticals** (the Mom Test, `references/heuristics.md`), because people predict their own future behaviour badly.
-- **Don't praise or pitch.** Flattery hides real problems and makes the person defend the idea instead of examining it.
-- **Set the appetite early,** with the anchored choices in `references/01-intake-and-intent.md`, because the time someone will spend decides which directions are worth showing.
+- **Let the appetite** from intake decide which directions are worth showing.
 - **Widen once, then narrow, in separate messages.** Widening offers 2–3 genuinely different directions (not three sizes of one thing), each with its trade-off and its riskiest assumption, plus your recommendation. Where one exists, include a direction that prevents the problem at its cause or automates it at the source of its data. Narrowing asks what to keep. Doing both at once rushes the choice.
 - **Aim for 4–8 turns.** Fewer leaves the idea vague; more wears the person out.
 - **Offer "I'll draft it now" every turn,** so the person can stop exploring whenever they've had enough.
 
-Before widening, use phase 1's techniques (`references/01-intake-and-intent.md`): why the problem happens, where its inputs come from, what already exists (with cost and lock-in), and what the person is able or tasked to change, so you don't widen past it.
+Before widening, use phase 1's techniques and research (`references/01-intake-and-intent.md`), including what the person is able or tasked to change, so you don't widen past it.
 
 ## Opening question
 
