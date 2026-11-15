@@ -33,7 +33,7 @@ The script uses Python's standard library only, so nothing needs installing beyo
 | D-2 | Name clashes | Add a number to the new name, never overwrite | The intent forbids losing a file | One-way |
 | D-3 | Saving work | Local git repository, one commit per task | Every change can be undone | Two-way |
 
-**Rules and examples:** a scan dated 2026-03-14 goes to `2026-03/`; an empty input folder prints "nothing to sort" and exits 0; a second file with the same name becomes `name (2).pdf`; a file that is not a PDF or image is left where it is and listed at the end; running the script twice moves nothing the second time; a month with < 3 files still gets its folder, and with > 50 files the end-of-run list shows only the count. The optional viewer page reuses the <Button> component.
+**Rules and examples:** a scan dated 2026-03-14 goes to `2026-03/`; an empty input folder prints "nothing to sort" and exits 0; a second file with the same name becomes `name (2).pdf`; a file that is not a PDF or image is left where it is and listed at the end; running the script twice moves nothing the second time; a month with < 3 files still gets its folder, and with > 50 files the end-of-run list shows only the count. The optional viewer page reuses the <Button> component. A file name of <3 letters gets the month added in front, and a name longer than 80 characters is cut, with the end-of-run list showing old -> new; a month with <= 2 files is still listed.
 
 **Formats that last:** month folders are named `YYYY-MM` (ISO 8601), one per month, created only when needed.
 
@@ -73,4 +73,4 @@ The script reads and moves files in one folder the person names; it opens no net
 
 ## Definition of done
 
-Every task's check passes with evidence; the tests pass; the success measure is met on 200 sample scans. Then the final review.
+Every task's check passes with evidence; the tests pass; the success measure is met on 200 sample scans. Then the final review. Reading the text on receipts is out of scope for version 1.

@@ -16,7 +16,15 @@ Blueprint picks one of five routes and names it in its first reply, such as `Rou
 | Operate | Projects you already have need upkeep: updates, automation, a choice of tools | An operations kit: setup tasks with checks, and a monthly routine |
 | Amend | A kit Blueprint delivered needs a change | An amendment and the updated kit |
 
-Start it by saying "I have an idea for…", by asking it to review, redesign or look after an existing project, or by typing `/blueprint`. Audit, Redesign and Operate only read your project; they never change it, and they ask before anything that touches live services, accounts or the network.
+Start it by saying "I have an idea for…", by asking it to review, redesign or look after an existing project, or by typing `/blueprint`. Audit, Redesign and Operate only read your project; they never change it, and they ask before anything that touches live services, accounts or the network. Looking up public facts, such as security advisories or a package's current version, is research and needs no asking. If a build from a kit gets stuck, or the builder asks something you can't answer, bring the kit back: that goes to Amend.
+
+**Lightning mode** (route New only): say "lightning", "fast mode" or "skip the questions", and Blueprint asks nothing. It does a short research pass, assumes every answer, takes the safe choice for anything hard to undo (private, your own accounts, test payments, nothing published), records each assumption in the kit, checks the kit, and sends one message listing what it assumed so you can veto any of it in one reply. In Claude Code, "build it" then puts the kit in place and starts the build.
+
+## After the hand-off
+
+The kit's instructions make the builder a **coordinator**: it hands each task to a fresh worker agent, checks the result itself by running that task's checks, records the evidence, and starts a fresh worker when one finishes, stalls or fails twice. You don't start new chats or type "continue". You are asked only at the key points: a short hands-on check at each milestone, before anything that can't be undone (publishing, spending, deleting data, sending messages), for things only you can provide, and for changes to a decision that is hard to undo. Other questions are saved for the next checkpoint while the work goes on.
+
+Kits turn off AI credit lines in your project by default: commits and pull requests carry no "Co-Authored-By: Claude" or "Generated with Claude Code" lines unless you choose them while planning.
 
 See `CHANGELOG.md` for this release's known limitations.
 
@@ -57,7 +65,7 @@ If you also uploaded the zip to the Claude app, Claude Code may list that copy t
 |---|---|
 | `skill/` | The skill itself: `SKILL.md`, the route and phase references, the templates, and the kit and task-list checks in `skill/scripts/`. This is the only folder the zip holds. |
 | `evals/` | How Blueprint is tested: the routing set, invented sample projects, answer keys, the simulated person, the runners and summaries of past runs. See `evals/README.md`. |
-| `scripts/` | Repository tools: `build-zip.sh` (checks the skill and builds `dist/blueprint.zip`), `check_private.py` (checks files and commit messages for terms that must stay private), `check_version.py` (checks a release tag against the newest changelog entry) and `route_budget.py` (counts how much of the skill each route reads). |
+| `scripts/` | Repository tools: `build-zip.sh` (checks the skill and builds `dist/blueprint.zip`), `check_private.py` (checks files and commit messages for terms that must stay private), `check_version.py` (checks a release tag against the newest changelog entry) and `route_budget.py` (counts how much of the skill each route and lightning mode read, and caps `SKILL.md` alone). |
 | `.github/workflows/` | `ci.yml` runs the checks on every pull request and every push to `main`; `release.yml` builds the zip and publishes a release. |
 
 Built zips are not kept in the repository; each release on the Releases page carries its `blueprint.zip`.
@@ -78,6 +86,7 @@ The evals need Claude Code (the `claude` command) and use the account it is sign
 ```bash
 python3 evals/run_routing.py --mode v3 --max-turns 4 --out evals/results/routing.md
 python3 evals/run_behaviour.py --fixture evals/fixtures/audit-sample --prompt "..." --keep
+python3 evals/run_build.py --kit <a kit a behaviour run kept> --coded --keep   # build from the kit
 ```
 
 Each eval runs in a temporary folder outside the clone, made from committed files only. `evals/README.md` explains the isolation, the simulated person and the pass marks.

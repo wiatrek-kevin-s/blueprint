@@ -4,13 +4,13 @@ Goal: a design a stranger could build from; it becomes the core of the kit. Draf
 
 ## Process
 
-1. Show the outline (headings, one line each) first, so the person can redirect cheaply.
-2. Fill one section at a time, researching its details (`references/04-research.md`).
+1. Show the outline (headings, one line each) in the last decision round, so the person can redirect cheaply.
+2. Fill one section at a time, researching its details (`references/04-research.md`). With subagents, a fresh drafter writes it from the state file, decisions and research files (`references/context-and-agents.md`).
 3. A new decision found while drafting goes on the decision map; if it is a one-way door, stop and ask before writing past it.
 
 ## Contents
 
-Adapt with `references/type-adaptations.md`. Summary (what, for whom); intent, users, success measures and non-goals; context and research, with sources and dates; the design, overview first with a diagram for any flow; alternatives for each one-way door; cross-cutting concerns (security, privacy, accessibility, cost, legal); keeping it running (`references/keeping-it-running.md`); implementation detail (exact names, versions, formats); milestones with tested gates; the appetite, and the order scope is cut if it runs out; decisions; open questions with owner and "decide by"; assumptions.
+Adapt with `references/type-adaptations.md`. Summary (what, for whom); intent, users, success measures and non-goals; context and research, with sources and dates; the design, overview first with a diagram for any flow; alternatives for each one-way door; cross-cutting concerns (security, privacy, accessibility, cost, legal); keeping it running (`references/keeping-it-running.md`); implementation detail (exact names and formats; versions are the builder's, within the named stack); milestones with tested gates; the appetite, and the order scope is cut if it runs out; decisions; open questions with owner and "decide by"; assumptions.
 
 - **Coded projects** add the security baseline section (`references/software-design-detail.md`), each item applied, not applicable or accepted.
 - **Projects with screens** add the design spec from phase 3D by reference, not by copy.

@@ -13,10 +13,10 @@ Chosen for how they change what you do, not for fame. Name one to the person onl
 | Intent | Appetite (Singer, 2019) | Ask what the idea is worth in time; fit scope to it | Someone must cut scope at the limit |
 | Explore | Inversion (Munger, 1986) | Ask what would make it useless; design that out first | Pair it with a positive goal |
 | Design | Gall's Law (Gall, 1975) | The first milestone is a thin version that works end to end | Shared interfaces still need settling first |
-| Design | Subtraction: YAGNI (Beck, 1990s); question, then delete (Musk, 2021) | Trace each requirement to a person; cut the rest, logged as later options | Never delete legal, safety or accessibility needs |
+| Design | Subtraction: YAGNI (XP; Jeffries, late 1990s); question, then delete (Musk, 2021) | Trace each requirement to a person; cut the rest, logged as later options | Never delete legal, safety or accessibility needs |
 | Research | Chesterton's fence (Chesterton, 1929) | Before removing an existing step, find why it exists | Time-box the search |
 | Design | Do things that don't scale (Graham, 2013) | Mark deliberate manual steps, each with a trigger to automate | Manual steps can become permanent chores |
-| Decide | Choose boring technology (McKinley, 2015) | Pick stacks the builder knows well; justify each new one | Count the joins between tools, not novelty (Glyph, 2024) |
+| Decide | Choose boring technology (McKinley, 2015) | Pick stacks the builder knows well; justify each new one | Count the joins between tools, not novelty |
 | Decide | Hyrum's Law (Wright, via Winters) | Anything others rely on (links, formats, columns) is one-way once shared; define it field by field | Matters less with very few users |
 | Design | Strict input (Thomson and Schinazi, 2023) | Reject malformed machine input clearly; don't guess | Be forgiving where people type |
 | Kit | Technical debt (Cunningham, 1992) | Log each deliberate shortcut with the event that repays it | Not a licence for messy work |
@@ -29,7 +29,7 @@ Chosen for how they change what you do, not for fame. Name one to the person onl
 
 ## Misattributions to avoid
 
-- "55 minutes defining the problem" isn't Einstein (Aley, 1945); "as simple as possible, but not simpler" is a paraphrase (Sessions, 1950).
+- "55 minutes defining the problem" isn't Einstein (Quote Investigator, 2014); "as simple as possible, but not simpler" is a paraphrase (Sessions, 1950).
 - The drill-and-hole line is Leo McGivena's, via Levitt (1969); "make it work, make it right, make it fast" is Johnson and Kernighan (1983), not Beck.
 - "Premature optimization" is Knuth (1974), not Hoare, and means measure first; the "Feynman technique" is Scott Young's (about 2011).
 - Goodhart's popular wording is Hoskin's (1996) and Strathern's (1997); "disagree and commit" predates Amazon.

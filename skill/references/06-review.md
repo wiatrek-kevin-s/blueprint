@@ -2,7 +2,7 @@
 
 Goal: catch what is wrong or missing before the kit leaves (G4: no unresolved "fail"). A fail sends work back to the phase that caused it.
 
-Run every review in a fresh context: a subagent that sees only the documents named, else a new chat the person opens, else a labelled self-review (`SKILL.md`, capability check). Reviewers who saw the reasoning inherit its blind spots.
+Run every review in a fresh context: a subagent (never a fork of this chat, `references/context-and-agents.md`) that sees only the documents named, else a new chat the person opens, else a labelled self-review (`SKILL.md`, capability check). Reviewers who saw the reasoning inherit its blind spots.
 
 ## Premortem
 
@@ -22,9 +22,10 @@ Each finding is **fail** (the build would go wrong), **warn** (a real risk) or *
 
 ## Dry run of the kit (phase 6)
 
-Give a fresh agent only the kit folder: "You are starting this project. What do you do first, what will you ask, where do you stop, and where is work saved? List every guess you'd have to make. Mark it one-way if it is hard to reverse once in use (platform, hosting, how data is stored or shaped, accounts and sign-in, personal data or payments, licence, anything public, anything that costs money), and harmful if a wrong answer would lose data, open a security or privacy hole, cost money, create a legal duty or fix a public name." Also ask it to list:
+A fresh subagent gets only the kit folder. Without subagents, offer one fresh-chat dry run at approval, even for small projects (offered, never required), because self-reviews miss what fresh readers find. The prompt: "You are starting this project. What do you do first, what will you ask, where do you stop, and where is work saved? List every guess you'd have to make. Mark it one-way if it is hard to reverse once in use (platform, hosting, how data is stored or shaped, accounts and sign-in, personal data or payments, licence, anything public, anything that costs money), and harmful if a wrong answer would lose data, open a security or privacy hole, cost money, create a legal duty or fix a public name." Also ask it to list:
 
 - every contradiction between kit files, because two sources for one fact will drift;
 - every acceptance check it couldn't run, and why, because a check the builder can't run proves nothing.
+- every point where the builder would need to ask the person, because the build should run with the person checking in only at milestones and before anything irreversible.
 
-Close every harmful one-way guess, contradiction and unrunnable check: decide it with a reason, or ask the person in the approval message if only they can. Close other one-way guesses the same way when cheap, because they still cost a migration. Dry-run again with a new agent, up to the runs `SKILL.md` allows for the size, until no harmful one-way guess is left, because each fix adds text a builder can misread. For two-way guesses, widen the brief's "decide yourself" list instead of writing each one out.
+Close every harmful one-way guess, contradiction, unrunnable check and needless question: decide it with a reason, or ask the person in the approval message if only they can. Close other one-way guesses the same way when cheap, because they still cost a migration. Dry-run again with a new agent, up to the runs `SKILL.md` allows for the size, until no harmful one-way guess is left, because each fix adds text a builder can misread. For two-way guesses, widen the brief's "decide yourself" list instead of writing each one out.

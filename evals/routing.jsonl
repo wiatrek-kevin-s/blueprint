@@ -6,6 +6,8 @@
 {"id": "new-6", "prompt": "Vague idea: something that helps volunteer groups fill their shifts. I don't code. Can you help me shape it into a plan?", "expected_route": "new", "should_trigger": true}
 {"id": "new-7", "prompt": "I'd like a design doc for a script that renames my photos by the date they were taken, before anyone writes it.", "expected_route": "new", "should_trigger": true}
 {"id": "new-8", "prompt": "Our team wants to change how we handle customer refund requests. Can you help me plan the new process?", "expected_route": "new", "should_trigger": true}
+{"id": "lt-1", "prompt": "Lightning mode: I want a script that renames my photos by the date they were taken.", "expected_route": "new", "should_trigger": true, "mode": "lightning"}
+{"id": "lt-2", "prompt": "Fast mode please, skip the questions: plan a one-page website listing my band's upcoming gigs and then build it.", "expected_route": "new", "should_trigger": true, "mode": "lightning"}
 {"id": "res-1", "prompt": "continue Blueprint (my state file is v2-state.md in this folder)", "expected_route": "new", "should_trigger": true, "fixture": "evals/fixtures/v2-state.md"}
 {"id": "res-2", "prompt": "Pick up my Blueprint project where we left off. The state file is v2-state.md.", "expected_route": "new", "should_trigger": true, "fixture": "evals/fixtures/v2-state.md"}
 {"id": "res-3", "prompt": "Here's my Blueprint state file, v2-state.md. Let's keep going.", "expected_route": "new", "should_trigger": true, "fixture": "evals/fixtures/v2-state.md"}
@@ -34,6 +36,9 @@
 {"id": "am-1", "prompt": "Here's the kit Blueprint made for my project, in delivered-kit/. We've decided to add a sign-in screen. Can you update the plan?", "expected_route": "amend", "should_trigger": true, "fixture": "evals/fixtures/delivered-kit"}
 {"id": "am-2", "prompt": "The builder hit a problem with the kit in delivered-kit/: the hosting service we picked has closed. Please amend the kit.", "expected_route": "amend", "should_trigger": true, "fixture": "evals/fixtures/delivered-kit"}
 {"id": "am-3", "prompt": "Can you amend my Blueprint kit in delivered-kit/ to drop the export feature? We no longer need it.", "expected_route": "amend", "should_trigger": true, "fixture": "evals/fixtures/delivered-kit"}
+{"id": "am-4", "prompt": "The builder working from my kit in delivered-kit/ has been stuck on the same failing check for an hour and keeps asking me whether to 'switch the data source to a JSON file'. I don't know what to say. What do I do?", "expected_route": "amend", "should_trigger": true, "fixture": "evals/fixtures/delivered-kit"}
+{"id": "am-5", "prompt": "My build from the Blueprint kit in delivered-kit/ is stuck: the agent says the CSV export task can't pass its test and has tried twice. Can you help me get it moving again?", "expected_route": "amend", "should_trigger": true, "fixture": "evals/fixtures/delivered-kit"}
+{"id": "am-6", "prompt": "The coding agent building from delivered-kit/ stopped and asked me to choose between 'sign-in' and 'link only' for the list. I thought we already decided that. Can you sort it out?", "expected_route": "amend", "should_trigger": true, "fixture": "evals/fixtures/delivered-kit"}
 {"id": "neg-1", "prompt": "Fix the error on line 40 of app.py.", "expected_route": "none", "should_trigger": false}
 {"id": "neg-2", "prompt": "Fix the crash when I click save.", "expected_route": "none", "should_trigger": false}
 {"id": "neg-3", "prompt": "Write a Python function that removes duplicates from a list but keeps the order.", "expected_route": "none", "should_trigger": false}
@@ -48,3 +53,4 @@
 {"id": "neg-12", "prompt": "Write the HTML and CSS for a one-page bakery website right now; I don't need a plan.", "expected_route": "none", "should_trigger": false}
 {"id": "neg-13", "prompt": "Write a cron line that runs backup.sh every night at 2am.", "expected_route": "none", "should_trigger": false}
 {"id": "neg-14", "prompt": "Explain what CSS flexbox does, in two sentences.", "expected_route": "none", "should_trigger": false}
+{"id": "neg-15", "prompt": "Fix this TypeError: Traceback (most recent call last): File \"app.py\", line 12, in <module> total = price + qty TypeError: can only concatenate str (not \"int\") to str", "expected_route": "none", "should_trigger": false}

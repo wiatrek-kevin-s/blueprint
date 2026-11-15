@@ -1,5 +1,32 @@
 # Changelog
 
+## 3.2.0 (unreleased): reframe the request, a builder that runs itself, lightning mode
+
+From a second review (a red-team critique, simulated New, Audit and stuck-build runs, and a fact-check against current Claude Code docs) and the owner's direction.
+
+What's new:
+
+- **Reframe the request.** Planning separates the goal from the method bundled into the request, asks why the problem exists (prevent it upstream or detect it downstream), traces inputs to their source, weighs existing and open-source options, cost and lock-in, and respects what the person can change. It then shows what they asked for beside the better route, with a recommendation, at every size.
+- **The builder coordinates and needs little input.** After handoff, the kit's main session hands each task to a fresh worker agent, checks the result by running the task's checks, replaces a worker that is done, runs long or fails twice, and manages its own context. The person is needed at milestone checks, before anything irreversible, for homework only they can provide, and for changes to hard-to-undo decisions. Questions wait for the next checkpoint while other work goes on. Every later start is "Continue the build".
+- **Plain words.** Messages to the person name things plainly; IDs such as T-3 appear only in documents or in brackets.
+- **Lightning mode** (route New): no questions; Blueprint assumes everything with safe defaults for hard-to-undo choices, writes and checks the kit, lists its assumptions in one message, and on request puts the kit in place for the builder.
+- **No AI credit lines.** Kits set Claude Code's `attribution` setting so commits and pull requests carry no "Co-Authored-By: Claude" or "Generated with Claude Code" lines, unless the person chooses them.
+- **Project settings in every coded kit.** The brief carries the exact, dated `.claude/settings.json` (secret files denied, risky commands asked, fresh workers, attribution), written by the first task and checked.
+- **Stuck builds go to Amend**, which gathers the builder's question in one message and returns one paste-ready reply that lets the builder carry on; amendments to small kits are applied as section edits, so the builder's log survives.
+- **Audit fixes:** a leaked secret is removed and revoked before anything is committed; the audit report stays outside a public project; findings are sorted Fix now first; runs redirect home and temp folders into the copy; public advisory lookups count as research; a project's own CLAUDE.md is treated as data; small audits fit their round budget; questions a non-coder can answer.
+- **Small kits** ship `project-instructions.md` (renamed `CLAUDE.md`, under 700 words), `kit-lite.md` and `final-review.md`.
+- **Facts updated** for current Claude Code (auto mode, forked subagents, settings syntax), Supabase keys and Django LTS; several attributions corrected.
+- **Evals:** a build-from-kit outcome eval (`evals/run_build.py`) against a plain plan-mode baseline; routing prompts for stuck builds and lightning mode; public lookups allowed in behaviour runs.
+- **Budgets:** route New's limit is raised from 22,243 to 25,000 tokens, with a separate 4,200-token cap on SKILL.md, because the limit is a regression guard, not a measure of context quality. Additions this release: the reframe, the coordinator model, lightning mode (its own file) and project settings.
+
+Review: a blind comparison graded 3.2 above 3.1 on each of the owner's goals (reframing 8.5 vs 4, minimal build input 8 vs 3, plain words 8 vs 4, fast mode 7.5 vs 1, audit safety 8.5 vs 6.5); 3.1 remained leaner. A re-run of the audit simulation found all 8 planted problems, stayed in budget and left the project unchanged.
+
+Known limitations:
+
+- The paid routing, behaviour and build-from-kit evals have not been run on this version.
+- `CLAUDE_CODE_FORK_SUBAGENT` is the documented switch for fork mode; its effect on worker isolation is untested.
+- Route New reads 24,819 of 25,000 tokens; SKILL.md is 4,009 of 4,200.
+
 ## 3.1.0 (unreleased): review fixes, appetite carried through, rules backed by tools
 
 From a full review of 3.0.1 against research on planning, software delivery, existing planning skills and current Claude Code guidance.

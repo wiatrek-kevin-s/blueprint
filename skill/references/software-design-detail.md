@@ -9,7 +9,7 @@ Every coded kit carries these ten items. Each gets one status: **applied** (wher
 1. Access rules enforced by the server or database, deny by default, with row-level security where the platform has it, because rules in the browser can be bypassed.
 2. Secrets never in browser code or git, with secret scanning on, because a leaked key acts as you.
 3. Hard spending caps and narrowly scoped keys, because alerts don't stop a runaway bill.
-4. Separate test and live setups, preview copies included, which never reach live data; the builder never holds live credentials; backups proved by a restore, because agents have wiped live data.
+4. Separate test and live setups, preview copies included, which never reach live data; the builder never holds live credentials; backups proved by a restore, because agents have wiped live data. A live source with no test copy that the build only reads: the builder may use a read-only key the person creates and enters where secrets go, never a write key.
 5. Few, popular, pinned dependencies, each checked to exist and be maintained before install, because AI tools invent package names that attackers then register.
 6. Managed services for sign-in and payments, never home-made password storage or stored card numbers; input reaches pages and queries only through the framework's escaping and parameterised queries; errors fail closed. These are the commonest serious failures.
 7. Legal triggers flagged for the person: privacy laws by where users live (such as EU, UK and US state laws), children's data, accessibility, app-store rules. This is not legal advice.
@@ -30,8 +30,8 @@ Re-check names and versions before recommending one, and pin versions at build t
 | Project | Default | Why |
 |---|---|---|
 | Static site | Plain HTML and CSS, or Astro; a static host | No server or login, so little to attack |
-| Web app with accounts | Next.js with TypeScript, Supabase (database, sign-in, storage), Stripe Checkout for payments | Most documented; managed sign-in; row-level security on every table |
-| Web app, Python-leaning | Django with Postgres or SQLite | Sign-in, admin and safe queries built in |
+| Web app with accounts | Next.js with TypeScript, Supabase (database, sign-in, storage), Stripe Checkout for payments | Most documented; managed sign-in; row-level security on every table; publishable and secret keys, never the secret key in browser code |
+| Web app, Python-leaning | Django (current LTS) with Postgres or SQLite | Sign-in, admin and safe queries built in |
 | Script or command-line tool | Python with uv, Typer and pytest | One tool for environments; few dependencies |
 | Phone app | A phone-friendly web app first; Expo if native is needed | Avoids store fees and review |
 
@@ -39,9 +39,9 @@ Re-check names and versions before recommending one, and pin versions at build t
 
 - **Data:** entities and links, rules that must always hold, delete policy, how migrations are reversed, which fields are personal.
 - **Interfaces:** every operation with inputs, outputs and an error model; whether repeats are safe; versioning, a one-way door once anyone depends on it.
-- **Testing:** depth by risk (impact × likelihood); every Must requirement has a test; an end-to-end check at each milestone.
+- **Testing:** depth by risk (impact × likelihood); every Must requirement has a test; an end-to-end check at each milestone. A check that can only pass later ("next Monday's scheduled run") becomes a checkpoint item with its date, not a blocker for finishing the build.
 - **Release:** version numbers, a changelog, and a rollback plan tried once before it is needed.
 
 ## Conventions and version control (policy only)
 
-The brief states what must be true and the builder chooses the tools and commands, because it already knows git. Work is saved and pushed after every task, so nothing is lost if a session stops; any change can be rolled back; secrets are never committed, because history keeps them after deletion; history is never rewritten without the person's approval, because rewriting can destroy work. One formatter and linter run in the definition of done. From the first milestone, rules that can't bend are enforced by tools, not only written: checks run on every push (tests, linter, secret scan, dependency audit); the code host blocks pushed secrets and protects the live branch; in Claude Code, project settings deny reading secret files and ask before publishing or deploying.
+The brief states what must be true; the builder, who knows git, chooses the tools. Work is saved and pushed after every task; any change can be rolled back; secrets are never committed, because history keeps them; history is never rewritten without the person's approval. One formatter and linter run in the definition of done. From the first milestone, tools enforce the rules that can't bend: checks on every push (tests, linter, secret scan, dependency audit); the code host blocks pushed secrets and protects the live branch; in Claude Code, the brief's "Project settings" block (the exact, dated `.claude/settings.json`, written by the first task) denies reading secret files and asks before publishing or deploying. As of 2026-11, auto mode is the default and only ask and deny rules are hard in it (check current Claude Code docs at build time), so the written rules stay too.

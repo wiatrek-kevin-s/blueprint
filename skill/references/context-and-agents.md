@@ -2,15 +2,13 @@
 
 Context is a budget: the longer a chat grows, the less reliably early detail is recalled (Anthropic, 2025; Chroma, 2025). These rules spend it where it pays.
 
-## When to delegate
+## Who does what
 
-Use a subagent only when one of these holds, because a fresh agent must regather context and several agents cost several times the tokens of one (Anthropic, 2025):
+Blueprint's main chat coordinates: it keeps the interview, the questions and the decisions, because those need the person and the whole conversation. Fresh subagents, each given the brief below, do the research, draft the long documents (the design document and kit files), and run reviews and dry runs. The main chat reads their summaries, not their bulk, so it never runs long.
 
-- **Bulky output you'd mostly discard**: wide research, or reading large files for a few facts.
-- **Truly independent parallel work**: separate topics with no shared decisions.
-- **Fresh eyes**: reviews and dry runs, which must not see the author's reasoning, or they inherit its blind spots.
+A subagent here is always a named agent given only the files, never a fork of this chat, because a fork inherits the whole conversation and a forked reviewer shares the author's blind spots. As of 2026-11, fork mode is on by default in Claude Code; check its current docs at build time.
 
-Keep in the main chat anything that needs the person, shares decisions or is a quick edit. Split work by the context it needs, never by role (planner, coder, tester), because each relay loses detail. Default to none: one for a lookup, two to four for a comparison.
+Split work by the context it needs, never by role (planner, coder, tester), because each relay loses detail. Keep quick edits in the main chat. Several agents cost several times the tokens of one (Anthropic, 2025): one for a lookup, two to four for a comparison.
 
 ## The subagent brief
 
@@ -23,19 +21,26 @@ Inputs: <file paths and links, not pasted content>
 Output: <format; at most about 1,500 tokens; bulky results go to a file, and only its path and a summary come back>
 Tools and sources: <tools allowed; sources preferred; facts whose date must be checked>
 Boundaries: <what not to do, such as editing outside a folder, publishing or signing up>
+Start: <a fresh named agent>
 Could not verify: <listed separately, never guessed>
 ```
 
 ## When to start a fresh chat
 
-Suggest one, within the person's chore budget, when:
+With subagents, save the state file and the handoff note at each pivot named in `SKILL.md` and carry on. Suggest a fresh chat, within the person's chore budget, only when subagents aren't available, at those pivots and when:
 
-- the next phase is unrelated, or the goal changes direction;
+- the goal changes direction;
 - two corrections of the same problem have failed, because one clear prompt in a new chat beats a third correction;
-- signs of drift appear (below);
-- a compaction happened mid-task, because summaries drop instructions given only in chat.
+- signs of drift appear (below), or a compaction happened mid-task, because summaries drop instructions given only in chat.
 
-Before it, save the state file and finish the handoff note.
+## Coordinating workers (the kit mirrors this)
+
+The kit makes the builder's main session a coordinator in the same way:
+
+- **Brief:** each worker gets one task, or a small group, as a stand-alone message: the task and its checks, the brief sections and decision IDs it needs, the save-work policy, its boundaries, and what to return (what changed, check results, guesses made).
+- **Verify:** the coordinator runs the task's checks itself and logs the evidence, because a worker's "done" is a claim.
+- **End and replace:** end a worker when its task is done, when it has run long or drifted, or after two failed attempts. Start a fresh one with a handoff note and a different approach; if that fails too, park the task, go on with others, and ask at the next checkpoint.
+- **Stay small:** the coordinator reads workers' reports and the progress log, never code in bulk.
 
 ## The handoff note
 
