@@ -4,7 +4,7 @@ Version <1.0> · as of <DATE> · prepared with Blueprint · size: <medium or lar
 
 <Two sentences: what is built, for whom, and the most important choice.>
 
-Each fact lives in one section; elsewhere, cite its ID (D-n, REQ-n, F-n, T-n), so the brief can't contradict itself.
+Each fact lives in one section; elsewhere, cite its ID (D-n, REQ-n, F-n, T-n).
 
 ## Intent
 
@@ -60,11 +60,11 @@ Checklist coverage: <each checklist item: D-n, F-n or "N/A: reason">
 
 ## Project settings
 
-<Claude Code, coded: the exact `.claude/settings.json` the first task writes, as of <DATE>, in a code block: deny reading `.env*` and secret folders; `"env": {"CLAUDE_CODE_FORK_SUBAGENT": "0"}`, so workers start fresh; ask before this design's deploy, publish, migration and force-push commands; `"attribution": {"commit": "", "pr": "", "sessionUrl": false}` unless the person chose credit lines. Otherwise "None".>
+<Claude Code, coded: the exact `.claude/settings.json` the first task writes, as of <DATE>, in a code block: deny reading `.env*` and secret folders; `"env": {"CLAUDE_CODE_FORK_SUBAGENT": "0"}`; ask before this design's deploy, publish, migration and force-push commands; `"attribution": {"commit": "", "pr": "", "sessionUrl": false}` unless the person chose credit lines. Otherwise "None".>
 
 ## Where the work happens
 
-<Environment (D-n); where outputs live; the save-work policy; what the person does because Claude can't, such as sign-ins and payments; files kept outside the project, such as a public project's audit report.>
+<Environment (D-n); where outputs live; what the person does because Claude can't, such as sign-ins and payments; files kept outside the project, such as a public project's audit report.>
 
 ## Keeping it running
 
@@ -81,7 +81,7 @@ Checklist coverage: <each checklist item: D-n, F-n or "N/A: reason">
 
 ## Checkpoints
 
-After the first task, at each milestone, before anything irreversible, and <at the named points>.
+After the first task, at each milestone, and <at the named points>.
 
 | After | What the person tries | What they should see |
 |---|---|---|
@@ -90,10 +90,6 @@ After the first task, at each milestone, before anything irreversible, and <at t
 
 | ID | Question or assumption | Settled at | If false or unanswered |
 |---|---|---|---|
-
-## Never without approval
-
-- <publishing, spending, deleting, sending, adding scope>
 
 ## Definition of done
 

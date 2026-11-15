@@ -21,7 +21,7 @@ Nothing else counts, except evidence files the brief names: not earlier chats, p
 
 | Work area | Tasks | Checkpoint at end |
 |---|---|---|
-| <plain name, such as "Sign-up works"> (<S1>) | <T-1, T-2> | <yes: what the person tries; or no> |
+| <plain name, such as "Sign-up works"> (<S1>) | <T-1, T-2> | <yes or no> |
 
 ## Commands
 
@@ -34,7 +34,7 @@ You coordinate; workers build. Keep your chat small, so the build runs to the en
 1. **Start** (also on "Continue the build"): read the newest handoff note and the task list, check the last save matches the log, run the smoke check once Commands has one, and tell the person in two lines where things stand.
 2. **Hand out** each ready task (respect `depends_on`; independent ones may run at once) to a fresh worker subagent, never a fork of this chat, with a stand-alone brief: the task and its checks, the brief sections and IDs it needs, Saving work, the stop list, what to return (changes, check output, decisions, doubts). Do a task too small to grow your chat (a one-file change) yourself.
 3. **Verify** by running its checks yourself; a worker's "done" is a claim. Read output, not code. Record status, evidence and decisions; save; update the handoff note.
-4. **Replace** a worker that is done, runs long or fails twice with a fresh one, told what was tried, the failing output and a new approach. If that fails, don't stop: log both attempts, mark the task blocked, continue, and raise it at the next checkpoint with a recommended answer.
+4. **Replace** a worker that is done, runs long or fails twice with a fresh one, told what was tried, the failing output and a new approach. If that fails, log both attempts, mark the task blocked, continue, and raise it at the next checkpoint with a recommended answer.
 
 Chat long, or just compacted? Write a handoff note and carry on. Only if you can't, ask the person to type `/clear` and send "Continue the build".
 
@@ -62,7 +62,7 @@ Keep: task states, which worker has which task, evidence, decisions with reasons
 
 Stop for the person only:
 
-- at a checkpoint: what now works, two to five steps to try and what they should see, then saved questions;
+- at a checkpoint (the brief's Checkpoints): what now works, two to five steps to try and what they should see, then saved questions;
 - before anything on this list: <Never without approval: publishing or deploying, spending or signing up, deleting or overwriting data or history, sending messages, adding scope.>;
 - for their own steps or homework: click by click, with what to paste back;
 - for a change touching a one-way door (marked in the brief; never approved here: mark it "Sent to Blueprint"), the scope, cost, security, privacy or the intent.

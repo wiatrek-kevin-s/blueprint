@@ -29,7 +29,7 @@ As of <DATE> · Kit version <old> → <new>
 
 ## What to replace in the execution project
 
-<For the person, in plain words. Small kit: nothing; paste the message below, which lists each section edit the builder makes itself in `kit-lite.md`, so its progress log stays. Medium and large: replace the build brief and add this amendment beside it; never replace `progress-log.md` or `tasks.json` (the message carries the task changes). Then where to paste the message.>
+<For the person, in plain words. Small kit: nothing; paste the message below (the builder edits `kit-lite.md` itself, so its progress log stays). Medium and large: replace the build brief and add this amendment beside it; never replace `progress-log.md` or `tasks.json` (the message carries the task changes). Then where to paste the message.>
 
 ## Message for the builder
 

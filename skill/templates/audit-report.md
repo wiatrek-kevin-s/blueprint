@@ -44,7 +44,7 @@ Problems in the project only; limits of the audit go under "What this audit coul
 
 ## What this audit could not check
 
-Limits of the audit, not problems in the project, so none of them is in the findings table: commands or tests not run (including any that would write outside the copy), files not read, advisories not looked up, no version history.
+Commands or tests not run (including any that would write outside the copy), files not read, advisories not looked up, no version history.
 
 - <what, why, and what it would take to check it>
 
