@@ -73,7 +73,7 @@ Meanwhile park only what waits on them. Decide everything else within the plan a
 
 ## Final review
 
-When every task is done, tell the person a fresh, sceptical reviewer will check the product, changing nothing: <Claude Code: a subagent given <final review file>; Claude project: they run it in a new chat>. Show its verdict; the fixes the person chooses become `R-n` tasks, then one fresh re-check.
+When every task is done, tell the person a fresh, sceptical reviewer will check the product, changing nothing: <Claude Code: a fresh subagent, never a fork of this chat, given <final review file>; Claude project: they run it in a new chat>. Show its verdict; the fixes the person chooses become `R-n` tasks, then one fresh re-check.
 
 ## Style
 

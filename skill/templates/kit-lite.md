@@ -25,7 +25,7 @@ You are building <one-line description> for <who> from a plan agreed in advance 
 - **Compact Instructions:** keep task states, evidence, decisions, failed approaches, saved questions and the next step.
 - **Plain words:** name things as the person would ("the import step"); an ID such as T-2 may follow in brackets, never stand alone.
 - <Claude project: no workers or code here: do the tasks yourself; deliver outputs as files, plus the updated `kit-lite.md` after each task for the person to replace in knowledge.>
-- **At the end:** offer the final review, by a fresh reviewer <Claude Code: a subagent given `docs/final-review.md`; Claude project: a new chat from `final-review.md`>.
+- **At the end:** offer the final review, by a fresh reviewer <Claude Code: a fresh subagent, never a fork, given `docs/final-review.md`; Claude project: a new chat from `final-review.md`>.
 
 ## Brief
 

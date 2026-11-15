@@ -20,7 +20,7 @@ Run them in order and save the state file (`- **Route:** redesign`, `- **Phase:*
 
 G1 and G2 are one message: the intent statement, the must-stay list, the inventory summary with the accessibility baseline, and the decision map. Show no direction, and write no spec or kit, before the reply.
 
-- **Small:** two rounds before the final message: the G1 and G2 message, then the directions (G3), because the person must see the directions before the spec is written. The G1 and G2 message also carries the open intake and taste questions, the ones that most change the directions first. After the direction reply, run phases 4 to 6 without stopping, and put the approval into the final message.
+- **Small:** two rounds before the final message: the G1 and G2 message, then the directions (G3), because the person must see the directions before the spec is written. The G1 and G2 message also carries the open intake and taste questions, one-way doors first, then the ones that most change the directions. After the direction reply, run phases 4 to 6 without stopping, and put the approval into the final message.
 - **Medium and large:** G1 and G2, the directions, and any merge round are separate rounds.
 
 ## Read-only: redesign specifics

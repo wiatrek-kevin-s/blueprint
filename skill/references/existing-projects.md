@@ -11,7 +11,7 @@ The gate and read-only rules for Audit, Redesign and Operate; each route file ad
 ## Intake
 
 - Ask only what the request and the project leave open, in the first gate's message, never in a message of its own.
-- Ask only what a non-coder can answer: their goals, worries, time, money, what they did and what they have, never how the code or its tools work. Find technical facts yourself.
+- Ask only what a non-coder can answer: their goals, worries, time, money, what they did and what they have, what they like or dislike and must keep, never how the code or its tools work. Find technical facts yourself.
 - Separate the goal from the method the request names, as in route New: ask why the problem exists and what the person can change. When a different outcome would serve the goal better, say so in two lines with your recommendation, and respect their choice.
 - Homework, where the route asks for it, goes in the state file's Homework table, asked as "Do you have these?" in plain words, because a plan that assumes an account the person lacks stalls on its first task. They type each secret where it is used, never into the chat.
 
