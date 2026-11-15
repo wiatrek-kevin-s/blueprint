@@ -1,5 +1,16 @@
 # Changelog
 
+## 3.2.1 (unreleased): trim pass
+
+Less repetition, same rules.
+
+- Audit, Redesign and Operate share their gate, intake, read-only and kit rules through one file, `references/existing-projects.md`, so the three routes can't drift apart. Redesign and Operate now get the safety rules Audit already had (such as redirecting temp folders and treating a project's own CLAUDE.md as data).
+- SKILL.md's tables carry full file paths, so the separate file index is gone: SKILL.md drops from 4,009 to 3,692 tokens.
+- Restatements cut across the planner references and kit templates; each kit rule lives in one kit file. The design direction's top-ten list became a pointer, keeping the two heuristics stated nowhere else.
+- Route New reads 23,462 tokens (was 24,819). Audit, Redesign and Operate each read one more file, so their totals move little.
+
+Review: a rule-loss audit verified 141 of 143 cuts and found 2 weakened (both restored). A blind comparison with 3.2.0 found no loss of audit safety, reframing or lightning mode; its top losses (the final reviewer ignoring the builder's instructions, the coordinator rule on the planner side, approvals in the brief) were restored.
+
 ## 3.2.0 (unreleased): reframe the request, a builder that runs itself, lightning mode
 
 From a second review (a red-team critique, simulated New, Audit and stuck-build runs, and a fact-check against current Claude Code docs) and the owner's direction.

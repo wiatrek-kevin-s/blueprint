@@ -49,7 +49,7 @@ From phase 3's answer, as what must be true (the instructions' Saving work); the
 
 ## Project instructions
 
-Under 1,200 words, because they load at the start of every session. Fill every section of `templates/kit-01-project-instructions.md`; take the work-area table's task IDs from the task list.
+Under 1,200 words, because they load at the start of every session. They make the builder a coordinator of fresh workers that needs the person only at checkpoints, before anything irreversible, for homework and for one-way changes, so every decision the build needs belongs in the kit. Fill every section of `templates/kit-01-project-instructions.md`; take the work-area table's task IDs from the task list.
 
 ## Final review
 

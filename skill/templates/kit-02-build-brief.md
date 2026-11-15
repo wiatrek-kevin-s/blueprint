@@ -81,7 +81,7 @@ Checklist coverage: <each checklist item: D-n, F-n or "N/A: reason">
 
 ## Checkpoints
 
-After the first task, at each milestone, and <at the named points>.
+After the first task, at each milestone, and <at the named points>. Before anything irreversible, the instructions' stop list applies.
 
 | After | What the person tries | What they should see |
 |---|---|---|

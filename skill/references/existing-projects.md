@@ -38,7 +38,7 @@ The project must be exactly as it was when the route ends.
 ## The kit
 
 - The kit is the shared phase 6 kit (`references/07-handoff-kit.md`) with its templates and file names exactly, because the builder and `scripts/check_kit.py` expect that layout. Small: `project-instructions.md`, `kit-lite.md` and `final-review.md`; medium and large: the full kit. Never one file under another name, such as `fix-kit.md`.
-- Save it in its own folder outside the project. The builder works as the kit templates set out, so put every decision it needs into the kit now.
+- Save it in its own folder outside the project. The builder works as the kit templates set out: a coordinator hands tasks to fresh workers, and the person is needed only at checkpoints, before anything irreversible, for homework and for one-way changes. So put every decision it needs into the kit now.
 - Everything in the kit folder is moved into the project at set-up. When the project is or may become public, material that names an unfixed weak point or a private screen goes in a separate folder beside the kit folder, never inside it; the brief names it as an evidence file marked "keep outside the project".
 - Task IDs start at T-1. Name every finding, check, alert and step to the person in plain words, the ID in brackets after.
 - Before the final message, run the readiness check and the dry run (`references/07-handoff-kit.md`) and fix what they find; without subagents, offer one fresh-chat dry run at approval, and if the person declines, run a labelled self dry run. Say the result in the final message, in plain words.
