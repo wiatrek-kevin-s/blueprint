@@ -6,7 +6,7 @@ If Blueprint runs in the project folder, its `CLAUDE.md` or `AGENTS.md` loads in
 
 ## When the build is stuck
 
-The person comes back with a build that keeps failing, has stopped, or asked something they can't answer. They usually can't say what should change, so find it out for them; Blueprint writes no code and still changes nothing in the project.
+The person comes back with a build that keeps failing, has stopped, or asked something they can't answer. They usually can't say what should change, so find it out for them, still writing no code and changing nothing in the project.
 
 1. **Gather, in one message.** Ask for three things, with how to copy each in plain words: the builder's last message, the progress log (or its handoff note), and the output of the check that fails. In Claude Code with the project folder open, read the log and the kit yourself and ask only for what you can't see.
 2. **Restate it in plain words.** Say what the builder is stuck on as the person would put it ("it can't tell which date on a receipt to sort by"), tied to the kit's decisions and tasks with their IDs in brackets.
@@ -25,14 +25,8 @@ The person comes back with a build that keeps failing, has stopped, or asked som
 1. Identify what kind of change it is:
    - **Two-way door:** record a decision, update the affected sections, bump the kit's minor version (1.0 → 1.1).
    - **One-way door, or new scope:** run a short Blueprint cycle on just that decision (research → primer if new to the person → question in plain words with your recommended answer → decision), then write an amendment and bump the major version (1.x → 2.0).
-2. Write the amendment from `templates/amendment.md`:
-   - First paragraph: what changes, and which sections it supersedes.
-   - A table of affected sections, before and after.
-   - Why, with the research behind it.
-   - The new design, at the same level of detail as the original.
-   - Effect on tasks, checkpoints and open questions, including any work already done that must be revisited.
-   - One line naming the cause (see "Learning" below).
-3. Produce the updated kit (all files, new version number) as your own record beside the state file, and the amendment. Get the change to the builder as below, with one paste-ready message for the builder's coordinator so it can carry on without further input from them.
+2. Write the amendment from `templates/amendment.md`, with every section filled, including any done work that must be revisited and the cause (see "Learning").
+3. Produce the updated kit (all files, new version number) as your own record beside the state file, and the amendment. Get the change to the builder as below, with one paste-ready message for the builder's coordinator.
 
 ## Getting the change to the builder
 
@@ -44,7 +38,7 @@ Never hand back a replacement for a file the builder writes in, because it would
 
 ## Kits from Blueprint 2 and from other routes
 
-Audit, Redesign and Operate kits use the same change control. A kit without a `## Keeping it running` section, such as one from Blueprint 2, gets an offer to add it as part of the amendment (`references/keeping-it-running.md`), because the readiness check now requires it.
+Audit, Redesign and Operate kits use the same change control. A kit without a `## Keeping it running` section, such as one from Blueprint 2, gets an offer to add it in the amendment (`references/keeping-it-running.md`), because the readiness check now requires it.
 
 ## Changes raised by the executing project
 

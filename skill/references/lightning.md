@@ -4,7 +4,7 @@ Lightning mode runs route New fast: ask nothing, assume every answer, write the 
 
 ## When it applies
 
-- **Trigger:** the person asks for it ("lightning", "fast mode", "skip the questions", "just build it" while planning). Route New's opening message offers it in one line.
+- **Trigger:** the person asks for it ("lightning", "fast mode", "skip the questions", "just build it" while planning).
 - **Route New only.** For Audit, Redesign, Operate or Amend, say in one line that lightning covers new projects only, and run the normal route.
 - **Mid-run:** keep what is decided and assume the rest. If the person starts answering or asks to discuss, return to the normal flow; open assumptions become questions.
 - Write `- **Mode:** lightning` in the state file under the Route line.
@@ -29,7 +29,7 @@ For every decision the normal flow would ask, choose your recommended option. Re
 - **Size:** from the request (`SKILL.md`, sizing); the personal-data floor still applies.
 - **Screens:** no direction round. State one plain, readable direction in the brief (`references/design-principles.md`).
 - **Two-way doors:** the boring default.
-- **Never assumed:** passwords, keys and account sign-ups. List them as homework, with where the person types each one, never into the chat.
+- **Never assumed:** passwords, keys and account sign-ups. List them as homework, with where the person types each one (Rule 9).
 
 ## The kit
 

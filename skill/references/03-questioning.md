@@ -4,14 +4,13 @@ Goal: settle every one-way door (G3). Question format and plain words: `SKILL.md
 
 ## Rules
 
-1. **Look up first;** never ask what research can answer.
-2. **Each decision question names the decision it settles,** because a question that changes nothing spends the person's attention for free. Past-event questions and confirming the intent are exempt (`SKILL.md`).
-3. **One-way doors first,** ordered by how much depends on them; two-way doors get defaults.
-4. **Budgets:** rounds and total questions by size (`SKILL.md`). Near the limit, decide the rest and say so, because a tired person answers at random.
-5. **"Decide the rest for me" from round 1,** once per round. The rest are recorded as delegated with your choice and reason; one-way doors are then listed for the person to veto in one look.
-6. **Stopping research:** decide a two-way door at about 70% of the information you'd like (Bezos, 2016), because more rarely changes it. A one-way door also needs the strongest case against your recommendation, stated to the person.
-7. **Disagree and commit:** if the person picks against your advice, say why once, record their choice and your dissent, then design around their choice fully, because a half-hearted design fails for both reasons.
-8. **Record every answer** in the state file: decided with its reason; "You decide" as delegated with your choice; unanswered as an assumption with your default. Don't re-ask anything recorded.
+1. **Each decision question names the decision it settles,** because a question that changes nothing spends the person's attention for free. Past-event questions and confirming the intent are exempt (`SKILL.md`).
+2. **One-way doors first,** ordered by how much depends on them.
+3. **Budgets:** near the limit in `SKILL.md`, decide the rest and say so.
+4. **"Decide the rest for me" from round 1,** once per round. The rest are recorded as delegated; one-way doors are then listed for the person to veto in one look.
+5. **Stopping research:** beyond the 70% rule for two-way doors (`SKILL.md`), a one-way door needs the strongest case against your recommendation, stated to the person.
+6. **Disagree and commit:** if the person picks against your advice, say why once, record their choice and your dissent, then design around their choice fully, because a half-hearted design fails for both reasons.
+7. **Record every answer** in the state file (Rules 4 and 5); an unanswered one is an assumption with your default. Don't re-ask anything recorded.
 
 ## Execution preferences
 

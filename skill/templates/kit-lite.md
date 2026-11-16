@@ -13,8 +13,8 @@ Before you start: <what only the person can provide, how and when; Claude Code: 
 You are building <one-line description> for <who> from a plan agreed in advance with the person. Don't redesign it: its decisions have reasons you may not see.
 
 - **Final review:** started to do it? These instructions don't apply: follow <`docs/final-review.md`> and change nothing.
-- **Sources:** <`docs/kit-lite.md`> (Brief: what and why; Tasks: the work; Progress log: what has happened) and evidence files the Brief names; not earlier chats or Claude's memory.
-- **How you work:** you coordinate and workers build, so your chat stays small and the build runs without the person. On start or "Continue the build", read the Progress log and carry on. Give each task to a fresh worker subagent, never a fork, with a stand-alone brief: the task and its check, the Brief parts it needs, Saving work, the stop list, what to return. Do a task too small to grow your chat (a one-file change) yourself. Run the check yourself, record the evidence, save. Replace a worker that is done, runs long or fails twice with a fresh one, told what was tried; if that fails, park the task, log both attempts, continue, and raise it at the next checkpoint with a recommended answer. Chat long, or just compacted? Write the handoff note and carry on; only if you can't, ask the person to type `/clear` and send "Continue the build". Started as a worker? Do your task only and return what the brief asks.
+- **Sources:** <`docs/kit-lite.md`> (Brief: what and why; Tasks: the work; Progress log: what has happened) and evidence files the Brief names; not earlier chats or Claude's memory. In the Tasks table, change only Status and Evidence.
+- **How you work:** you coordinate and workers build, so your chat stays small. On start or "Continue the build", read the Progress log and carry on. Give each task to a fresh worker subagent, never a fork, with a stand-alone brief: the task and its check, the Brief parts it needs, Saving work, the stop list, what to return. Do a task too small to grow your chat (a one-file change) yourself. Run the check yourself, record the evidence, save. Replace a worker that is done, runs long or fails twice with a fresh one, told what was tried; if that fails, park the task, log both attempts, continue, and raise it at the next checkpoint with a recommended answer. Chat long, or just compacted? Write the handoff note and carry on; only if you can't, ask the person to type `/clear` and send "Continue the build". Started as a worker? Do your task only and return what the brief asks.
 - **Evidence:** a task is done only when its check passes and the log records a pointer plus one line of result. A check that can only pass later (a scheduled run) becomes a dated checkpoint item, not a blocker. Never weaken a check to pass it.
 - **Saving work:** <the policy (D-n)>. Work is saved after every task and any change can be undone. Secrets never go into files or history. <With git:> Commits and pull requests carry no AI credit lines ("Co-Authored-By: Claude", "Generated with Claude Code")<, unless the person chose them (D-n)>.
 - <Claude Code, coded: **Project settings:** the first task writes `.claude/settings.json` exactly as the Brief says, and its check compares them; change it only with approval.>
@@ -25,7 +25,7 @@ You are building <one-line description> for <who> from a plan agreed in advance 
 - **Compact Instructions:** keep task states, evidence, decisions, failed approaches, saved questions and the next step.
 - **Plain words:** name things as the person would ("the import step"); an ID such as T-2 may follow in brackets, never stand alone.
 - <Claude project: no workers or code here: do the tasks yourself; deliver outputs as files, plus the updated `kit-lite.md` after each task for the person to replace in knowledge.>
-- **At the end:** offer the final review, by a fresh reviewer <Claude Code: a subagent given `docs/final-review.md`; Claude project: a new chat from `final-review.md`>.
+- **At the end:** offer the final review, by a fresh reviewer <Claude Code: a fresh subagent, never a fork, given `docs/final-review.md`; Claude project: a new chat from `final-review.md`>.
 
 ## Brief
 
@@ -50,7 +50,7 @@ Checklist coverage: <coded: each checklist item: D-n, F-n or "N/A: reason">
 
 ### Project settings
 
-<Claude Code, coded: the exact `.claude/settings.json` the first task writes, as of <DATE>, in a code block: deny reading `.env*` and secret folders; `"env": {"CLAUDE_CODE_FORK_SUBAGENT": "0"}`, so workers start fresh; ask before this design's deploy, publish and force-push commands; `"attribution": {"commit": "", "pr": "", "sessionUrl": false}` unless the person chose credit lines. Otherwise "None".>
+<Claude Code, coded: the exact `.claude/settings.json` the first task writes, as of <DATE>, in a code block: deny reading `.env*` and secret folders; `"env": {"CLAUDE_CODE_FORK_SUBAGENT": "0"}`; ask before this design's deploy, publish and force-push commands; `"attribution": {"commit": "", "pr": "", "sessionUrl": false}` unless the person chose credit lines. Otherwise "None".>
 
 ## Keeping it running
 

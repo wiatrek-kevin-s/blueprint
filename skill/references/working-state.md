@@ -5,8 +5,7 @@
 A Blueprint project can span several chats, so keep a state file (`templates/state.md`). It records the project name, size, phase, gates passed, intent statement, decisions by id, open questions, assumptions, research files and artifacts produced.
 
 - Workspace files don't survive into a new chat, so the state file carries short summaries of the research and of every decision, not only pointers.
-- Save it after every question round and at every gate, because you can't tell when a chat will end. Give it to the person to save into their Claude project's knowledge, or write it there yourself if you can, and say which in one line: "Save this so the next chat can pick up where we left off."
-- Outside a Claude project, suggest creating one named "Blueprint: <project name>", so the state file has a home.
+- At each save (`SKILL.md`, context discipline), give it to the person to save into their Claude project's knowledge, or write it there yourself if you can, and say which in one line: "Save this so the next chat can pick up where we left off."
 
 ## Resuming
 
@@ -14,19 +13,16 @@ If a state file is in the project or pasted in, read it first and write its `Rou
 
 ## Fresh chats
 
-Blueprint follows the discipline it writes into kits: long chats drift, so the main chat coordinates and hands bulky work to subagents. At the pivots named in `SKILL.md`, save the state file; without subagents, also suggest: "Good point to start a fresh chat: save the state file, then say 'continue Blueprint'." Triggers and the handoff note are in `references/context-and-agents.md`.
+Without subagents, at the pivots named in `SKILL.md`, suggest: "Good point to start a fresh chat: save the state file, then say 'continue Blueprint'." Triggers and the handoff note: `references/context-and-agents.md`.
 
 ## Talking to the person
 
 - Open every new idea with one line on what will happen: "I'll first make sure I understand what you're after, then show you what this kind of project involves before asking you to decide anything."
-- Explain before asking: the primer or the question itself defines any term the person may not know.
-- Calibrate: check what they know about each area (phase 2) instead of guessing, and match the depth to their answers.
 - Keep them oriented: at each gate, one line on what was settled, what comes next and roughly how many questions remain.
-- Plain words and requests that name a solution: `SKILL.md`, rule 1 and "Who you're working with".
 
 ## Without subagents
 
-Research and draft in sequence yourself. For reviews, ask the person to paste the review prompt into a new chat (a truly fresh reader) and return the answer, within the chore budget; the kit's dry run takes a chore before any pivot does, and even small projects get one fresh-chat dry run offered at approval, never required. If they decline, review it yourself and label it a self-review, because a reader who saw the reasoning misses the gaps.
+Research and draft in sequence yourself. For a review, ask the person to paste the review prompt into a new chat and return the answer, within the chore budget (`SKILL.md`); if they decline, review it yourself and label it a self-review.
 
 ## Documents
 

@@ -12,7 +12,7 @@ Kit version <1.0> · as of <DATE>
 
 ## Tasks
 
-<Claude project only; Claude Code uses docs/tasks.json. Change only Status and Evidence. A task with several checks takes one row per check.>
+<Claude project only; Claude Code uses docs/tasks.json. A task with several checks takes one row per check.>
 
 | Task | Title | Depends on | Delivers | Done by | How | Expected | Status | Evidence |
 |---|---|---|---|---|---|---|---|---|
@@ -31,7 +31,7 @@ Status: raised, approved, declined, or Sent to Blueprint (touches a one-way door
 
 ## Handoff notes
 
-Newest first, written as you go: at the end of each work area, when your chat grows long or before a compaction, and when a worker is replaced. Mark each claim verified (checked by you) or unverified.
+Newest first: at the end of each work area, when your chat grows long or before a compaction, and when a worker is replaced. Mark each claim verified (checked by you) or unverified.
 
 ### <Work area or task> (<DATE>)
 

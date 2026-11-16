@@ -6,7 +6,7 @@ license: MIT
 
 # Blueprint
 
-Blueprint plans projects at any stage, from a rough idea to a neglected site, and hands over an **execution kit**: a few documents a fresh agent, in a new chat, project or repository, builds from without guessing. Every kit also says how the result is kept running. Blueprint plans; it never builds, except that lightning mode puts the kit in place on request.
+Blueprint plans projects at any stage, from a rough idea to a neglected site, and hands over an **execution kit**: a few documents a fresh agent, in a new chat, project or repository, builds from without guessing. Every kit also says how the result is kept running.
 
 **Scope line.** The kit holds decisions, policies and checks, each with its reason. It holds step-by-step procedure only for steps the person does themselves (click by click) and for fragile mechanisms where a mistake is costly, such as keeping secrets out of a public repository. The builder already knows how to code, test and use git; telling it again wastes its context.
 
@@ -33,19 +33,19 @@ Note in the state file which tools this session has: web search, subagents, code
 
 ## Routes
 
-Choose a route before anything else. As soon as you know it, and before reading its files, write a line naming it, such as `Route: new`, and one line on what will happen; record it in the state file as `- **Route:** new`. Read only that route's files.
+Choose a route first. Before reading its files, write a line naming it, such as `Route: new`, and one line on what will happen; record it in the state file as `- **Route:** new`. Read only that route's files.
 
 | Route | Use when | Read first | Ends with |
 |---|---|---|---|
 | New | A new idea, or a repository with nothing in it yet | `references/01-intake-and-intent.md`, then the phases below | **G5:** kit delivered |
-| Audit | The project exists, in any state, and the person wants it reviewed, fixed, finished or rescued | `references/route-audit.md` | An audit report and a fix kit |
-| Redesign | The project exists and only its look and feel should change | `references/route-redesign.md` | A design spec and a kit |
-| Operate | Existing projects need upkeep: updates, fixes, automation, or a choice of tools to run them | `references/route-operate.md` | An operations kit with a runbook |
-| Amend | A delivered Blueprint kit needs a change | `references/08-change-control.md` | An amendment and an updated kit |
+| Audit | The project exists, in any state, and the person wants it reviewed, fixed, finished or rescued | `references/existing-projects.md`, then `references/route-audit.md` | An audit report (`templates/audit-report.md`) and a fix kit |
+| Redesign | The project exists and only its look and feel should change | `references/existing-projects.md`, then `references/route-redesign.md` | A design spec and a kit |
+| Operate | Existing projects need upkeep: updates, fixes, automation, or a choice of tools to run them | `references/existing-projects.md`, then `references/route-operate.md` | An operations kit with a runbook |
+| Amend | A delivered Blueprint kit needs a change | `references/08-change-control.md` | An amendment and an updated kit (`templates/amendment.md`) |
 
 Choose in this order:
 
-1. A state file: resume its route at its recorded phase. A state file without a Route line comes from Blueprint 2 and resumes as New (`references/working-state.md`).
+1. A state file: resume its route at its recorded phase (`references/working-state.md`; no Route line means New).
 2. A delivered kit and a change to it, or a build that is stuck or asking something the person can't answer: Amend.
 3. Nothing exists yet, an empty repository included: New.
 4. Something exists: route by what the person wants. Review, fix, finish or rescue: Audit. Look and feel only: Redesign. Upkeep, updates, automation or tool choice: Operate.
@@ -54,27 +54,27 @@ Choose in this order:
 
 Switch route only at a gate, with the person's agreement, recorded in the state file; findings and decisions carry over.
 
-**Lightning mode** (route New only): when the person asks for speed ("lightning", "skip the questions", "just build it"), follow `references/lightning.md` instead of the question rounds: every answer assumed and recorded, safe defaults for one-way doors, one message at the end. Offer it in one line in route New's opening message. The normal flow is unchanged.
+**Lightning mode** (route New only): when the person asks for speed ("lightning", "skip the questions", "just build it"), follow `references/lightning.md` instead of the question rounds: every answer assumed and recorded, safe defaults for one-way doors, one message at the end. Offer it in one line in route New's opening message.
 
 ## Phases
 
-Route New runs every phase. Audit, Redesign and Operate run their own first phases from their route files, then join at phase 4 (Redesign at 3D). Run the phases in order, reading each phase's files only when you enter it. Never skip a gate, and never draft the design before G3 (small Audit and Operate runs excepted, as their route files say), because a design built on open one-way doors gets rebuilt. If review finds a gap, return to the phase that caused it.
+Route New runs every phase. Audit, Redesign and Operate run their own first phases from their route files, then join at phase 4 (Redesign at 3D). Run the phases in order, reading each phase's files only when you enter it; read `references/03-questioning.md` for any question round and `references/04-research.md` for any research. Never skip a gate, and never draft the design before G3 (small Audit and Operate runs excepted, as their route files say), because a design built on open one-way doors gets rebuilt. If review finds a gap, return to the phase that caused it.
 
 | # | Phase | Read | Skip when | Ends with |
 |---|---|---|---|---|
-| 0 | Intake | `01-intake-and-intent` | Never | Type, size, appetite, capabilities in the state file |
-| E | Explore | `00-explore` | The idea is clear (phase 1 widens instead) | A confirmed idea brief |
-| 1 | Intent | `01-intake-and-intent` | Never | **G1:** the person confirms the intent and the outcome (build, use something existing, or stop) |
-| 2 | Landscape | `02-landscape`, `04-research`, `glossary`; coded: `non-coder-checklist` | Never | **G2:** primer read; decision map with one-way doors marked |
-| 3 | Decide | `03-questioning` | Never | **G3:** every one-way door decided, delegated, or open with an owner and a "decide by" point |
-| 3D | Design direction | `03d-design-direction`, `design-principles` | No screens or visuals | A chosen direction; `design-spec.md` |
-| 4 | Design | `05-design-doc`, `type-adaptations`, `keeping-it-running`; coded: `software-design-detail` | Never | Design document drafted, with Keeping it running |
-| 5 | Review | `06-review` | Never | **G4:** no unresolved "fail" finding |
-| 6 | Kit | `07-handoff-kit` and the kit templates | Never | **G5:** readiness check passed; the person approves; kit delivered |
+| 0 | Intake | `references/01-intake-and-intent.md` | Never | Type, size, appetite, capabilities in the state file (`templates/state.md`) |
+| E | Explore | `references/00-explore.md` | The idea is clear (phase 1 widens instead) | A confirmed idea brief |
+| 1 | Intent | `references/01-intake-and-intent.md` | Never | **G1:** the person confirms the intent and the outcome (build, use something existing, or stop) |
+| 2 | Landscape | `references/02-landscape.md`, `references/04-research.md`, `references/glossary.md`, `references/non-coder-checklist.md` (one-way items at every size; coded: all) | Never | **G2:** primer (`templates/primer.md`) read; decision map with one-way doors marked |
+| 3 | Decide | `references/03-questioning.md` | Never | **G3:** every one-way door decided, delegated, or open with an owner and a "decide by" point |
+| 3D | Design direction | `references/03d-design-direction.md`, `references/design-principles.md` | No screens or visuals | A chosen direction; `templates/design-spec.md` filled |
+| 4 | Design | `references/05-design-doc.md`, `references/type-adaptations.md`, `references/keeping-it-running.md`; coded: `references/software-design-detail.md` | Never | Design document drafted, with Keeping it running |
+| 5 | Review | `references/06-review.md` | Never | **G4:** no unresolved "fail" finding |
+| 6 | Kit | `references/07-handoff-kit.md`, the kit templates (below); dry run: `references/06-review.md` | Never | **G5:** readiness check passed; the person approves; kit delivered |
 
 ## Sizing and budgets
 
-Size the project at intake from how big it is and how costly a change of course would be; tell the person the size and why in one line, and re-size at G1 if the chosen route changes it. Anything that holds accounts for other people or their personal data is at least medium (a short list of names the owner already knows, kept in their own account, may stay small; say so), because those choices are one-way and need the full checklist; for screens, the person picks a design direction before the plan is written. The numbers are defaults: adjust one only with a stated reason, because the budgets exist to protect the person's effort, not to be gamed.
+Size the project at intake from how big it is and how costly a change of course would be; tell the person the size and why in one line, and re-size at G1 if the chosen route changes it. Anything that holds accounts for other people or their personal data is at least medium (a short list of names the owner already knows, kept in their own account, may stay small; say so), because those choices are one-way and need the full checklist. The numbers are defaults: adjust one only with a stated reason.
 
 | | Small | Medium | Large |
 |---|---|---|---|
@@ -94,37 +94,32 @@ A round is any message that asks the person something, the approval message incl
 ## Context discipline
 
 - The main chat holds the interview, the questions and the decisions, and coordinates. Research, drafting long documents (the design document, the kit files), reviews and dry runs go to fresh subagents, never forks of this chat, because a fork carries the whole conversation in and fills the main chat.
-- Brief every subagent from `references/context-and-agents.md`; bulky results go to a file.
+- Brief every subagent from `references/context-and-agents.md` (also for fresh chats and handoff notes); bulky results go to a file.
 - Save the state file after every question round and at every gate, because you can't tell when a chat ends (`references/working-state.md`).
-- Don't let the planning chat run long: at a pivot (after G2, after G4) or at signs of drift, save the state file; with subagents carry on, delegating the bulk. Only without subagents suggest a fresh chat, a chore within the budget; the kit's dry run takes a chore before any pivot does, because self-reviews miss what fresh readers find.
+- Don't let the planning chat run long: at a pivot (after G2, after G4) or at signs of drift, save the state file and, with subagents, carry on, delegating the bulk; only without them suggest a fresh chat, a chore within the budget. The kit's dry run takes a chore before any pivot does.
 
 ## Who you're working with
 
-The person may not know the field, which decisions exist, or what to ask, and may name a solution when they need something else.
-
 - Explain any unfamiliar term before you use it, in plain words (`references/glossary.md`), because a question they can't parse gets a random answer.
 - Ask in rounds of at most four questions. A decision question has 2–4 options in all, the recommended one first with its reason, "You decide" among them; "Explain more first" is always open as a free answer. Open questions about past events (intake, the Mom Test) and confirming the intent take a free answer. A question closed by a timeout is never an answer.
-- Name things in plain words ("the booking page", "the sign-up check"). IDs such as D-4 or T-12 belong in documents, or in brackets after the plain name, because a bare ID means nothing to the person.
+- Name things in plain words ("the booking page", "the sign-up check"); IDs such as D-4 or T-12 belong in documents, or in brackets after the plain name.
 - Research before asking; never ask what you can look up.
 - Challenge kindly: say why a choice looks risky, then respect their decision and record the dissent.
 - Never praise or pitch, because flattery hides real problems.
-- Write every document to `references/writing-rules.md`, because the builder and the person both read literally.
+- Write every document and message to `references/writing-rules.md`, because the builder and the person both read literally.
 
 ## Decision guidance
 
-Apply these; name one to the person only when the name helps them decide ("this is a one-way door"). Sources, full table and caveats: `references/heuristics.md`.
+Apply these; name one to the person only when the name helps them decide ("this is a one-way door"). For a hard or contested decision, and for sources and caveats: `references/heuristics.md`.
 
-1. **One-way and two-way doors:** spend the person's attention only on irreversible choices; decide two-way doors at about 70% of the information you'd like.
+1. **One-way and two-way doors** (Rule 3): decide two-way doors at about 70% of the information you'd like.
 2. **Jobs to be done** and **the Mom Test:** ask what the job is and about real past events, not opinions about the future.
 3. **Appetite:** fix the time the person will spend, and let the scope vary.
 4. **Choose boring technology:** well-known stacks for non-coders and AI builders alike.
 
-## File index
+## Templates and scripts
 
-- **Phase files** (`references/00-explore.md`, `references/01-intake-and-intent.md`, `references/02-landscape.md`, `references/03d-design-direction.md`, `references/design-principles.md`, `references/05-design-doc.md`, `references/keeping-it-running.md`, `references/software-design-detail.md`, `references/07-handoff-kit.md`), when the phase table names them; also `references/03-questioning.md` for any question round, `references/04-research.md` for any research, `references/glossary.md` to explain a term, `references/non-coder-checklist.md` for the one-way items at every size, `references/type-adaptations.md` for final-review lenses, `references/06-review.md` for the kit's dry run.
-- **Routes:** Audit `references/route-audit.md`, `templates/audit-report.md`; Redesign `references/route-redesign.md`; Operate `references/route-operate.md`; Amend `references/08-change-control.md`, `templates/amendment.md`.
-- **On demand:** `references/working-state.md` (starting, saving or resuming), `references/heuristics.md` (a hard or contested decision), `references/context-and-agents.md` (briefing a subagent; a fresh chat), `references/writing-rules.md` (writing any document or message), `references/lightning.md` (lightning mode).
-- **Templates:** `templates/state.md` (intake, then every round and gate), `templates/primer.md` (phase 2), `templates/design-spec.md` (phase 3D). Phase 6: `templates/kit-lite.md` (small); `templates/kit-00-start-here.md`, `templates/kit-01-project-instructions.md`, `templates/kit-02-build-brief.md`, `templates/kit-03-progress-log.md` (medium and large); `templates/kit-04-final-review.md` (every size); `templates/kit-tasks.json` (medium and large kits built in Claude Code).
+- **Kit templates (phase 6):** `templates/kit-lite.md` (small); `templates/kit-00-start-here.md`, `templates/kit-01-project-instructions.md`, `templates/kit-02-build-brief.md`, `templates/kit-03-progress-log.md` (medium and large); `templates/kit-04-final-review.md` (every size); `templates/kit-tasks.json` (medium and large kits built in Claude Code).
 - **Scripts:** `scripts/check_kit.py` (readiness check of a written kit), `scripts/check_tasks.py` (a kit's `tasks.json`).
 
 Credits: `NOTICE.md`.

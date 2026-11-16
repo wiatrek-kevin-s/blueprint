@@ -67,6 +67,7 @@ Routes and the files they count (paths inside the skill folder):
 
   audit (phases A0 to A5 in references/route-audit.md, then phases 4 to 6)
     SKILL.md
+    references/existing-projects.md      shared gate and read-only rules, A0 onward
     references/route-audit.md            route file, A0, A1, A4
     templates/audit-report.md            A1 onward (the report)
     references/01-intake-and-intent.md   A2 (intent statement)
@@ -82,6 +83,7 @@ Routes and the files they count (paths inside the skill folder):
 
   operate (phases O0 to O4 in references/route-operate.md, then phases 4 to 6)
     SKILL.md
+    references/existing-projects.md      shared gate and read-only rules, O0 onward
     references/route-operate.md          route file, O0, O1, O4
     references/01-intake-and-intent.md   O2 (intent statement)
     references/04-research.md            O3
@@ -94,6 +96,7 @@ Routes and the files they count (paths inside the skill folder):
 
   redesign (phases R0 to R2 in references/route-redesign.md, then 3D and 4 to 6)
     SKILL.md
+    references/existing-projects.md      shared gate and read-only rules, R0 onward
     references/route-redesign.md         route file, R0, R1, 3D changes
     references/01-intake-and-intent.md   R2 (intent statement)
     references/03d-design-direction.md   3D
@@ -203,19 +206,19 @@ SHARED_TAIL = [
 ROUTES = {
     "new": (None, NEW_FILES),
     "audit": ("references/route-audit.md",
-              ["SKILL.md", "references/route-audit.md", "templates/audit-report.md",
+              ["SKILL.md", "references/existing-projects.md", "references/route-audit.md", "templates/audit-report.md",
                "references/01-intake-and-intent.md", "references/04-research.md",
                "references/glossary.md", "templates/primer.md",
                "references/non-coder-checklist.md", "references/03-questioning.md"]
               + SHARED_TAIL),
     "redesign": ("references/route-redesign.md",
-                 ["SKILL.md", "references/route-redesign.md",
+                 ["SKILL.md", "references/existing-projects.md", "references/route-redesign.md",
                   "references/01-intake-and-intent.md",
                   "references/03d-design-direction.md", "references/design-principles.md",
                   "references/03-questioning.md", "templates/design-spec.md"]
                  + SHARED_TAIL),
     "operate": ("references/route-operate.md",
-                ["SKILL.md", "references/route-operate.md",
+                ["SKILL.md", "references/existing-projects.md", "references/route-operate.md",
                  "references/01-intake-and-intent.md", "references/04-research.md",
                  "references/glossary.md", "templates/primer.md",
                  "references/03-questioning.md"] + SHARED_TAIL),

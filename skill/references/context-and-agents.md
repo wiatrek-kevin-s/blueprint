@@ -4,9 +4,9 @@ Context is a budget: the longer a chat grows, the less reliably early detail is 
 
 ## Who does what
 
-Blueprint's main chat coordinates: it keeps the interview, the questions and the decisions, because those need the person and the whole conversation. Fresh subagents, each given the brief below, do the research, draft the long documents (the design document and kit files), and run reviews and dry runs. The main chat reads their summaries, not their bulk, so it never runs long.
+Blueprint's main chat keeps the interview, the questions and the decisions, because those need the person and the whole conversation; fresh subagents do the bulk (`SKILL.md`, context discipline). It reads their summaries, not their bulk.
 
-A subagent here is always a named agent given only the files, never a fork of this chat, because a fork inherits the whole conversation and a forked reviewer shares the author's blind spots. As of 2026-11, fork mode is on by default in Claude Code; check its current docs at build time.
+A subagent here is always a named agent given only the files, never a fork, because a forked reviewer also shares the author's blind spots. As of 2026-11, fork mode is on by default in Claude Code; check its current docs at build time.
 
 Split work by the context it needs, never by role (planner, coder, tester), because each relay loses detail. Keep quick edits in the main chat. Several agents cost several times the tokens of one (Anthropic, 2025): one for a lookup, two to four for a comparison.
 
@@ -27,7 +27,7 @@ Could not verify: <listed separately, never guessed>
 
 ## When to start a fresh chat
 
-With subagents, save the state file and the handoff note at each pivot named in `SKILL.md` and carry on. Suggest a fresh chat, within the person's chore budget, only when subagents aren't available, at those pivots and when:
+At each pivot named in `SKILL.md`, save the handoff note with the state file. Without subagents, suggest a fresh chat at those pivots and also when:
 
 - the goal changes direction;
 - two corrections of the same problem have failed, because one clear prompt in a new chat beats a third correction;
